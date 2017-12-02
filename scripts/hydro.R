@@ -1,44 +1,9 @@
-# install.packages('maps')
-# install.packages('mapdata')
-# install.packages('devtools')
-# install.packages('maptools')
-# devtools::install_github('dkahle/ggmap')
-
 library(dplyr)
-library(plyr)
-library(raster)
-library(rgdal)
 library(ggplot2)
 library(ggmap)
-library(maps)
-library(mapdata)
-library(maptools)
-library(mapproj)
 library(gridExtra)
 
-ImportAsc <- function(path) {
-  asc.data <- raster(path)
-  result <- as.data.frame(asc.data, xy = T)
-  colnames(result) <- c('x', 'y', 'value')
-  result <- filter(result, !is.na(value))
-  return(result)
-}
-
-FilterToRegion <- function(df, include.oregon = F) {
-  result <- df %>% 
-    mutate(x = x - 360) %>% # offset to right longitude
-    filter(x > -125, x  <  -117, y < 49, y > 42) %>% # exclude everything outside of WA and OR
-    filter(x > -122.5 | y < 48) # exclude NW extents
-  
-  if(!include.oregon) {
-    result <- result %>%
-      filter(x > -123 | y > 46) %>% # exclude SW extents
-      filter(x < -120 | y > 46) %>% # exclude SE extents
-      filter(y > 45.5) # exclude Oregon
-  }
-  
-  return(result)
-}
+source('./hydro-helper.R')
 
 MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue', title = 'Chart', subtitle = NULL, color.legend.title = 'value', point.size = 5, include.oregon = F) {
   pnw.map <- if(include.oregon) {
@@ -81,84 +46,6 @@ MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = 
   
   return(plot)
 }
-
-DataMethods <- list(
-  Subtract = function(a, b) {
-    a$value <- a$value - b$value
-    return(a)
-  },
-  Add = function(a, b) {
-    a$value <- a$value + b$value
-    return(a)
-  },
-  Divide = function(a, k) {
-    a$value <- a$value / k
-    return(a)
-  },
-  TripleAverage = function(a, b, c) {
-    a$value <- (a$value + b$value + c$value) / 3
-    return(a)
-  }
-)
-
-GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = '../data/hydroclimate-scenarios/', historic = F) {
-  if(!historic) {
-    return(paste0(prefix, dataset, '_', scenario, '/monthly_summaries/', measure, '_', month, '.', years, '.asc'))
-  } else {
-    return(paste0(prefix, '1948-2000.Pcorr55N_Pref_Tref/monthly_summaries/', measure, '_', month, '.1950-2000.asc'))
-  }
-}
-
-GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F) {
-  months <- c(
-    'dec', 'jan', 'feb',
-    'mar', 'apr', 'may',
-    'jun', 'jul', 'aug',
-    'sep', 'oct', 'nov'
-  )
-  
-  GetDataForIndex <- function(index) {
-    GetDataPath(scenario, measure, months[index], years, historic = historic) %>% 
-      ImportAsc() %>% 
-      FilterToRegion(include.oregon = include.oregon) %>% 
-      return()
-  }
-  
-  season.offset <- mapvalues(
-      season,
-      from = c('winter', 'spring', 'summer', 'fall'),
-      to = c(1, 4, 7, 10)
-    ) %>%
-    as.numeric()
-    
-  result <- DataMethods$TripleAverage(
-    GetDataForIndex(season.offset + 0),
-    GetDataForIndex(season.offset + 1),
-    GetDataForIndex(season.offset + 2)
-  )
-  
-  return(result)
-}
-
-GetMonthlyData <- function(scenario, measure, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F, name = F) {
-  months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
-  
-  GetDataForIndex <- function(month) {
-    GetDataPath(scenario, measure, month, years, historic = historic) %>% 
-      ImportAsc() %>% 
-      FilterToRegion(include.oregon = include.oregon) %>% 
-      return()
-  }
-  
-  res <- lapply(months, GetDataForIndex)
-  
-  if(name) {
-    names(res) <- months
-  }
-  
-  return(res)
-}
-
 
 ### Show how runoff varies seasonally
 
@@ -353,41 +240,3 @@ grid.arrange(winter.runoff.diff.2070.chart, summer.runoff.diff.2070.chart, ncol 
 ### Show how snowpack will change in the future
 
 
-# OLD EXPERIMENTS
-
-# plot(x)
-# image(x)
-# 
-# 
-# x <- raster('./BCSD_hadcm_A1B/monthly_summaries/precip_monthly_tot_apr.2030-2059.asc')
-# x <- raster('./BCSD_hadcm_A1B/monthly_summaries/tavg_monthly_avg_apr.2030-2059.asc')
-# 
-# df <- as.data.frame(x, xy = T)
-# df <- df %>% 
-#   filter()
-# View(df)
-# 
-# ggplot(data = pnw.map) +
-#   geom_point(
-#     mapping = aes(
-#       x = long,
-#       y = lat
-#     )
-#   )
-# 
-# plot_geo(
-#   x = ~baseflow.apr.2030.2059.a1b.df$x,
-#   y = ~baseflow.apr.2030.2059.a1b.df$y
-# ) %>% 
-#   add_markers(
-#     color = ~baseflow.apr.2030.2059.a1b.df$baseflow_monthly_tot_apr.2030.2059
-#   ) %>% 
-#   layout(
-#     geo = list(
-#       scope = 'usa',
-#       center = list(
-#         long = 47.3865308,
-#         lat = -120.5238015
-#       )
-#     )
-#   )
