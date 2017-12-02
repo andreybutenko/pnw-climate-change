@@ -47,7 +47,7 @@ MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = 
   return(plot)
 }
 
-### Show how runoff varies seasonally
+# Show how runoff varies seasonally ----
 
 winter.runoff.historic.chart <- MapPNWData(
   GetSeasonalAverage(measure = 'runoff_monthly_tot', season = 'winter', historic = T, include.oregon = T),
@@ -65,7 +65,7 @@ grid.arrange(winter.runoff.historic.chart, summer.runoff.historic.chart, ncol = 
 
 
 
-### Show seasonal cycle of snowpack
+# Show seasonal cycle of snowpack ----
 
 snowpack.monthly.historic <- GetMonthlyData(measure = 'swe_monthly_day1', historic = T, name = T) %>% 
   sapply(function(df) {
@@ -131,7 +131,7 @@ ggplot() +
 
 
 
-### Show how snowpack is related to runoff
+# Show how snowpack is related to runoff ----
 
 snowpack.monthly.historic <- GetMonthlyData(measure = 'swe_monthly_day1', historic = T, name = T) %>% 
   sapply(function(df) {
@@ -175,7 +175,7 @@ ggplot() +
   )
 
 
-### Show how summer runoff will change in future
+# Show how summer runoff will change in future ----
 
 summer.runoff.historic <- GetSeasonalAverage(measure = 'runoff_monthly_tot', season = 'summer', historic = T)
 
@@ -197,7 +197,7 @@ summer.runoff.diff.historic.chart
 
 
 
-### Show how emissions scenarios affect runoff
+# Show how emissions scenarios affect runoff ----
 
 winter.runoff.a1b.2070 <- GetSeasonalAverage('A1B', 'runoff_monthly_tot', 'winter', '2070-2099')
 
@@ -237,6 +237,6 @@ grid.arrange(winter.runoff.diff.2070.chart, summer.runoff.diff.2070.chart, ncol 
 
 
 
-### Show how snowpack will change in the future
+# Show how snowpack will change in the future ----
 
 
