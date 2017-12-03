@@ -235,7 +235,10 @@ summer.runoff.diff.2070.chart <- MapPNWData(
 
 grid.arrange(winter.runoff.diff.2070.chart, summer.runoff.diff.2070.chart, ncol = 2)
 
+# Test ----
 
+g <- ImportShp('../data/fss-stream-temp/NorWeST_PredictedStreamTempPoints_WACoast.shp')
+MapPNWData(g, column = 'S24_1C_D', color.low = 'red', point.size = 1)
 
 # Show how snowpack will change in the future ----
 

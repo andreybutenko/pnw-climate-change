@@ -6,6 +6,8 @@ library(dplyr)
 library(plyr)
 library(rgdal)
 library(raster)
+library(sp)
+library(rgeos)
 
 ImportAsc <- function(path) {
   asc.data <- raster(path)
@@ -13,6 +15,20 @@ ImportAsc <- function(path) {
   colnames(result) <- c('x', 'y', 'value')
   result <- filter(result, !is.na(value))
   return(result)
+}
+
+ImportShp <- function(path) {
+  # https://www.r-bloggers.com/r-and-gis-working-with-shapefiles/
+  shp.data <- readOGR(path)
+  
+  crs <- CRS('+init=epsg:4326') # CSR reference: https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
+  shp.trans <- spTransform(x, crs) # transform to lat/long
+  
+  shp.df <- data.frame(x.trans) %>% 
+    # rename_('lat' = 'coords.x2', 'long' = 'coords.x1')
+    rename_('x' = 'coords.x1', 'y' = 'coords.x2')
+  
+  return(shp.df)
 }
 
 FilterToRegion <- function(df, include.oregon = F) {
