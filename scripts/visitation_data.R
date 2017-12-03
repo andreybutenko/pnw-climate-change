@@ -36,7 +36,9 @@ all.data <- full_join(all.data, lake.chelan.data.set, by = 'Year')
 all.data <- full_join(all.data, north.cascades.data.set, by = 'Year')
 all.data <- full_join(all.data, ross.lake.data.set, by = 'Year')
 
+#filters data
 summer <- select(all.data, Year, contains('JUN'), contains('JUL'), contains('AUG'))
 fall <- select(all.data, Year, contains('SEP'), contains('OCT'), contains('NOV'))
 winter <- select(all.data, Year, contains('DEC'), contains('JAN'), contains('FEB'))
 spring <- select(all.data, Year, contains('MAR'), contains('APR'), contains('MAY'))
+
