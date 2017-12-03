@@ -22,9 +22,9 @@ ImportShp <- function(path) {
   shp.data <- readOGR(path)
   
   crs <- CRS('+init=epsg:4326') # CSR reference: https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf
-  shp.trans <- spTransform(x, crs) # transform to lat/long
+  shp.trans <- spTransform(shp.data, crs) # transform to lat/long
   
-  shp.df <- data.frame(x.trans) %>% 
+  shp.df <- data.frame(shp.trans) %>% 
     # rename_('lat' = 'coords.x2', 'long' = 'coords.x1')
     rename_('x' = 'coords.x1', 'y' = 'coords.x2')
   
