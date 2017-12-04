@@ -51,13 +51,17 @@ MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = 
 
 winter.runoff.historic.chart <- MapPNWData(
   GetSeasonalAverage(measure = 'runoff_monthly_tot', season = 'winter', historic = T, include.oregon = T),
-  title = 'Avg Monthly Runoff, Winter 1950-2000',
+  title = 'Avg Monthly Runoff, Winter',
+  subtitle = '1950-2000',
+  color.legend.title = 'Runoff (inches)',
   include.oregon = T
 )
 
 summer.runoff.historic.chart <- MapPNWData(
   GetSeasonalAverage(measure = 'runoff_monthly_tot', season = 'summer', historic = T, include.oregon = T),
-  title = 'Avg Monthly Runoff, Summer 1950-2000',
+  title = 'Avg Monthly Runoff, Summer',
+  subtitle = '1950-2000',
+  color.legend.title = 'Runoff (inches)',
   include.oregon = T
 )
 
@@ -108,26 +112,35 @@ snowpack.monthly.b1.2070$month <- factor( # convert to factor to maintain order 
   levels = snowpack.monthly.b1.2070$month
 )
 
+snowpack.combined <- rbind(
+  cbind(snowpack.monthly.historic, list(category = 'historic')),
+  cbind(snowpack.monthly.b1.2070, list(category = 'b1.2070')),
+  cbind(snowpack.monthly.a1b.2070, list(category = 'a1b.2070'))
+)
+
 
 ggplot() +
   geom_line(
-    data = snowpack.monthly.historic,
-    mapping = aes(x = month, y = value, group = 1),
-    color = 'black',
+    data = snowpack.combined,
+    mapping = aes(x = month, y = value, color = category, group = category),
     size = 2
   ) +
-  geom_line(
-    data = snowpack.monthly.a1b.2070,
-    mapping = aes(x = month, y = value, group = 1),
-    color = 'red',
-    size = 2
+  scale_colour_manual(
+    name = 'Scenario',
+    values = c(
+      historic = 'black',
+      b1.2070 = 'blue',
+      a1b.2070 = 'red'
+    ),
+    labels = c(
+      historic = 'Avg 1950-2000',
+      b1.2070 = 'Lower emissions,\nAvg 2070-2099',
+      a1b.2070 = 'Higher emissions,\nAvg 2070-2099'
+    )
   ) +
-  geom_line(
-    data = snowpack.monthly.b1.2070,
-    mapping = aes(x = month, y = value, group = 1),
-    color = 'blue',
-    size = 2
-  )
+  xlab('Month') +
+  ylab('Snowpack (inches)') +
+  ggtitle('Projected monthly snowpack depth')
 
 
 
@@ -160,19 +173,31 @@ runoff.monthly.historic$month <- factor( # convert to factor to maintain order w
   levels = runoff.monthly.historic$month
 )
 
+snowpack.runoff.historic.combined <- rbind(
+  cbind(snowpack.monthly.historic, list(category = 'snowpack.historic')),
+  cbind(runoff.monthly.historic, list(category = 'runoff.historic'))
+)
+
 ggplot() +
   geom_line(
-    data = snowpack.monthly.historic,
-    mapping = aes(x = month, y = value, group = 1),
-    color = 'black',
+    data = snowpack.runoff.historic.combined,
+    mapping = aes(x = month, y = value, color = category, group = category),
     size = 2
   ) +
-  geom_line(
-    data = runoff.monthly.historic,
-    mapping = aes(x = month, y = value, group = 1),
-    color = 'blue',
-    size = 2
-  )
+  scale_colour_manual(
+    name = 'Value',
+    values = c(
+      snowpack.historic = 'black',
+      runoff.historic = 'blue'
+    ),
+    labels = c(
+      snowpack.historic = 'Snowpack',
+      runoff.historic = 'Runoff'
+    )
+  ) +
+  xlab('Month') +
+  ylab('Value (inches)') +
+  ggtitle('Snowpack vs Runoff', subtitle = 'Avg 1950-2000')
 
 
 # Show how summer runoff will change in future ----
@@ -190,6 +215,7 @@ summer.runoff.diff.historic.chart <- MapPNWData(
   color.low = 'red',
   color.mid = 'gray',
   color.high = 'blue',
+  color.legend.title = 'Changes in runoff (inches)',
   point.size = 8
 )
 
@@ -197,7 +223,7 @@ summer.runoff.diff.historic.chart
 
 
 
-# Show how emissions scenarios affect runoff ----
+# Show how emissions scenarios affect seasonal runoff ----
 
 winter.runoff.a1b.2070 <- GetSeasonalAverage('A1B', 'runoff_monthly_tot', 'winter', '2070-2099')
 
