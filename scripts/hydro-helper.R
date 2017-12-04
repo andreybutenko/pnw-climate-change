@@ -9,6 +9,16 @@ library(raster)
 library(sp)
 library(rgeos)
 
+# Helpers for hydroclimate scenarios dataset ----
+
+GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = '../data/hydroclimate-scenarios/', historic = F) {
+  if(!historic) {
+    return(paste0(prefix, dataset, '_', scenario, '/monthly_summaries/', measure, '_', month, '.', years, '.asc'))
+  } else {
+    return(paste0(prefix, '1948-2000.Pcorr55N_Pref_Tref/monthly_summaries/', measure, '_', month, '.1950-2000.asc'))
+  }
+}
+
 ImportAsc <- function(path) {
   asc.data <- raster(path)
   result <- as.data.frame(asc.data, xy = T)
@@ -16,6 +26,10 @@ ImportAsc <- function(path) {
   result <- filter(result, !is.na(value))
   return(result)
 }
+
+
+
+# Helpers for stream temps data set ----
 
 ImportShp <- function(path) {
   # https://www.r-bloggers.com/r-and-gis-working-with-shapefiles/
@@ -30,6 +44,10 @@ ImportShp <- function(path) {
   
   return(shp.df)
 }
+
+
+
+# General helpers ----
 
 FilterToRegion <- function(df, include.oregon = F) {
   result <- df %>% 
@@ -46,6 +64,7 @@ FilterToRegion <- function(df, include.oregon = F) {
   
   return(result)
 }
+
 DataMethods <- list(
   Subtract = function(a, b) {
     a$value <- a$value - b$value
@@ -64,14 +83,6 @@ DataMethods <- list(
     return(a)
   }
 )
-
-GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = '../data/hydroclimate-scenarios/', historic = F) {
-  if(!historic) {
-    return(paste0(prefix, dataset, '_', scenario, '/monthly_summaries/', measure, '_', month, '.', years, '.asc'))
-  } else {
-    return(paste0(prefix, '1948-2000.Pcorr55N_Pref_Tref/monthly_summaries/', measure, '_', month, '.1950-2000.asc'))
-  }
-}
 
 GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F) {
   months <- c(
