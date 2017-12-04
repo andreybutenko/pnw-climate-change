@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+source('./scripts/visitation_data.R')
 my.ui <- navbarPage(
   
   # Application title
@@ -42,17 +43,18 @@ my.ui <- navbarPage(
              )
            )
   ),
-  tabPanel("",
+  tabPanel("Visitation Data",
            sidebarLayout(
              sidebarPanel(
-               
+               selectInput('season',"Select a Season",
+                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'All' = 'all' ), selected = "summer")
              ),
              # Show a plot of the generated distribution
              mainPanel(
-               
+                   plotlyOutput("distPlot")
+              )
              )
-           )
-           
+          
   )
 )
 
