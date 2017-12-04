@@ -79,7 +79,7 @@ shinyServer(function(input, output) {
         layout(title = 'Spring Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Spring Visitation Count')), 
                legend = l, autosize = F, width = 700, height = 700, margin = m)
     } else if(input$season == 'fall') {
-      pplot_ly(fall, x = ~Year, y = ~ MR.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'marker', hoverinfo = 'text',
+      plot_ly(fall, x = ~Year, y = ~ MR.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'marker', hoverinfo = 'text',
                text = ~paste(Year,', ', MR.sum, 'Visitors')) %>%
         add_markers(y = ~ O.sum, name = 'Olypmic National Park', mode = 'marker', hoverinfo = 'text',
                     text = ~paste(Year,', ', O.sum, 'Visitors')) %>%
