@@ -34,3 +34,4 @@ vignettes/*.pdf
 
 # NO MACS
 .DS_Store
+.api_keys.R
