@@ -5,7 +5,7 @@ library(plotly)
 
 #Setting working directory
 
-setwd("~/pnw-climate-change")
+#setwd("~/pnw-climate-change")
 
 #Reads in Visitation data
 mt.ranier.data.set <- read.csv('./data/Mount_Ranier_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
