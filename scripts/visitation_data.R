@@ -10,13 +10,34 @@ select <- dplyr::select # Andrey's note: keep this here
 #setwd("~/pnw-climate-change")
 
 #Reads in Visitation data
-mt.ranier.data.set <- read.csv('./data/Mount_Ranier_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
-olympic.data.set <- read.csv('./data/Olympic_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
-lake.chelan.data.set <- read.csv('./data/Lake_Chelan_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
-lake.roosevelt.data.set <- read.csv('./data/Lake_Roosevelt_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
-north.cascades.data.set <- read.csv('./data/North_Cascades_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
-ross.lake.data.set <- read.csv('./data/Ross_Lake_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+visitation.data <- rbind(
+  read.csv('./data/Mount_Ranier_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'Mount Rainier'),
+  read.csv('./data/Olympic_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'Olympic'),
+  read.csv('./data/Lake_Chelan_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'Lake Chelan'),
+  read.csv('./data/Lake_Roosevelt_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'Lake Roosevelt'),
+  read.csv('./data/North_Cascades_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'North Cascades'),
+  read.csv('./data/Ross_Lake_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'Ross Lake')
+)
 
+# Andrey's Demo -----
+library(tidyr)
+library(ggplot2)
+
+visitation.data <- gather(visitation.data, Year, Park, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC)
+names(visitation.data) <- c('year', 'park', 'month', 'visitors')
+
+months <- c('JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC')
+visitation.data$month <- factor(visitation.data$month, levels = months) # keep month order when plotting
+
+monthly.chart.data <- visitation.data %>% 
+  group_by(.dots = c('park', 'month')) %>% 
+  summarize(visitors = mean(visitors)) %>% 
+  ungroup() 
+
+ggplot(data = monthly.chart.data) +
+  geom_line(mapping = aes(x = month, y = visitors, color = park, group = park, size = 2 ))
+
+##################
 
 mt.ranier.data.set <- mt.ranier.data.set %>% mutate(Park = 'Mount Ranier National Park')
 olympic.data.set <- olympic.data.set %>% mutate(Park = 'Olympic National Park')
