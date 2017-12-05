@@ -1,8 +1,25 @@
 library(shiny)
 
+
 source('./scripts/visitation_data.R')
+source('./scripts/hydro.R')
 
 shinyServer(function(input, output) {
+  output$seasonal.runoff <- renderPlot({
+    grid.arrange(winter.runoff.historic.chart, summer.runoff.historic.chart, ncol = 2)
+  })
+
+  output$snowpack.vs.runoff <- renderPlot({
+    snowpack.vs.runoff
+  })
+  
+  output$snowpack.changes <- renderPlot({
+    snowpack.changes
+  })
+  
+  output$summer.runoff.projections <- renderPlot({
+    summer.runoff.diff.historic.chart
+  })
   
   output$distPlot <- renderPlotly({
   

@@ -3,7 +3,7 @@ library(ggplot2)
 library(ggmap)
 library(gridExtra)
 
-source('./hydro-helper.R')
+source('./scripts/hydro-helper.R')
 
 MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue', title = 'Chart', subtitle = NULL, color.legend.title = 'value', point.size = 5, include.oregon = F) {
   pnw.map <- if(include.oregon) {
@@ -47,6 +47,8 @@ MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = 
   return(plot)
 }
 
+
+
 # Show how runoff varies seasonally ----
 
 winter.runoff.historic.chart <- MapPNWData(
@@ -64,8 +66,6 @@ summer.runoff.historic.chart <- MapPNWData(
   color.legend.title = 'Runoff (inches)',
   include.oregon = T
 )
-
-grid.arrange(winter.runoff.historic.chart, summer.runoff.historic.chart, ncol = 2)
 
 
 
@@ -119,7 +119,7 @@ snowpack.combined <- rbind(
 )
 
 
-ggplot() +
+snowpack.changes <- ggplot() +
   geom_line(
     data = snowpack.combined,
     mapping = aes(x = month, y = value, color = category, group = category),
@@ -178,7 +178,7 @@ snowpack.runoff.historic.combined <- rbind(
   cbind(runoff.monthly.historic, list(category = 'runoff.historic'))
 )
 
-ggplot() +
+snowpack.vs.runoff <- ggplot() +
   geom_line(
     data = snowpack.runoff.historic.combined,
     mapping = aes(x = month, y = value, color = category, group = category),
@@ -219,8 +219,6 @@ summer.runoff.diff.historic.chart <- MapPNWData(
   point.size = 8
 )
 
-summer.runoff.diff.historic.chart
-
 
 
 # Show how emissions scenarios affect seasonal runoff ----
@@ -242,24 +240,7 @@ winter.runoff.diff.2070.chart <- MapPNWData(
 )
 
 
-summer.runoff.a1b.2070 <- GetSeasonalAverage('A1B', 'runoff_monthly_tot', 'summer', '2070-2099')
-
-summer.runoff.b1.2070 <- GetSeasonalAverage('B1', 'runoff_monthly_tot', 'summer', '2070-2099')
-
-summer.runoff.diff.2070 <- DataMethods$Subtract(summer.runoff.a1b.2070, summer.runoff.b1.2070)
-
-summer.runoff.diff.2070.chart <- MapPNWData(
-  summer.runoff.diff.2070,
-  title = 'Avg Change in Summer Runoff Between Scenarios',
-  subtitle = 'Red indicates reduced runoff in higher-emissions scenario, 2070-2099',
-  color.low = 'red',
-  color.mid = 'gray',
-  color.high = 'blue',
-  point.size = 4
-)
-
-
-grid.arrange(winter.runoff.diff.2070.chart, summer.runoff.diff.2070.chart, ncol = 2)
+# grid.arrange(winter.runoff.diff.2070.chart, summer.runoff.diff.2070.chart, ncol = 2)
 
 
 

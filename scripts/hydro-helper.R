@@ -2,16 +2,17 @@
 # install.packages('rgdal')
 # devtools::install_github('dkahle/ggmap')
 
-library(dplyr)
 library(plyr)
-library(rgdal)
+library(dplyr)
 library(raster)
+library(rgdal)
 library(sp)
 library(rgeos)
+select <- dplyr::select # overwrite raster library
 
 # Helpers for hydroclimate scenarios dataset ----
 
-GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = '../data/hydroclimate-scenarios/', historic = F) {
+GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = './data/hydroclimate-scenarios/', historic = F) {
   if(!historic) {
     return(paste0(prefix, dataset, '_', scenario, '/monthly_summaries/', measure, '_', month, '.', years, '.asc'))
   } else {
@@ -20,14 +21,12 @@ GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm',
 }
 
 ImportAsc <- function(path) {
-  asc.data <- raster(path)
+  asc.data <- raster::raster(path)
   result <- as.data.frame(asc.data, xy = T)
   colnames(result) <- c('x', 'y', 'value')
   result <- filter(result, !is.na(value))
   return(result)
 }
-
-
 
 # Helpers for stream temps data set ----
 
