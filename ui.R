@@ -7,6 +7,9 @@ my.ui <- navbarPage(
   # Application title
   "Pacific Northwest Climate Change",
   
+  tabPanel("Home"
+  ),
+  
   # Sidebar with a slider input for number of bins 
   tabPanel('Water Availability',
     tags$div(
@@ -17,42 +20,41 @@ my.ui <- navbarPage(
     plotOutput('snowpack.changes'),
     plotOutput('summer.runoff.projections')
   ), 
-  tabPanel("",
+  
+  tabPanel("blank",
     sidebarLayout(
       sidebarPanel(
         
       ),
+      mainPanel(
       
-      # Show a plot of the generated distribution
+      )
+    )
+  ),
+  
+  tabPanel("blank",
+      sidebarLayout(
+      sidebarPanel(
+        
+      ),
       mainPanel(
         
       )
     )
   ),
-  tabPanel("",
-     sidebarLayout(
-       sidebarPanel(
-         
-       ),
-       
-       # Show a plot of the generated distribution
-       mainPanel(
-         
-       )
-     )
-  ),
+  
   tabPanel("Visitation Data",
-           sidebarLayout(
-             sidebarPanel(
-               selectInput('season',"Select a Season",
-                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'All' = 'all' ), selected = "summer")
-             ),
-             # Show a plot of the generated distribution
-             mainPanel(
-                   plotlyOutput("distPlot")
-              )
-             )
-          
+    sidebarLayout(
+      sidebarPanel(
+        selectInput('season',"Select a Season",
+        choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'All' = 'all' ), selected = "summer")
+      ),
+      # Show a plot of the generated distribution
+      mainPanel(
+        plotlyOutput("distPlot")
+      )
+    )
+  
   )
 )
 
