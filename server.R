@@ -26,14 +26,13 @@ shinyServer(function(input, output) {
     if(input$playground.type == 'monthly') {
       HydroMonthlyPlot(input$playground.measure, input$playground.year)
     }
-  })
-  
-  monthly.widgets <- renderUI({
-    
+    if(input$playground.type == 'seasonal') {
+      HydroSeasonalChart(input$playground.measure, input$playground.year)
+    }
   })
   
   output$hydro.widgets<- renderUI({
-    if(input$playground.type == 'monthly') {
+    if(input$playground.type == 'monthly' | input$playground.type == 'seasonal') {
       return(tagList(
         selectInput('playground.measure', 'Measure', c(
           'Baseflow: Monthly Totals' = 'baseflow_monthly_tot',

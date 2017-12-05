@@ -11,7 +11,7 @@ my.ui <- navbarPage(
   ),
   
   # Sidebar with a slider input for number of bins 
-  tabPanel('Water Availability',
+  tabPanel('Hydrology',
     tabsetPanel(type = 'pills',
       tabPanel('Analysis',
         tags$div(
