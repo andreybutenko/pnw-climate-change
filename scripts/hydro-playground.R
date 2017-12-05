@@ -12,68 +12,53 @@ scenarios <- c(
 )
 
 axis.labels <- list(
-  'baseflow_monthly_tot' = 'Baseflow (inches)',
-  'precip_monthly_tot' = 'Precipitation (inches)',
-  'runoff_monthly_tot' = 'Runoff (inches)',
-  'swe_monthly_day1' = 'Snowpack (inches)',
-  'tavg_monthly' = 'Avg Temperature (degC)'
+  'baseflow' = 'Baseflow (inches)',
+  'precip' = 'Precipitation (inches)',
+  'runoff' = 'Runoff (inches)',
+  'swe' = 'Snowpack (inches)',
+  'tavg' = 'Avg Temperature (degC)'
 )
 
 chart.titles <- list(
-  'baseflow_monthly_tot' = 'Baseflow by',
-  'precip_monthly_tot' = 'Precipitaton by',
-  'runoff_monthly_tot' = 'Runoff by',
-  'swe_monthly_day1' = 'Snowpack by',
-  'tavg_monthly' = 'Temperature by'
+  'baseflow' = 'Baseflow by',
+  'precip' = 'Precipitaton by',
+  'runoff' = 'Runoff by',
+  'swe' = 'Snowpack by',
+  'tavg' = 'Temperature by'
 )
 
-HydroMonthlyPlot <- function(measure, year) {
-  ProcessData <- function(df) {
-    df <- df %>% 
-      sapply(function(df) {
-        return(mean(df$value))
-      }) %>% 
-      as.data.frame() %>%
-      tibble::rownames_to_column()
-    
-    colnames(df) <- c('month', 'value')
-    df$month <- factor(df$month, levels = df$month) # maintain order when plotting
-    
-    return(df)
-  }
-  
-  historic.data <- GetMonthlyData(measure = measure, name = T, historic = T) %>% ProcessData()
-  a1b.data <- GetMonthlyData('A1B', measure, year, name = T) %>% ProcessData()
-  b1.data <- GetMonthlyData('B1', measure, year, name = T) %>% ProcessData()
-  
-  combined <- rbind(
-    cbind(historic.data, list(category = 'historic')),
-    cbind(a1b.data, list(category = 'a1b')),
-    cbind(b1.data, list(category = 'b1'))
-  )
+HydroMonthlyPlot <- function(measure.req, year.req) {
+  print(paste(measure.req, year.req))
+  plot.data <- hydro.data %>% 
+    filter(measure == measure.req, year == year.req | year == 1950) %>% 
+    FilterToRegion() %>% 
+    group_by(.dots = c('month', 'scenario')) %>% 
+    summarize(value = mean(value)) %>% 
+    ungroup() %>% 
+    mutate(month = factor(month, levels = months))
   
   chart <- ggplot() +
     geom_line(
-      data = combined,
-      mapping = aes(x = month, y = value, color = category, group = category),
+      data = plot.data,
+      mapping = aes(x = month, y = value, color = scenario, group = scenario),
       size = 2
     ) +
     scale_colour_manual(
       name = 'Scenario',
       values = c(
         historic = 'black',
-        b1 = 'blue',
-        a1b = 'red'
+        B1 = 'blue',
+        A1B = 'red'
       ),
       labels = c(
         historic = 'Avg 1950-2000',
-        b1 = paste('Lower emissions,\nAvg', year),
-        a1b = paste('Higher emissions,\nAvg', year)
+        B1 = paste('Lower emissions,\nAvg', year.req),
+        A1B = paste('Higher emissions,\nAvg', year.req)
       )
     ) +
     xlab('Month') +
-    ylab(axis.labels[[measure]]) +
-    ggtitle(paste(chart.titles[[measure]], 'Month'))
+    ylab(axis.labels[[measure.req]]) +
+    ggtitle(paste(chart.titles[[measure.req]], 'Month'))
   
   return(chart)
 }
@@ -132,5 +117,3 @@ HydroSeasonalChart <- function(measure, year) {
     ylab(axis.labels[[measure]]) +
     ggtitle(paste(chart.titles[[measure]], 'Season'))
 }
-
-# HydroMonthlyPlot('swe_monthly_day1', '2070-2099')
