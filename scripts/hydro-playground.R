@@ -63,19 +63,6 @@ HydroMonthlyPlot <- function(measure.req, year.req) {
 }
 
 HydroSeasonalChart <- function(measure.req, year.req) {
-  GetSeason <- function(month) {
-    seasons <- c('winter', 'spring', 'summer', 'fall')
-    
-    months <- c(
-      'dec', 'jan', 'feb',
-      'mar', 'apr', 'may',
-      'jun', 'jul', 'aug',
-      'sep', 'oct', 'nov'
-    )
-    
-    return(seasons[ceiling(base::match(month, months) / 3)])
-  }
-  
   seasonal.data <- hydro.data %>%
     filter(measure == measure.req, year == 1950 | year  == year.req) %>% 
     FilterToRegion() %>% 
@@ -111,4 +98,25 @@ HydroSeasonalChart <- function(measure.req, year.req) {
     ggtitle(paste(chart.titles[[measure.req]], 'Season'))
   
   return(chart)
+}
+
+HydroGeoChart <- function(measure.req, year.req, season.req, scenario.req, include.oregon) {
+  historic.data <- GetSeasonalAverage('historic', measure.req, season.req, 1950, include.oregon = include.oregon)
+  
+  future.data <- GetSeasonalAverage(scenario.req, measure.req, season.req, year.req, include.oregon = include.oregon)
+  
+  diff.data <- DataMethods$Subtract(future.data, historic.data)
+  
+  MapPNWData(
+    diff.data,
+    include.oregon = include.oregon,
+    title = paste(chart.titles[[measure.req]], 'Location'),
+    color.legend.title = axis.labels[[measure.req]],
+    subtitle = paste0('Red indicates reduced values in future.\nComparing historic data with ', scenario.req, ', ', season.req, ' ', year.req),
+    color.low = 'red',
+    color.mid = 'gray',
+    color.high = 'blue',
+    point.size = 8
+  ) %>% 
+    return()
 }

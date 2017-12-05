@@ -27,12 +27,14 @@ shinyServer(function(input, output) {
       HydroMonthlyPlot(input$playground.measure, input$playground.year)
     } else if(input$playground.type == 'seasonal') {
       HydroSeasonalChart(input$playground.measure, input$playground.year)
+    } else if(input$playground.type == 'geo') {
+      HydroGeoChart(input$playground.measure, input$playground.year, input$playground.season, input$playground.scenario, input$playground.oregon)
     }
-  })
+  }, height = 800)
   
-  output$hydro.widgets<- renderUI({
+  output$hydro.widgets <- renderUI({
     if(input$playground.type == 'monthly' | input$playground.type == 'seasonal') {
-      return(tagList(
+      tagList(
         selectInput('playground.measure', 'Measure', c(
           'Baseflow: Monthly Totals' = 'baseflow',
           'Precipitation: Monthly Totals' = 'precip',
@@ -44,7 +46,32 @@ shinyServer(function(input, output) {
           '2070',
           '2030'
         ), selected = '2070')
-      ))
+      )
+    } else {
+      tagList(
+        selectInput('playground.measure', 'Measure', c(
+          'Baseflow: Monthly Totals' = 'baseflow',
+          'Precipitation: Monthly Totals' = 'precip',
+          'Runoff: Monthly Totals' = 'runoff',
+          'Snowpack' = 'swe',
+          'Avg Temperature' = 'tavg'
+        ), selected = 'swe'),
+        selectInput('playground.year', 'Year', c(
+          '2070',
+          '2030'
+        ), selected = '2070'),
+        selectInput('playground.season', 'Season', c(
+          'Winter' = 'winter',
+          'Spring' = 'spring',
+          'Summer' = 'summer',
+          'Fall' = 'fall'
+        ), selected = 'fall'),
+        selectInput('playground.scenario', 'Scenario', c(
+          'Higher-Emissions' = 'A1B',
+          'Lower-Emissions' = 'B1'
+        ), selected = 'A1B'),
+        checkboxInput('playground.oregon', 'Include Oregon', value = F)
+      )
     }
   })
   

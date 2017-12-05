@@ -21,6 +21,21 @@ hydro.data <- rbind(
   read.csv('./data/hydroclimate-scenarios/hydro-historic.csv', stringsAsFactors = F)
 )
 
+# Seasons
+
+GetSeason <- function(month) {
+  seasons <- c('winter', 'spring', 'summer', 'fall')
+  
+  months <- c(
+    'dec', 'jan', 'feb',
+    'mar', 'apr', 'may',
+    'jun', 'jul', 'aug',
+    'sep', 'oct', 'nov'
+  )
+  
+  return(seasons[ceiling(base::match(month, months) / 3)])
+}
+
 # Geographic Chart
 
 MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue', title = 'Chart', subtitle = NULL, color.legend.title = 'value', point.size = 5, include.oregon = F) {

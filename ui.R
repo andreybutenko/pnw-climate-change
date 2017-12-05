@@ -29,7 +29,7 @@ my.ui <- navbarPage(
             selectInput('playground.type', 'Chart type', c(
               'Monthly Avg' = 'monthly',
               'Seasonal Avg' = 'seasonal',
-              'Geographical' = 'geo'
+              'Geographical Comparison' = 'geo'
             ), selected = 'monthly'),
             uiOutput('hydro.widgets')
           ),
