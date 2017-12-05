@@ -3,6 +3,8 @@ library(dplyr)
 library(stringr)
 library(plotly)
 
+select <- dplyr::select # Andrey's note: keep this here
+
 #Setting working directory
 
 #setwd("~/pnw-climate-change")

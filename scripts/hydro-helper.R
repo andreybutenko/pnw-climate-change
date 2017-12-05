@@ -12,6 +12,7 @@ library(rgdal)
 library(sp)
 library(rgeos)
 select <- dplyr::select # overwrite raster library
+summarize <- dplyr::summarize # overwrite plyr library
 
 # Import data
 
