@@ -117,3 +117,70 @@ winter <- winter %>% mutate(all.seasons.sum = all.data$all.sum)
 spring <- spring %>% mutate(all.seasons.sum = all.data$all.sum)
 fall <- fall %>% mutate(all.seasons.sum = all.data$all.sum)
 
+
+
+#plotly graph layouts
+
+l <- list(
+  font = list(
+    family = "sans-serif",
+    size = 12,
+    color = "#000"),
+  bgcolor = "#E2E2E2",
+  bordercolor = "#FFFFFF",
+  borderwidth = 3,
+  orientation = 'h',
+  x = 0.5,
+  y= -.13)
+
+m <- list(
+  l = 50,
+  r = 50,
+  b = 100,
+  t = 100,
+  pad = 4)
+
+season <- 'summer'
+
+if(season == 'all') {
+ p <- plot_ly(all.data, x = ~Year, y = ~all.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text',
+          text = ~paste(Year,', ', all.sum, 'Visitors')) %>%
+    layout(title = 'All Visitation Counts Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('All Visitation Counts')), 
+           legend = l, autosize = F, width = 700, height = 700, margin = m)
+} else if(season == 'summer') {
+  p <- plot_ly(summer, x = ~Year, y = ~ MR.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text',
+          text = ~paste(Year,', ', MR.sum, 'Visitors')) %>% AddMarkers() %>% 
+    layout(title = 'Summer Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Summer Visitation Count')), 
+           legend = l, autosize = F, width = 700, height = 700, margin = m)
+  
+} else if(season == 'winter') {
+  p <- plot_ly(winter, x = ~Year, y = ~ MR.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text',
+          text = ~paste(Year,', ', MR.sum, 'Visitors')) %>% AddMarkers()
+    layout(title = 'Winter Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Winter Visitation Count')),
+           legend = l, autosize = F, width = 700, height = 700, margin = m)
+} else if(season == 'spring') {
+  p <- plot_ly(spring, x = ~Year, y = ~ MR.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text',
+          text = ~paste(Year,', ', MR.sum, 'Visitors')) %>% AddMarkers() %>% 
+    layout(title = 'Spring Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Spring Visitation Count')), 
+           legend = l, autosize = F, width = 700, height = 700, margin = m)
+} else if(season == 'fall') {
+  p <- plot_ly(fall, x = ~Year, y = ~ MR.sum, name = 'Mount Ranier National Park', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text',
+          text = ~paste(Year,', ', MR.sum, 'Visitors', 'Mount Ranier')) %>% AddMarkers()
+    layout(title = 'Fall Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Fall Visitation Count')), 
+           legend = l, autosize = F, width = 700, height = 700, margin = m)
+}
+AddMarkers <- function(plotly.graph){
+  
+ graph <- plotly.graph %>% 
+    add_trace(y = ~ O.sum, name = 'Olypmic National Park', mode = 'lines+markers', hoverinfo = 'text',
+            text = ~paste(Year,', ', O.sum, 'Visitors')) %>%
+    add_trace(y = ~ LC.sum, name = 'Lake Chelan National Rec. Area', mode = 'lines+markers', hoverinfo = 'text',
+              text = ~paste(Year,', ', LC.sum, 'Visitors')) %>%
+    add_trace(y = ~ LR.sum, name = 'Lake Roosevelt National Rec. Area', mode = 'lines+markers',hoverinfo = 'text',
+              text = ~paste(Year,', ', LR.sum, 'Visitors')) %>%
+    add_trace(y = ~ NC.sum, name = 'North Cascades National Park', mode = 'lines+markers', hoverinfo = 'text',
+              text = ~paste(Year,', ', NC.sum, 'Visitors')) %>%
+    add_trace(y = ~ RL.sum, name = 'Ross Lake National Rec. Area', mode = 'lines+markers', hoverinfo = 'text',
+              text = ~paste(Year,', ', RL.sum, 'Visitors'))
+  return(graph)
+}
