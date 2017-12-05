@@ -37,3 +37,4 @@ vignettes/*.pdf
 .api_keys.R
 Test.Rmd
 Test.html
+api_keys.R
