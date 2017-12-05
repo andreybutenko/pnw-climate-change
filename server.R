@@ -1,5 +1,5 @@
 library(shiny)
-
+library(dplyr)
 
 source('./scripts/visitation_data.R')
 source('./scripts/hydro.R')
@@ -23,13 +23,11 @@ shinyServer(function(input, output) {
   })
   
   output$hydro.playground.chart <- renderPlot({
-    HydroMonthlyPlot(input$playground.measure, input$playground.year)
-    # if(input$playground.type == 'monthly') {
-    #   HydroMonthlyPlot(input$playground.measure, input$playground.year)
-    # }
-    # if(input$playground.type == 'seasonal') {
-    #   HydroSeasonalChart(input$playground.measure, input$playground.year)
-    # }
+    if(input$playground.type == 'monthly') {
+      HydroMonthlyPlot(input$playground.measure, input$playground.year)
+    } else if(input$playground.type == 'seasonal') {
+      HydroSeasonalChart(input$playground.measure, input$playground.year)
+    }
   })
   
   output$hydro.widgets<- renderUI({

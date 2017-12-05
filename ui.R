@@ -22,6 +22,7 @@ my.ui <- navbarPage(
         plotOutput('snowpack.changes'),
         plotOutput('summer.runoff.projections')
       ),
+      
       tabPanel('Playground',
         sidebarLayout(
           sidebarPanel(

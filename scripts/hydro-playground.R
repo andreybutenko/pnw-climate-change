@@ -28,7 +28,6 @@ chart.titles <- list(
 )
 
 HydroMonthlyPlot <- function(measure.req, year.req) {
-  print(paste(measure.req, year.req))
   plot.data <- hydro.data %>% 
     filter(measure == measure.req, year == year.req | year == 1950) %>% 
     FilterToRegion() %>% 
@@ -63,39 +62,33 @@ HydroMonthlyPlot <- function(measure.req, year.req) {
   return(chart)
 }
 
-HydroSeasonalChart <- function(measure, year) {
-  seasons <- c('winter', 'spring', 'summer', 'fall')
-  
-  GetScenarioData <- function(scenario) {
-    season.data <- lapply(seasons, function(season) {
-      GetSeasonalAverage(scenario, 'precip_monthly_tot', season, '2070-2099', historic = scenario == 'historic') %>%
-        (function(df) {
-          return(mean(df$value))
-        }) %>% 
-        return()
-    })
+HydroSeasonalChart <- function(measure.req, year.req) {
+  GetSeason <- function(month) {
+    seasons <- c('winter', 'spring', 'summer', 'fall')
     
-    data.frame(season = seasons, value = unlist(season.data)) %>% 
-      return()
+    months <- c(
+      'dec', 'jan', 'feb',
+      'mar', 'apr', 'may',
+      'jun', 'jul', 'aug',
+      'sep', 'oct', 'nov'
+    )
+    
+    return(seasons[ceiling(base::match(month, months) / 3)])
   }
   
+  seasonal.data <- hydro.data %>%
+    filter(measure == measure.req, year == 1950 | year  == year.req) %>% 
+    FilterToRegion() %>% 
+    mutate(season = GetSeason(month)) %>% 
+    group_by(.dots = c('scenario', 'season')) %>% 
+    summarize(value = mean(value))
   
-  historic.data <- GetScenarioData('historic')
-  a1b.data <- GetScenarioData('A1B')
-  b1.data <- GetScenarioData('B1')
-  
-  combined <- rbind(
-    cbind(historic.data, list(category = 'historic')),
-    cbind(a1b.data, list(category = 'a1b')),
-    cbind(b1.data, list(category = 'b1'))
-  )
-  
-  ggplot(data = combined) +
+  chart <- ggplot(data = seasonal.data) +
     geom_bar(
       mapping = aes(
         x = season,
         y = value,
-        fill = category
+        fill = scenario
       ),
       stat = 'identity',
       position = 'dodge'
@@ -104,16 +97,18 @@ HydroSeasonalChart <- function(measure, year) {
       name = 'Scenario',
       values = c(
         historic = 'black',
-        b1 = 'blue',
-        a1b = 'red'
+        B1 = 'blue',
+        A1B = 'red'
       ),
       labels = c(
         historic = 'Avg 1950-2000',
-        b1 = paste('Lower emissions,\nAvg', year),
-        a1b = paste('Higher emissions,\nAvg', year)
+        B1 = paste('Lower emissions,\nAvg', year.req),
+        A1B = paste('Higher emissions,\nAvg', year.req)
       )
     ) +
     xlab('Season') +
-    ylab(axis.labels[[measure]]) +
-    ggtitle(paste(chart.titles[[measure]], 'Season'))
+    ylab(axis.labels[[measure.req]]) +
+    ggtitle(paste(chart.titles[[measure.req]], 'Season'))
+  
+  return(chart)
 }
