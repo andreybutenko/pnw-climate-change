@@ -37,6 +37,13 @@ monthly.chart.data <- visitation.data %>%
 ggplot(data = monthly.chart.data) +
   geom_line(mapping = aes(x = month, y = visitors, color = park, group = park, size = 2 ))
 
+mt.ranier.data.set <- read.csv('./data/Mount_Ranier_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+olympic.data.set <- read.csv('./data/Olympic_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+lake.chelan.data.set <- read.csv('./data/Lake_Chelan_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+lake.roosevelt.data.set <- read.csv('./data/Lake_Roosevelt_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+north.cascades.data.set <- read.csv('./data/North_Cascades_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+ross.lake.data.set <- read.csv('./data/Ross_Lake_Visitation.csv', sep = ',', stringsAsFactors = FALSE)
+
 ##################
 
 mt.ranier.data.set <- mt.ranier.data.set %>% mutate(Park = 'Mount Ranier National Park')
