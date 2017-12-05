@@ -4,11 +4,22 @@
 
 library(plyr)
 library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(gridExtra)
 library(raster)
 library(rgdal)
 library(sp)
 library(rgeos)
 select <- dplyr::select # overwrite raster library
+
+# Import data
+
+hydro.data <- rbind(
+  read.csv('./data/hydroclimate-scenarios/hydro-a1b.csv', stringsAsFactors = F),
+  read.csv('./data/hydroclimate-scenarios/hydro-b1.csv', stringsAsFactors = F),
+  read.csv('./data/hydroclimate-scenarios/hydro-historic.csv', stringsAsFactors = F)
+)
 
 # Geographic Chart
 
@@ -127,7 +138,7 @@ DataMethods <- list(
   }
 )
 
-GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F) {
+GetSeasonalAverage <- function(scenario.req, measure.req, season, year.req, include.oregon = F) {
   months <- c(
     'dec', 'jan', 'feb',
     'mar', 'apr', 'may',
@@ -136,8 +147,8 @@ GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD
   )
   
   GetDataForIndex <- function(index) {
-    GetDataPath(scenario, measure, months[index], years, historic = historic) %>% 
-      ImportAsc() %>% 
+    hydro.data %>% 
+      filter(scenario == scenario.req, measure == measure.req, month == months[index], year == year.req) %>% 
       FilterToRegion(include.oregon = include.oregon) %>% 
       return()
   }
@@ -148,31 +159,22 @@ GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD
     to = c(1, 4, 7, 10)
   ) %>%
     as.numeric()
-  
-  result <- DataMethods$TripleAverage(
+
+  result <- rbind(
     GetDataForIndex(season.offset + 0),
     GetDataForIndex(season.offset + 1),
     GetDataForIndex(season.offset + 2)
-  )
-  
+  ) %>%
+    group_by(.dots = c('x', 'y')) %>% 
+    summarize(value = mean(value)) %>% 
+    as.data.frame()
+
   return(result)
 }
 
-GetMonthlyData <- function(scenario, measure, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F, name = F) {
-  months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
-  
-  GetDataForIndex <- function(month) {
-    GetDataPath(scenario, measure, month, years, historic = historic) %>% 
-      ImportAsc() %>% 
-      FilterToRegion(include.oregon = include.oregon) %>% 
-      return()
-  }
-  
-  res <- lapply(months, GetDataForIndex)
-  
-  if(name) {
-    names(res) <- months
-  }
-  
-  return(res)
+GetMonthlyData <- function(scenario.req, measure.req, year.req, include.oregon = F) {
+  hydro.data %>% 
+    filter(scenario == scenario.req, measure == measure.req, year == year.req) %>% 
+    FilterToRegion(include.oregon = include.oregon) %>% 
+    return()
 }
