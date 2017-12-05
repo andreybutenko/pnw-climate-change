@@ -47,7 +47,7 @@ my.ui <- navbarPage(
            sidebarLayout(
              sidebarPanel(
                selectInput('season',"Select a Season",
-                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'All' = 'all' ), selected = "summer")
+                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'Anual' = 'all' ), selected = "summer")
              ),
              # Show a plot of the generated distribution
              mainPanel(
