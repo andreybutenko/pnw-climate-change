@@ -3,6 +3,7 @@ library(shiny)
 
 source('./scripts/visitation_data.R')
 source('./scripts/hydro.R')
+source('./scripts/hydro-playground.R')
 
 shinyServer(function(input, output) {
   output$seasonal.runoff <- renderPlot({
@@ -19,6 +20,34 @@ shinyServer(function(input, output) {
   
   output$summer.runoff.projections <- renderPlot({
     summer.runoff.diff.historic.chart
+  })
+  
+  output$hydro.playground.chart <- renderPlot({
+    if(input$playground.type == 'monthly') {
+      HydroMonthlyPlot(input$playground.measure, input$playground.year)
+    }
+  })
+  
+  monthly.widgets <- renderUI({
+    
+  })
+  
+  output$hydro.widgets<- renderUI({
+    if(input$playground.type == 'monthly') {
+      return(tagList(
+        selectInput('playground.measure', 'Measure', c(
+          'Baseflow: Monthly Totals' = 'baseflow_monthly_tot',
+          'Precipitation: Monthly Totals' = 'precip_monthly_tot',
+          'Runoff: Monthly Totals' = 'runoff_monthly_tot',
+          'Snowpack' = 'swe_monthly_day1',
+          'Avg Temperature' = 'tavg_monthly'
+        ), selected = 'swe_monthly_day1'),
+        selectInput('playground.year', 'Year', c(
+          '2070-2099',
+          '2030-2059'
+        ), selected = '2070-2099')
+      ))
+    }
   })
   
   output$distPlot <- renderPlotly({

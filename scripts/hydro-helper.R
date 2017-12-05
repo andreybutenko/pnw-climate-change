@@ -10,6 +10,50 @@ library(sp)
 library(rgeos)
 select <- dplyr::select # overwrite raster library
 
+# Geographic Chart
+
+MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue', title = 'Chart', subtitle = NULL, color.legend.title = 'value', point.size = 5, include.oregon = F) {
+  pnw.map <- if(include.oregon) {
+    fortify(map_data('state', region = c('washington', 'oregon')))
+  } else {
+    fortify(map_data('state', region = c('washington')))
+  }
+  
+  map.data <- df
+  
+  plot <- ggplot(data = map.data) +
+    geom_map(
+      data = pnw.map,
+      map = pnw.map,
+      mapping = aes(x = long, y = lat, map_id = region),
+      fill = '#ffffff'
+    ) +
+    geom_point(
+      mapping = aes(
+        x = x,
+        y = y,
+        color = map.data[,column]
+      ),
+      size = point.size
+    ) +
+    scale_colour_gradient2(
+      low = color.low,
+      high = color.high,
+      mid = color.mid
+    ) +
+    ggtitle(title, subtitle = subtitle) +
+    guides(
+      color = guide_colorbar(color.legend.title)
+    ) +
+    coord_fixed(
+      ratio = 1.3,
+      xlim = c(-125, -116),
+      ylim = if(include.oregon) { c(42, 49) } else { c(45.5, 49) }
+    )
+  
+  return(plot)
+}
+
 # Helpers for hydroclimate scenarios dataset ----
 
 GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = './data/hydroclimate-scenarios/', historic = F) {

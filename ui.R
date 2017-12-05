@@ -12,13 +12,33 @@ my.ui <- navbarPage(
   
   # Sidebar with a slider input for number of bins 
   tabPanel('Water Availability',
-    tags$div(
-      class = 'hydro-chart half-width',
-      plotOutput('seasonal.runoff')
-    ),
-    plotOutput('snowpack.vs.runoff'),
-    plotOutput('snowpack.changes'),
-    plotOutput('summer.runoff.projections')
+    tabsetPanel(type = 'pills',
+      tabPanel('Analysis',
+        tags$div(
+          class = 'hydro-chart half-width',
+          plotOutput('seasonal.runoff')
+        ),
+        plotOutput('snowpack.vs.runoff'),
+        plotOutput('snowpack.changes'),
+        plotOutput('summer.runoff.projections')
+      ),
+      tabPanel('Playground',
+        sidebarLayout(
+          sidebarPanel(
+            selectInput('playground.type', 'Chart type', c(
+              'Monthly Avg' = 'monthly',
+              'Seasonal Avg' = 'seasonal',
+              'Geographical' = 'geo'
+            ), selected = 'monthly'),
+            uiOutput('hydro.widgets')
+          ),
+          mainPanel(
+            plotOutput('hydro.playground.chart')
+          )
+        )
+      )
+    )
+    
   ), 
   
   tabPanel("blank",
