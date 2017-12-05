@@ -1,75 +1,90 @@
+library(plyr)
 library(dplyr)
+library(raster)
+library(rgdal)
+library(sp)
+library(rgeos)
+select <- dplyr::select # overwrite raster library
 
-source('./hydro-helper.R')
+source('./scripts/hydro-helper.R')
 
-# Import data sets ----
+# Define all permutations ----
 
-data.set.names <- c('MidColumbia', 'MiddleSnake', 'OregonCoast', 'SouthCentralOregon', 'Spokoot', 'UpperColumbiaYakima', 'WACoast')
+measures <- c('baseflow_monthly_tot', 'isr_monthly_avg', 'olr_monthly_avg', 'precip_monthly_tot',
+              'runoff_monthly_tot', 'snodep_monthly_day1', 'swe_monthly_day1', 'tavg_monthly_avg')
 
-GetDataSet <- function(name) {
-  path <- paste0('../data/fss-stream-temp/', name, '/NorWeST_PredictedStreamTempPoints_', name, '.shp')
-  df <- ImportShp(path)
-  return(df)
+months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
+
+years <- c('historic', '2030-2059', '2070-2099')
+
+scenarios <- c('A1B', 'B1')
+
+# Functions to support permutations ----
+
+## Import every month ----
+ImportAllFilesForMeasureYear <- function(scenario, measure, year, historic = F) {
+  data <- months %>% 
+    lapply(function(month) {
+      measure.root <- measure %>%
+        strsplit('_') %>%
+        sapply(function(v) { return(v[1]) })
+      
+      year.root <- year %>%
+        strsplit('-') %>%
+        sapply(function(v) { return(v[1]) })
+      
+      GetDataPath(scenario, measure, month, year, historic = historic) %>% 
+        ImportAsc() %>% 
+        cbind(list(
+          measure = measure.root,
+          month = month,
+          scenario = if(!historic) scenario else 'historic',
+          year = if(!historic) year.root else 'historic'
+        ))
+    })
+  
+  do.call(rbind, data) %>% 
+    return()
 }
 
-data.set.data <- lapply(data.set.names, GetDataSet)
-names(data.set.data) <- data.set.names
-
-
-
-# Save each data set as csv ----
-# It's faster to load in CSVs than Shapefiles, so this is a good restore point
-
-SaveIntermediateDataSet <- function(name) {
-  path <- paste0('../data/fss-stream-temp/intermediates/', name, '.csv')
-  write.csv(data.set.data[[name]], file = path, row.names = FALSE)
-  return(path)
+## Import every year ----
+ImportAllFilesForMeasure <- function(scenario, measure) {
+  data <- years %>% 
+    lapply(function(year) {
+      ImportAllFilesForMeasureYear(scenario, measure, year, historic = year == 'historic')
+    })
+  
+  do.call(rbind, data) %>%
+    return()
 }
 
-lapply(data.set.names, SaveIntermediateDataSet)
-
-
-
-# Cut down to relevant columns ----
-
-SelectRelevantColumns <- function(name) {
-  # Some of the datasets have inconsistent column names
-  # The scenario number is always correct, so remove labels after the _
-  name <- 'WACoast'
-  names(data.set.data[[name]]) <- names(data.set.data[[name]]) %>%
-    strsplit('_') %>%
-    sapply(function(v) { return(v[1]) })
+## Import every measure ----
+ImportAllFilesForScenario <- function(scenario) {
+  data <- measures %>% 
+    lapply(function(measure) {
+      ImportAllFilesForMeasure(scenario, measure) %>% 
+        return()
+    })
   
-  # Documentation on columns provided
-  # https://www.fs.fed.us/rm/boise/AWAE/projects/NorWeST/downloads/NorWeST_HistoricalStreamTempScenarioDescriptions.pdf
-  columns <- c('x', 'y', 'ELEV', 'PRECIP', 'S1', 'S23', 'S25', 'S27', 'S29', 'S31', 'S36', 'S38', 'S40')
-  
-  result <- data.set.data[[name]] %>%
-    select(one_of(columns)) %>%
-    rename(
-      x = x,
-      y = y,
-      elev = ELEV,
-      precip = PRECIP,
-      avg.1993.2011 = S1,
-      add.1c = S23,
-      add.2c = S25,
-      add.3c = S27,
-      a1b.2030.2059 = S29,
-      a1b.2070.2099 = S31,
-      aug.2015 = S36,
-      mwmt.a1b.2030.2059 = S38,
-      mwmt.a1b.2070.2099 = S40
-    )
-  
-  return(result)
+  do.call(rbind, data) %>%
+    return()
 }
 
-data.set.data <- lapply(data.set.names, SelectRelevantColumns)
+## Import every scenario ----
+ImportAllFiles <- function() {
+  data <- scenarios %>% 
+    lapply(ImportAllFilesForScenario)
+  
+  do.call(rbind, data) %>% 
+    select(year, month, scenario, measure, x, y, value) %>% 
+    return()
+}
 
+# Save Data ----
 
+data <- ImportAllFiles()
+write.csv(data, file = './data/hydroclimate-scenarios/hydro-combined.csv', row.names = F)
 
-# Combine dataframes and save ----
-
-data.set.combined <- do.call(rbind, data.set.data)
-write.csv(data.set.combined, file = '../data/fss-stream-temp/stream-temps-combined.csv', row.names = FALSE)
+# data %>% filter(year == 2030, scenario == 'A1B', measure == 'baseflow') %>% nrow # 109644
+# GetDataPath('A1B', 'baseflow_monthly_tot', month, year, historic = historic) %>% 
+#   ImportAsc() %>% 
