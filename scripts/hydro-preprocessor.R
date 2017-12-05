@@ -8,83 +8,81 @@ select <- dplyr::select # overwrite raster library
 
 source('./scripts/hydro-helper.R')
 
-# Define all permutations ----
-
-measures <- c('baseflow_monthly_tot', 'isr_monthly_avg', 'olr_monthly_avg', 'precip_monthly_tot',
-              'runoff_monthly_tot', 'snodep_monthly_day1', 'swe_monthly_day1', 'tavg_monthly_avg')
-
-months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
-
-years <- c('historic', '2030-2059', '2070-2099')
-
-scenarios <- c('A1B', 'B1')
-
-# Functions to support permutations ----
-
-## Import every month ----
-ImportAllFilesForMeasureYear <- function(scenario, measure, year, historic = F) {
-  data <- months %>% 
-    lapply(function(month) {
-      measure.root <- measure %>%
-        strsplit('_') %>%
-        sapply(function(v) { return(v[1]) })
-      
-      year.root <- year %>%
-        strsplit('-') %>%
-        sapply(function(v) { return(v[1]) })
-      
-      GetDataPath(scenario, measure, month, year, historic = historic) %>% 
-        ImportAsc() %>% 
-        cbind(list(
-          measure = measure.root,
-          month = month,
-          scenario = if(!historic) scenario else 'historic',
-          year = if(!historic) year.root else 'historic'
-        ))
-    })
-  
-  do.call(rbind, data) %>% 
-    return()
+Contains <- function(string, search) {
+  return(grepl(search, string))
 }
 
-## Import every year ----
-ImportAllFilesForMeasure <- function(scenario, measure) {
-  data <- years %>% 
-    lapply(function(year) {
-      ImportAllFilesForMeasureYear(scenario, measure, year, historic = year == 'historic')
-    })
-  
-  do.call(rbind, data) %>%
-    return()
+GetFileName <- function(string) {
+  string <- string %>%
+    strsplit('/') %>%
+    sapply(function(v) { return(v[length(v)]) })
+  string <- string %>%
+    strsplit('[.]asc') %>% 
+    sapply(function(v) { return(v[1]) })
+  return(string)
 }
 
-## Import every measure ----
-ImportAllFilesForScenario <- function(scenario) {
-  data <- measures %>% 
-    lapply(function(measure) {
-      ImportAllFilesForMeasure(scenario, measure) %>% 
-        return()
-    })
+# Get all paths in directory ----
+
+base.path <- './data/hydroclimate-scenarios/'
+directories <- paste0(base.path, list.files(base.path), '/monthly_summaries/')
+paths <- lapply(directories, function(directory) {
+  return(paste0(directory, list.files(directory)))
+})
+
+paths <- do.call(c, paths)
+
+# Get data and metadata from each ----
+
+data <- lapply(paths, function(path) {
+  file.name <- GetFileName(path)
+  print(path)
   
-  do.call(rbind, data) %>%
-    return()
-}
-
-## Import every scenario ----
-ImportAllFiles <- function() {
-  data <- scenarios %>% 
-    lapply(ImportAllFilesForScenario)
+  year <- file.name %>% 
+    strsplit('[.]') %>% 
+    sapply(function(v) { return(v[2]) }) %>% 
+    strsplit('-') %>% 
+    sapply(function(v) { return(v[1]) })
   
-  do.call(rbind, data) %>% 
-    select(year, month, scenario, measure, x, y, value) %>% 
-    return()
-}
+  month <- file.name %>% 
+    strsplit('[.]') %>% 
+    sapply(function(v) { return(v[1]) }) %>% 
+    strsplit('_') %>% 
+    sapply(function(v) { return(v[length(v)]) })
+  
+  if(Contains(path, 'B1')) {
+    scenario <- 'B1'
+  }
+  if(Contains(path, 'A1B')) {
+    scenario <- 'A1B'
+  }
+  if(Contains(path, '1948-2000')) {
+    scenario <- 'historic'
+  }
+  
+  measure <- file.name %>% 
+    strsplit('_') %>% 
+    sapply(function(v) { return(v[1]) })
+  
+  data <- ImportAsc(path) %>% 
+    cbind(list(
+      year = year,
+      month = month,
+      scenario = scenario,
+      measure = measure
+    ))
+  
+  return(data)
+})
 
-# Save Data ----
+combined.data <- do.call(rbind, data) %>% 
+  select(year, month, scenario, measure, x, y, value)
 
-data <- ImportAllFiles()
-write.csv(data, file = './data/hydroclimate-scenarios/hydro-combined.csv', row.names = F)
+# split it up because GitHub only allows 100MB files
+a1b <- filter(combined.data, scenario == 'A1B')
+b1 <- filter(combined.data, scenario == 'B1')
+historic <- filter(combined.data, scenario == 'historic')
 
-# data %>% filter(year == 2030, scenario == 'A1B', measure == 'baseflow') %>% nrow # 109644
-# GetDataPath('A1B', 'baseflow_monthly_tot', month, year, historic = historic) %>% 
-#   ImportAsc() %>% 
+write.csv(a1b, file = './data/hydroclimate-scenarios/hydro-a1b.csv', row.names = F)
+write.csv(b1, file = './data/hydroclimate-scenarios/hydro-b1.csv', row.names = F)
+write.csv(historic, file = './data/hydroclimate-scenarios/hydro-historic.csv', row.names = F)
