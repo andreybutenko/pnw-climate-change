@@ -2,16 +2,85 @@
 # install.packages('rgdal')
 # devtools::install_github('dkahle/ggmap')
 
-library(dplyr)
 library(plyr)
-library(rgdal)
-library(raster)
+library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(gridExtra)
+# Uncomment these when re-importing data sets (with preprocessors)
+# library(raster)
+# library(rgdal)
 library(sp)
 library(rgeos)
+select <- dplyr::select # overwrite raster library
+summarize <- dplyr::summarize # overwrite plyr library
+
+# Import data
+
+hydro.data <- read.csv('./data/hydroclimate-scenarios/hydro-combined.csv', stringsAsFactors = F)
+
+# Seasons
+
+GetSeason <- function(month) {
+  seasons <- c('winter', 'spring', 'summer', 'fall')
+  
+  months <- c(
+    'dec', 'jan', 'feb',
+    'mar', 'apr', 'may',
+    'jun', 'jul', 'aug',
+    'sep', 'oct', 'nov'
+  )
+  
+  return(seasons[ceiling(base::match(month, months) / 3)])
+}
+
+# Geographic Chart
+
+MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue', title = 'Chart', subtitle = NULL, color.legend.title = 'value', point.size = 5, include.oregon = F) {
+  pnw.map <- if(include.oregon) {
+    fortify(map_data('state', region = c('washington', 'oregon')))
+  } else {
+    fortify(map_data('state', region = c('washington')))
+  }
+  
+  map.data <- df
+  
+  plot <- ggplot(data = map.data) +
+    geom_map(
+      data = pnw.map,
+      map = pnw.map,
+      mapping = aes(x = long, y = lat, map_id = region),
+      fill = '#ffffff'
+    ) +
+    geom_point(
+      mapping = aes(
+        x = x,
+        y = y,
+        color = map.data[,column]
+      ),
+      size = point.size
+    ) +
+    scale_colour_gradient2(
+      low = color.low,
+      high = color.high,
+      mid = color.mid
+    ) +
+    ggtitle(title, subtitle = subtitle) +
+    guides(
+      color = guide_colorbar(color.legend.title)
+    ) +
+    coord_fixed(
+      ratio = 1.3,
+      xlim = c(-125, -116),
+      ylim = if(include.oregon) { c(42, 49) } else { c(45.5, 49) }
+    )
+  
+  return(plot)
+}
 
 # Helpers for hydroclimate scenarios dataset ----
 
-GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = '../data/hydroclimate-scenarios/', historic = F) {
+GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm', prefix = './data/hydroclimate-scenarios/', historic = F) {
   if(!historic) {
     return(paste0(prefix, dataset, '_', scenario, '/monthly_summaries/', measure, '_', month, '.', years, '.asc'))
   } else {
@@ -20,14 +89,12 @@ GetDataPath <- function(scenario, measure, month, years, dataset = 'BCSD_hadcm',
 }
 
 ImportAsc <- function(path) {
-  asc.data <- raster(path)
+  asc.data <- raster::raster(path)
   result <- as.data.frame(asc.data, xy = T)
   colnames(result) <- c('x', 'y', 'value')
   result <- filter(result, !is.na(value))
   return(result)
 }
-
-
 
 # Helpers for stream temps data set ----
 
@@ -84,7 +151,7 @@ DataMethods <- list(
   }
 )
 
-GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F) {
+GetSeasonalAverage <- function(scenario.req, measure.req, season, year.req, include.oregon = F) {
   months <- c(
     'dec', 'jan', 'feb',
     'mar', 'apr', 'may',
@@ -93,9 +160,8 @@ GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD
   )
   
   GetDataForIndex <- function(index) {
-    GetDataPath(scenario, measure, months[index], years, historic = historic) %>% 
-      ImportAsc() %>% 
-      FilterToRegion(include.oregon = include.oregon) %>% 
+    hydro.data %>% 
+      filter(scenario == scenario.req, measure == measure.req, month == months[index], year == year.req) %>%  
       return()
   }
   
@@ -105,31 +171,21 @@ GetSeasonalAverage <- function(scenario, measure, season, years, dataset = 'BCSD
     to = c(1, 4, 7, 10)
   ) %>%
     as.numeric()
-  
-  result <- DataMethods$TripleAverage(
+
+  result <- rbind(
     GetDataForIndex(season.offset + 0),
     GetDataForIndex(season.offset + 1),
     GetDataForIndex(season.offset + 2)
-  )
-  
+  ) %>%
+    group_by(.dots = c('x', 'y')) %>% 
+    summarize(value = mean(value)) %>% 
+    as.data.frame()
+
   return(result)
 }
 
-GetMonthlyData <- function(scenario, measure, years, dataset = 'BCSD_hadcm', historic = F, include.oregon = F, name = F) {
-  months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
-  
-  GetDataForIndex <- function(month) {
-    GetDataPath(scenario, measure, month, years, historic = historic) %>% 
-      ImportAsc() %>% 
-      FilterToRegion(include.oregon = include.oregon) %>% 
-      return()
-  }
-  
-  res <- lapply(months, GetDataForIndex)
-  
-  if(name) {
-    names(res) <- months
-  }
-  
-  return(res)
+GetMonthlyData <- function(scenario.req, measure.req, year.req, include.oregon = F) {
+  hydro.data %>% 
+    filter(scenario == scenario.req, measure == measure.req, year == year.req) %>% 
+    return()
 }
