@@ -4,7 +4,7 @@ library(dplyr)
 library(httr)
 library(ggplot2)
 
-setwd('/Users/Caleb/Coding/Informatics/pnw-climate-change')
+#setwd('/Users/Caleb/Coding/Informatics/pnw-climate-change')
 
 #Import and do some basic cleaning on the datasets
 visitor.data <- read.csv("data/OlympicNP/Visitors.csv", stringsAsFactors = FALSE)
@@ -21,9 +21,10 @@ averageForMonth <- function(month) {
 }
 months <-c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+months.undercase <-c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 month.list <- list(Jan="January", Feb="February", Mar="March", Apr="April", May="May", Jun="June", Jul="July", Aug="August", Sep="September", Oct="October", Nov="November", Dec="December")
-month.num <- list("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="Jun", "7"="Jul", "8"="Aug", "9"="Sep", "10"="Oct", "11"="Nov", "12"="Dec")
-
+month.num <- list("01"="January", "02"="February", "03"="March", "04"="April", "05"="May", "06"="June", "07"="July", "08"="August", "09"="September", "10"="October", "11"="November", "12"="Dececember")
 #PUBLIC FUNCTION to generate graphs on visitor data
 visitorFilterGraph <- function(toggle, data) {
   if (toggle == TRUE) {
@@ -44,32 +45,36 @@ visitorFilterGraph <- function(toggle, data) {
 #PUBLIC FUNCTION to generate graphs on tempearature
 temperatureGraph <- function(maxmin, arg, arguments) {
   edited.temp.data <- temperature.data
+  table.title = "Temperature Over Time"
   if (arg == 1) {
     edited.temp.data <- edited.temp.data %>% 
-                        group_by(Year) %>%
-                        summarize(Average = mean(Average), 
-                                  Max=mean(Max), 
-                                  Min=mean(Min)) %>%
-                        mutate(Date=as.Date(paste0(Year,"-01-01")))
+      group_by(Year) %>%
+      summarize(Average = mean(Average), 
+                Max=mean(Max), 
+                Min=mean(Min)) %>%
+      mutate(Date=as.Date(paste0(Year,"-01-01")))
   } else if (arg == 2) {
     edited.temp.data <- edited.temp.data %>%
-                        filter(Month==arguments)
+      filter(Month==arguments)
+    table.title <- paste0(table.title, " During ", month.num[arguments])
   }
   
   g <- ggplot(edited.temp.data, aes(Date, Average, color="c2")) +
-        geom_line() + geom_smooth(method='lm',formula=y~x, se = FALSE, color="darkgreen")
-    
-    
+    geom_line() + geom_smooth(method='lm',formula=y~x, se = FALSE, color="darkgreen")
+  
+  
   if (maxmin) {
     g <- g + geom_line(aes(y=Max, color="c1")) +
-        geom_line(aes(y=Min, color="c3"))
+      geom_line(aes(y=Min, color="c3"))
   }
   g <- g + xlab("Date") +
-           ylab("Temperature (C)") + 
-            scale_color_manual(name = "Lines",
-                              breaks=c( "c1", "c2", "c3"),
-                              values=c("c1"="red", "c2"="green", "c3"="blue"),
-                              labels=c("Max", "Average" , "Min"))
+    ylab("Temperature (C)") + 
+    scale_color_manual(name = "Lines",
+                       breaks=c( "c1", "c2", "c3"),
+                       values=c("c1"="red", "c2"="green", "c3"="blue"),
+                       labels=c("Max", "Average" , "Min")) +
+    ggtitle(table.title) + 
+    theme(plot.title = element_text(hjust = 0.5))
   g
 }
 
@@ -77,14 +82,16 @@ temperatureGraph <- function(maxmin, arg, arguments) {
 airQuality <- function(year) {
   edited.air <- air.data
   text.x <- 0
+  
+  table.title <- ""
   if (year == "Any") {
     edited.air <- edited.air %>% 
       group_by(Year) %>%
       summarize(Average = mean(Average), Max=max(Max), Min=min(Min)) %>%
       mutate(Factor = Year)
     
-    text.x <- ((max(edited.air$Year) - min(edited.air$Year)) / 2) + min(edited.air$Year)
-    
+      text.x <- ((max(edited.air$Year) - min(edited.air$Year)) / 2) + min(edited.air$Year)
+      table.title <- "Air Quality Index From 1996-2016"
   } else {
     edited.air <- edited.air %>%
       filter(Year==year) %>%
@@ -92,16 +99,18 @@ airQuality <- function(year) {
     
     text.x <- 6.5
     edited.air$Factor <- factor(edited.air$Factor, levels=edited.air$Month)
-    
+    table.title <- paste0("Air Quality Index During ", year)
   }
   
   height.max <- max(edited.air$Max)
   
   
   g <- ggplot(edited.air, aes(x=Factor, y=Average, ymax=Max, ymin=Min)) +
-            geom_crossbar() + 
-            xlab("Date") + 
-            ylab("AQI Value (Lower is better)")
+    geom_crossbar() + 
+    xlab("Date") + 
+    ylab("AQI Value (Lower is better)") +
+    ggtitle(table.title) + 
+    theme(plot.title = element_text(hjust = 0.5))
   
   g <- classificationAnnotations(g, text.x, height.max)
   
@@ -174,13 +183,13 @@ visitorsPerMonthOnYear <- function(year) {
     geom_text(aes(label=round(visitors)), vjust=1.6, color="yellow", size=3.5) +
     xlab("Month") +
     ylab("Thousands Of Visitors") + 
-    ggtitle(paste0("Visitors Per Month In ", year))
-    theme(plot.title = element_text(hjust = 0.5))
+    ggtitle(paste0("Visitors Per Month In ", year)) +
+  theme(plot.title = element_text(hjust = 0.5))
   p
 }
 #X: Month, Y: Visitors (bar chart) (no, no)
 visitorsPerMonth <- function() {
-  data <- c(sapply(months, averageForMonth)) / 1000
+  data <- c(sapply(months.undercase, averageForMonth)) / 1000
   frame <- data.frame(month = months, visitors = data)
   frame$month <- factor(frame$month, levels = months)
   
@@ -195,7 +204,6 @@ visitorsPerMonth <- function() {
 }
 #X: Years, Y: Visitors filter by month (Line graph) (no, yes)
 visitorsMonthsOverTheYears <- function(month) {
-  print("DOING FOR MONTHS")
   x <- visitor.data$Year 
   y <- visitor.data[[month]] / 1000
   
@@ -206,7 +214,7 @@ visitorsMonthsOverTheYears <- function(month) {
     geom_smooth(method='lm',formula=y~x, se = FALSE, color="green") +
     xlab("Year") +
     ylab("Thousands Of Visitors") + 
-    ggtitle(paste0("Visitors From 1979-2016 During ", month.list[month]))+ 
+    ggtitle(paste0("Visitors From 1979-2016 During ", month.list[month])) + 
     theme(plot.title = element_text(hjust = 0.5))
   p
 }
@@ -215,14 +223,14 @@ vistorsOverTheYears <- function() {
   x <- visitor.data$Year 
   y <- visitor.data$Total.Number.of.Visitors.for.the.Year / 1000000
   frame = data.frame(year=x, visitors=y)
-
+  
   p <- ggplot(data = frame, aes(year, visitors)) +
-      geom_line(color="darkgreen") +
-      geom_smooth(method='lm',formula=y~x, se = FALSE, color="green") +
-      xlab("Year") +
-      ylab("Millions Of Visitors") +
-      ggtitle("Visitors From 1979-2016") + 
-      theme(plot.title = element_text(hjust = 0.5))
+    geom_line(color="darkgreen") +
+    geom_smooth(method='lm',formula=y~x, se = FALSE, color="green") +
+    xlab("Year") +
+    ylab("Millions Of Visitors") +
+    ggtitle("Visitors From 1979-2016") + 
+    theme(plot.title = element_text(hjust = 0.5))
   p
 }
 airQuality("Any")
