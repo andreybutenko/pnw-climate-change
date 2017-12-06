@@ -81,7 +81,28 @@ my.ui <- navbarPage(
         )
       )
     )
-    
+  ), 
+  
+  tabPanel('Salmon',
+    tags$div(
+      class = 'hydrology-narrow',
+      h1('Climate Change and Stream Temperature'),
+      p('What are stream temperatures like today? How will they change in the future? What will this mean for Salmon spawning?', class = 'lead'),
+      p('As climate change continues, air temperature will go up, but the temperature of water will also go up.'),
+      p('This may not affect humans directly, but this means a lot to water creatures of all kinds. This is not just something happening far away: this affects us in Washington State, too.'),
+      p('Salmon are important for the Washington State fishing industry, and hold special significance to Native groups. Many factors influence where Salmon can spawn, and temperature is just one of them.'),
+      p('We can compare historic stream temperatures to projected future stream temperatures to see how rising temperatures will appear in the Olympic Penninsula:'),
+      plotOutput('stream.temp.chart'),
+      plotOutput('stream.temp.diff.chart'),
+      
+      tags$hr(),
+      
+      h1('Salmon Spawning'),
+      p('Salmon spawning is sensitive to temperature! Less than 18 degC is ideal, and anything more than 22 degC can be fatal.'),
+      p('Salmon populations in Washington, Oregon, and California are already shrinking and becoming more unhealthy, which is caused by overfishing, pollution, and rising temperatures.'),
+      plotOutput('wa.stream.temp.chart'),
+      plotOutput('suitability.chart')
+    )
   ), 
   
   tabPanel("blank",

@@ -58,7 +58,8 @@ wa.stream.temp.chart <- MapPNWData(
   stream.temp.grid,
   color.high = 'red', color.mid = NULL, point.size = stream.temp.grid$value / 5,
   title = 'Washington State Stream Temperature',
-  subtitle = 'A1B Scenario, Avg 2070-2099'
+  subtitle = 'A1B Scenario, Avg 2070-2099',
+  color.legend.title = 'Temperature (degC)'
 )
 
 

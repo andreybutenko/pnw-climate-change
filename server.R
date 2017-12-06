@@ -1,9 +1,13 @@
 library(shiny)
 library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(gridExtra)
 
 source('./scripts/visitation_data.R')
 source('./scripts/hydro.R')
 source('./scripts/hydro-playground.R')
+source('./scripts/fss.R')
 
 shinyServer(function(input, output) {
   output$seasonal.runoff <- renderPlot({
@@ -73,6 +77,22 @@ shinyServer(function(input, output) {
         checkboxInput('playground.oregon', 'Include Oregon', value = F)
       )
     }
+  })
+  
+  output$stream.temp.chart <- renderPlot({
+    grid.arrange(historic.stream.temp.chart, future.stream.temp.chart, ncol = 2)
+  }, height = 600)
+  
+  output$stream.temp.diff.chart <- renderPlot({
+    diff.stream.temp.chart
+  })
+  
+  output$wa.stream.temp.chart <- renderPlot({
+    wa.stream.temp.chart
+  })
+  
+  output$suitability.chart <- renderPlot({
+    suitability.data.chart
   })
   
   output$distPlot <- renderPlotly({
