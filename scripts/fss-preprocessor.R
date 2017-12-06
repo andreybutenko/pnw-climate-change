@@ -72,4 +72,63 @@ data.set.data <- lapply(data.set.names, SelectRelevantColumns)
 # Combine dataframes and save ----
 
 data.set.combined <- do.call(rbind, data.set.data)
-write.csv(data.set.combined, file = '../data/fss-stream-temp/stream-temps-combined.csv', row.names = FALSE)
+write.csv(data.set.combined, file = './data/fss-stream-temp/stream-temps-combined.csv', row.names = FALSE)
+
+
+
+# Get even smaller subsets for individual charts ----
+
+## Intro ----
+
+data.set.combined %>% 
+  filter(x > -125, x < -122, y < 49, y > 46.5) %>% 
+  select(x, y, avg.1993.2011, mwmt.a1b.2070.2099) %>% 
+  filter(avg.1993.2011 != -9999, mwmt.a1b.2070.2099 != -9999) %>% 
+  write.csv(file = './data/fss-stream-temp/stream-temp-oly.csv')
+
+## Suitable, future ----
+
+wa.subset <- data.set.combined %>% 
+  select(x, y, mwmt.a1b.2070.2099) %>% 
+  filter(x > -125, x  <  -117, y < 49, y > 42) %>% # exclude everything outside of WA and OR
+  filter(x > -122.5 | y < 48) %>% # exclude NW extents
+  filter(x > -123 | y > 46) %>% # exclude SW extents
+  filter(x < -120 | y > 46) %>% # exclude SE extents
+  filter(y > 45.5) %>% # exclude Oregon
+  filter(mwmt.a1b.2070.2099 != -9999) %>% 
+  rename(value = mwmt.a1b.2070.2099)
+
+GetAverageInGrid <- function(long.min, long.max, lat.min, lat.max) {
+  data <- wa.subset %>% 
+    filter(x > long.min, x < long.max, y > lat.min, y < lat.max)
+  mid.x <- (long.min + long.max) / 2
+  mid.y <- (lat.min + lat.max) / 2
+  avg <- mean(data$value)
+  data.frame(x = mid.x, y = mid.y, value = avg) %>% 
+    return()
+}
+
+average.grid <- data.frame(x = c(), y = c(), value = c())
+
+for(long in seq(
+  from = min(wa.subset$x),
+  to = max(wa.subset$x),
+  by = (max(wa.subset$x) - min(wa.subset$x)) / 10
+)) {
+  for(lat in seq(
+    from = min(wa.subset$y),
+    to = max(wa.subset$y),
+    by = (max(wa.subset$y) - min(wa.subset$y)) / 10
+  )) {
+    average.grid <- rbind(
+      average.grid,
+      GetAverageInGrid(
+        long,
+        long + ((max(wa.subset$x) - min(wa.subset$x)) / 10),
+        lat,
+        lat + ((max(wa.subset$y) - min(wa.subset$y)) / 10)
+      )
+    )
+  }
+}
+
