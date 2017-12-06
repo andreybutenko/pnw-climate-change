@@ -104,7 +104,7 @@ PlotlyGraph(season)
   })
   
 output$visitationPlot <- renderPlotly({  
-  MonthGraph()
+  month.graph()
   
 })
   
