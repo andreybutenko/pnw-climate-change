@@ -34,6 +34,7 @@ monthly.chart.data <- visitation.data %>%
   group_by(.dots = c('park', 'month')) %>% 
   summarize(visitors = mean(visitors)) %>% 
   ungroup() 
+
 month.graph <- function() {
   #plotly style
   

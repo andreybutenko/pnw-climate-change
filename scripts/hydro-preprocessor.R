@@ -78,11 +78,8 @@ data <- lapply(paths, function(path) {
 combined.data <- do.call(rbind, data) %>% 
   select(year, month, scenario, measure, x, y, value)
 
-# split it up because GitHub only allows 100MB files
-a1b <- filter(combined.data, scenario == 'A1B')
-b1 <- filter(combined.data, scenario == 'B1')
-historic <- filter(combined.data, scenario == 'historic')
+# Filter down and save!
 
-write.csv(a1b, file = './data/hydroclimate-scenarios/hydro-a1b.csv', row.names = F)
-write.csv(b1, file = './data/hydroclimate-scenarios/hydro-b1.csv', row.names = F)
-write.csv(historic, file = './data/hydroclimate-scenarios/hydro-historic.csv', row.names = F)
+combined.data %>% 
+  FilterToRegion(include.oregon = T) %>% 
+  write.csv(file = './data/hydroclimate-scenarios/hydro-combined.csv', row.names = F)

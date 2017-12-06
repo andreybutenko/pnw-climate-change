@@ -31,7 +31,6 @@ months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct'
 
 snowpack.data <- hydro.data %>% 
   filter(measure == 'swe', year == 2070 | year == 1950) %>%
-  FilterToRegion() %>% 
   group_by(.dots = c('month', 'scenario')) %>% 
   summarize(value = mean(value)) %>% 
   ungroup() %>% 
@@ -65,7 +64,6 @@ snowpack.changes <- ggplot() +
 
 snowpack.runoff.data <- hydro.data %>% 
   filter(scenario == 'historic', measure == 'swe' | measure == 'runoff') %>% 
-  FilterToRegion() %>% 
   group_by(.dots = c('month', 'measure')) %>% 
   summarize(value = mean(value)) %>% 
   ungroup() %>% 
