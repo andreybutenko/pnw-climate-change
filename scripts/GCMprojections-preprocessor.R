@@ -3,10 +3,6 @@ library(dplyr)
 
 avg.change.raw <- read.csv("../data/GCM-avg-change.csv", stringsAsFactors = F)
 time.evolv.raw <- read.csv("../data/GCM-TEP.csv", stringsAsFactors = F)
-# rcp45 =  "In CMIP5, for example, "rcp45" refers to a particular experiment
-# in which a "representative concentration pathway" (RCP) has been specified which leads to an
-# approximate radiative forcing of 4.5 W m-2" 
-# 4.5 W m^-2 is Intensity in terms of "energy transmitted per second over an area of a square meter"
 
 # Finding appropriate model
 te.models <- unique(time.evolv.proj$Model)
@@ -79,3 +75,7 @@ time.evolv.prec <- time.evolv.proj %>%
   summarise(mean(Value))
 
 # Create new data Files to use
+write.csv(avg.change.prec, "../data/global-climate-models/GCM-avg-precipitation.csv")
+write.csv(avg.change.temp, "../data/global-climate-models/GCM-avg-temp.csv")
+write.csv(time.evolv.prec, "../data/global-climate-models/GCM-TEP-precipitation.csv")
+write.csv(time.evolv.temp, "../data/global-climate-models/GCM-TEP-temp.csv")
