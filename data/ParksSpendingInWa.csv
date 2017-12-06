@@ -1,16 +1,17 @@
-"Park.Unit","Total.Recreation.Visits","Total.Visitor.Spending","Jobs","Labor.Income","Value.Added","Economic.output","Spending.per.person","state","name"
-"Fort Vancouver NHS",1092031,63849.5,1069,34410.7,52916.4,92285.1,0.058468578,"OR,WA","Fort Vancouver National Historic Site"
-"Klondike Gold Rush AK NHP",912351,166412.4,3173,92500.1,138430.7,239144.4,0.182399537,"WA","Klondike Gold Rush - Seattle Unit National Historical Park"
-"Klondike Gold Rush WA NHP",69436,4059.8,57,1944.9,3360.7,5461.6,0.05846823,"WA","Klondike Gold Rush - Seattle Unit National Historical Park"
-"Lake Chelan NRA",45513,2908.8,37,1398.4,2393.1,3829.6,0.06391141,"WA","Lake Chelan National Recreation Area"
-"Lake Roosevelt NRA",1253571,54340,754,21016.6,37956.6,64488.6,0.043348163,"WA","Lake Roosevelt National Recreation Area"
-"Lewis and Clark NHP",281576,16463.4,260,8620.5,13475.7,22991.5,0.058468762,"OR,WA","Lewis and Clark National Historical Park"
-"Manhattan Project (New Mexico) NHP",12452,728,9,236.9,361.4,671.7,0.058464504,"NM,WA,TN","Manhattan Project National Historical Park"
-"Manhattan Project (Washington) NHP",13987,817.8,10,299.2,564.4,930.7,0.058468578,"NM,WA,TN","Manhattan Project National Historical Park"
-"Manhattan Project (Tennessee) NHP",78276,4576.7,72,2035.3,3490.1,6053.6,0.058468752,"NM,WA,TN","Manhattan Project National Historical Park"
-"Mount Rainier NP",1356913,50720.6,654,23276.7,40311.5,64807.9,0.037379405,"WA","Mount Rainier National Park"
-"North Cascades NP",28646,1289,15,553.1,933.2,1488.9,0.044997556,"WA","North Cascades National Park"
-"Ross Lake NRA",905419,40011.3,492,18119.1,30389.3,48600.2,0.044190922,"WA","Ross Lake National Recreation Area"
-"San Juan NHS",1456552,85162.5,1065,40249.6,66658.7,104363.1,0.058468561,"WA","San Juan Island National Historical Park"
-"San Juan Island NHP",316123,18483.3,244,8829.8,14965,24061.3,0.058468697,"WA","San Juan Island National Historical Park"
-"Whitman Mission NHS",50148,2932.1,42,1076.3,1952.9,3325.3,0.058468932,"WA","Whitman Mission National Historic Site"
+Park.Unit,Total.Recreation.Visits,Total.Visitor.Spending,Jobs,Labor.Income,Value.Added,Economic.output,Spending.per.person,state,name
+Fort Vancouver NHS,1092031,63849.5,1069,34410.7,52916.4,92285.1,58.46857827,"OR,WA",Fort Vancouver National Historic Site
+Klondike Gold Rush AK NHP,912351,166412.4,3173,92500.1,138430.7,239144.4,182.399537,WA,Klondike Gold Rush - Seattle Unit National Historical Park
+Klondike Gold Rush WA NHP,69436,4059.8,57,1944.9,3360.7,5461.6,58.46822974,WA,Klondike Gold Rush - Seattle Unit National Historical Park
+Lake Chelan NRA,45513,2908.8,37,1398.4,2393.1,3829.6,63.91140993,WA,Lake Chelan National Recreation Area
+Lake Roosevelt NRA,1253571,54340,754,21016.6,37956.6,64488.6,43.34816297,WA,Lake Roosevelt National Recreation Area
+Lewis and Clark NHP,281576,16463.4,260,8620.5,13475.7,22991.5,58.46876154,"OR,WA",Lewis and Clark National Historical Park
+Manhattan Project (New Mexico) NHP,12452,728,9,236.9,361.4,671.7,58.46450369,"NM,WA,TN",Manhattan Project National Historical Park
+Manhattan Project (Washington) NHP,13987,817.8,10,299.2,564.4,930.7,58.46857797,"NM,WA,TN",Manhattan Project National Historical Park
+Manhattan Project (Tennessee) NHP,78276,4576.7,72,2035.3,3490.1,6053.6,58.4687516,"NM,WA,TN",Manhattan Project National Historical Park
+Mount Rainier NP,1356913,50720.6,654,23276.7,40311.5,64807.9,37.37940457,WA,Mount Rainier National Park
+North Cascades NP,28646,1289,15,553.1,933.2,1488.9,44.99755638,WA,North Cascades National Park
+Ross Lake NRA,905419,40011.3,492,18119.1,30389.3,48600.2,44.19092155,WA,Ross Lake National Recreation Area
+San Juan NHS,1456552,85162.5,1065,40249.6,66658.7,104363.1,58.46856137,WA,San Juan Island National Historical Park
+San Juan Island NHP,316123,18483.3,244,8829.8,14965,24061.3,58.46869731,WA,San Juan Island National Historical Park
+Whitman Mission NHS,50148,2932.1,42,1076.3,1952.9,3325.3,58.46893196,WA,Whitman Mission National Historic Site
+Olympic NP,3390221,286786.3,3842,138786.9,246007.5,398689.9,0.084592214,WA,Olympic National Park
