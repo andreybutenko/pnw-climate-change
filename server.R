@@ -103,6 +103,10 @@ PlotlyGraph(season)
     
   })
   
+output$visitationPlot <- renderPlotly({  
+  MonthGraph()
+  
+})
   
   ############################Spotlight olympic national park #######################
   output$spt.one.plot <- renderPlot({

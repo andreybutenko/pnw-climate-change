@@ -137,7 +137,15 @@ my.ui <- navbarPage(
              mainPanel(
                    plotlyOutput("visitationPlot")
               )
-            )
+            ),
+           
+           sidebarLayout(
+             sidebarPanel(
+             # Show a plot of the generated distribution
+             mainPanel(
+               plotlyOutput("visitationmonthPlot")
+             )
+           )
       ),
   
   tabPanel("Spotlight Olympic National Park",
@@ -184,6 +192,6 @@ my.ui <- navbarPage(
            
   )
 )
-
+)
 # Define UI for application that draws a histogram
 shinyUI(my.ui)

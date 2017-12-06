@@ -57,9 +57,9 @@ month.graph <- function() {
     t = 100,
     pad = 4)
   
-    plot_ly(monthly.chart.data, x = ~ month, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
+    return(plot_ly(monthly.chart.data, x = ~ month, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
       layout(title = 'Average Visitation per Month', xaxis = list(title = 'Year'), yaxis = list(title = paste('Winter Visitation Count')),
-            legend = l, autosize = F, width = 700, height = 700, margin = m)
+            legend = l, autosize = F, width = 700, height = 700, margin = m))
 }
 
 PlotlyGraph <- function(season) {
@@ -82,36 +82,49 @@ PlotlyGraph <- function(season) {
     b = 100,
     t = 100,
     pad = 4)
-  
-  if(season == 'winter')
+  if (season == 'annual')
+  {
+    annual.visitaion <- visitation.data %>% 
+      group_by(year) %>% 
+      summarize(visitors = mean(visitors)) %>% 
+      ungroup() 
+        p <- plot_ly(annual.visitation, x = ~ year, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'Annual Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Annual Visitation Count')),
+             legend = l, autosize = F, width = 700, height = 700, margin = m)  
+    return(p)
+  }
+  else if(season == 'winter')
   {
     annual.visitaion <- visitation.data %>% filter(month == 'DEC', month == 'JAN', month == 'FEB')
-   return(plot_ly(annual.visitation, x = ~ month, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
-    layout(title = 'Winter Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Winter Visitation Count')),
-                     legend = l, autosize = F, width = 700, height = 700, margin = m))
+    p <- plot_ly(annual.visitation, x = ~ year, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'Winter Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Winter Visitation Count')),
+             legend = l, autosize = F, width = 700, height = 700, margin = m)  
+    return(p)
   }
   else if(season == 'fall')
   {
     annual.visitaion <- visitation.data %>% filter(month == 'SEP', month == 'OCT', month == 'NOV')
-    return(plot_ly(annual.visitation, x = ~ month, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
-    layout(title = 'Fall Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Fall Visitation Count')), 
-                     legend = l, autosize = F, width = 700, height = 700, margin = m))
+    p <- plot_ly(annual.visitation, x = ~ year, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'Fall Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Fall Visitation Count')), 
+             legend = l, autosize = F, width = 700, height = 700, margin = m)
+    return(p)
   }
   else if(season == 'summer')
   {
     annual.visitaion <- visitation.data %>% filter(month == 'JUN', month == 'JUL', month == 'AUG')
-    
-    return(plot_ly(annual.visitation, x = ~ month, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
-    layout(title = 'Summer Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Summer Visitation Count')), 
-                     legend = l, autosize = F, width = 700, height = 700, margin = m))
+    p <- plot_ly(annual.visitation, x = ~ year, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'Summer Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Summer Visitation Count')), 
+             legend = l, autosize = F, width = 700, height = 700, margin = m)
+    return(p)
 
   }
   else if(season == 'spring') {
     annual.visitaion <- visitation.data %>% filter(month == 'MAR' , month == 'APR', month == 'MAY')
-    
-    return(plot_ly(annual.visitation, x = ~ month, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>%  
-    layout(title = 'Spring Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Spring Visitation Count')), 
-                     legend = l, autosize = F, width = 700, height = 700, margin = m))
- 
+   
+     p <- plot_ly(annual.visitation, x = ~ year, y = ~visitors, color = ~park, type = 'scatter', mode = 'lines+markers') %>%  
+      layout(title = 'Spring Visitation Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Spring Visitation Count')), 
+             legend = l, autosize = F, width = 700, height = 700, margin = m)
+
+    return(p)
 }
 }
