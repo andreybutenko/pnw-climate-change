@@ -85,7 +85,7 @@ my.ui <- navbarPage(
   
   tabPanel('Salmon',
     tags$div(
-      class = 'hydrology-narrow',
+      class = 'hydrology-narrow salmon-container',
       h1('Climate Change and Stream Temperature'),
       p('What are stream temperatures like today? How will they change in the future? What will this mean for Salmon spawning?', class = 'lead'),
       p('As climate change continues, air temperature will go up, but the temperature of water will also go up.'),
