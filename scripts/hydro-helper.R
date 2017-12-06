@@ -17,11 +17,7 @@ summarize <- dplyr::summarize # overwrite plyr library
 
 # Import data
 
-hydro.data <- rbind(
-  read.csv('./data/hydroclimate-scenarios/hydro-a1b.csv', stringsAsFactors = F),
-  read.csv('./data/hydroclimate-scenarios/hydro-b1.csv', stringsAsFactors = F),
-  read.csv('./data/hydroclimate-scenarios/hydro-historic.csv', stringsAsFactors = F)
-)
+hydro.data <- read.csv('./data/hydroclimate-scenarios/hydro-combined.csv', stringsAsFactors = F)
 
 # Seasons
 
@@ -165,8 +161,7 @@ GetSeasonalAverage <- function(scenario.req, measure.req, season, year.req, incl
   
   GetDataForIndex <- function(index) {
     hydro.data %>% 
-      filter(scenario == scenario.req, measure == measure.req, month == months[index], year == year.req) %>% 
-      FilterToRegion(include.oregon = include.oregon) %>% 
+      filter(scenario == scenario.req, measure == measure.req, month == months[index], year == year.req) %>%  
       return()
   }
   
@@ -192,6 +187,5 @@ GetSeasonalAverage <- function(scenario.req, measure.req, season, year.req, incl
 GetMonthlyData <- function(scenario.req, measure.req, year.req, include.oregon = F) {
   hydro.data %>% 
     filter(scenario == scenario.req, measure == measure.req, year == year.req) %>% 
-    FilterToRegion(include.oregon = include.oregon) %>% 
     return()
 }

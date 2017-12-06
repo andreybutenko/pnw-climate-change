@@ -30,7 +30,6 @@ chart.titles <- list(
 HydroMonthlyPlot <- function(measure.req, year.req) {
   plot.data <- hydro.data %>% 
     filter(measure == measure.req, year == year.req | year == 1950) %>% 
-    FilterToRegion() %>% 
     group_by(.dots = c('month', 'scenario')) %>% 
     summarize(value = mean(value)) %>% 
     ungroup() %>% 
@@ -65,7 +64,6 @@ HydroMonthlyPlot <- function(measure.req, year.req) {
 HydroSeasonalChart <- function(measure.req, year.req) {
   seasonal.data <- hydro.data %>%
     filter(measure == measure.req, year == 1950 | year  == year.req) %>% 
-    FilterToRegion() %>% 
     mutate(season = GetSeason(month)) %>% 
     group_by(.dots = c('scenario', 'season')) %>% 
     summarize(value = mean(value))
