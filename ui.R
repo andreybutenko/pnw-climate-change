@@ -141,6 +141,7 @@ my.ui <- navbarPage(
            
            sidebarLayout(
              sidebarPanel(
+             ),
              # Show a plot of the generated distribution
              mainPanel(
                plotlyOutput("visitationmonthPlot")
@@ -191,7 +192,6 @@ my.ui <- navbarPage(
            )
            
   )
-)
 )
 # Define UI for application that draws a histogram
 shinyUI(my.ui)

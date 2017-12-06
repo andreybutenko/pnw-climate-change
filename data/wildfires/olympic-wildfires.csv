@@ -1,0 +1,404 @@
+﻿year,month,name,class,cause
+1997,May,campfire,A,Human
+1997,Jun,POWERLINE1,A,Human
+1997,Jul,WELLESLEY,A,Natural
+1997,Jul,BLUE,A,Natural
+1997,Jul,LONG,A,Natural
+1997,Jul,BALDY,A,Natural
+1997,Jul,FITZHENRY,A,Natural
+1997,Jul,CAT,A,Natural
+1997,Jul,LILLIAN,A,Natural
+1997,Jul,WOLF,A,Natural
+1997,Jul,WINDY,A,Natural
+1997,Jul,hurricane,A,Natural
+1997,Jul,stokey,A,Natural
+1997,Jul,Katmor,A,Natural
+1997,Jun,surfer,A,Human
+1997,Jun,elwha,A,Human
+1997,Jul,mt watson,A,Natural
+1997,Jul,mt watson2,A,Natural
+1997,Jul,nfroad#1,A,Natural
+1997,Jun,SMORES,A,Human
+1997,Jun,HMWRCKR,A,Human
+1997,Aug,BIG LEAF,A,Human
+1997,Aug,DODGER#1,A,Natural
+1997,Aug,DODGER#2,A,Natural
+1997,Aug,DODGER#3,A,Natural
+1997,Aug,BAGPIPE,A,Natural
+1997,Aug,WINDFALL,A,Natural
+1997,Aug,STRUNK,A,Natural
+1997,Aug,JONI,A,Natural
+1997,Aug,EAGLE,B,Natural
+1997,Aug,OBSTRUCT,A,Natural
+1997,Aug,ROCKY,A,Natural
+1997,Aug,THIRD,A,Natural
+1997,Aug,ANGELES,A,Natural
+1997,Aug,2ND TOP,A,Natural
+1997,Aug,MAIDEN,A,Natural
+1997,Aug,DEER1,A,Natural
+1997,Aug,DEER 2,A,Natural
+1997,Aug,BLUE,A,Natural
+1997,Aug,GRAY,B,Natural
+1997,Aug,SLIDE,A,Natural
+1997,Aug,GUARD,A,Natural
+1997,Aug,ROUND,A,Natural
+1997,Aug,HORSE,A,Natural
+1997,Aug,SOLDUC,A,Natural
+1997,Aug,BOULDER,A,Natural
+1997,Aug,APPLETON,B,Natural
+1997,Aug,FALLS,A,Natural
+1997,Aug,BARNES,A,Natural
+1997,Aug,HAPPY 1,A,Natural
+1997,Aug,FAIRHOLM,A,Natural
+1997,Aug,LAKES,A,Natural
+1997,Aug,BOGIE,A,Natural
+1997,Aug,SAMS,A,Natural
+1997,Aug,DILLY,A,Natural
+1997,Aug,SPRUCE,A,Natural
+1997,Aug,PASS,A,Natural
+1997,Aug,LACROSSE,A,Natural
+1997,Aug,HAPPY 2,A,Natural
+1997,Aug,OLSON,A,Natural
+1997,Aug,SEVEN,A,Natural
+1997,Aug,WHITE,A,Natural
+1997,Aug,HOPPER,B,Natural
+1997,Aug,BOUNDARY,B,Natural
+1997,Aug,DEER 3,A,Natural
+1997,Aug,rocky,B,Natural
+1997,Aug,DNR 1234RD,A,Human
+1997,Aug,BEACH1,A,Human
+1997,Aug,green,B,Natural
+1997,Aug,STEW,A,Natural
+1998,Jul,GROUP,A,Human
+1998,Aug,oil city,A,Human
+1998,Aug,ellen ck,A,Human
+1998,Aug,solduc,A,Human
+1998,Aug,east fork,A,Human
+1998,Aug,second,A,Human
+1998,Aug,Big Creek,A,Human
+1998,Aug,ericson ba,A,Human
+1998,Aug,RIALTO,B,Human
+1998,Aug,CHIPMUNK,A,Human
+1998,Aug,MR HANKEY,A,Human
+1999,Jul,DUNGENESS2,C,Human
+1999,Jul,RIALTO#1,A,Human
+1999,Aug,SWAMP RAT,B,
+1999,Aug,STORMKING1,A,Natural
+1999,Aug,STORMKING2,A,Natural
+1999,Aug,STORMKING3,A,Natural
+1999,Aug,LONGRIDGE1,A,Natural
+1999,Aug,LONGRIDGE2,A,Natural
+1999,Aug,GREEN MTN,A,Natural
+1999,Aug,FALLS CK,A,Natural
+1999,Aug,SLIDE CK,A,Natural
+1999,Aug,FITZHENRY,A,Natural
+1999,Aug,GODKIN,A,Natural
+1999,Aug,COPPER,A,Natural
+1999,Aug,Pony Bridg,A,Human
+1999,Aug,EAST FORK,A,Human
+1999,Sep,DUCKAROCK,B,Human
+1999,Sep,O BROTHER,C,Human
+1999,Sep,HOT ROCK,A,Human
+1999,Sep,IRELY LAKE,A,Human
+1999,Oct,ENNIS CK,A,Human
+2000,Jun,MOSSIE,A,Human
+2000,Jul,MAPLE MOSS,A,Human
+2000,Jul,KRAUSE,A,Human
+2000,May,S.BEACH#1,A,Human
+2000,Aug,ELWHA CAMP,A,Human
+2000,Sep,STAIRCASE,A,Human
+2000,Sep,LAKE ANG.2,A,Human
+2001,Jun,RIALTO#1,A,Human
+2001,Jun,PEABODY,A,Human
+2001,Jul,FAY ROAD,B,
+2001,Jul,S.BEACH,A,Human
+2001,Jul,TRAILER,A,
+2001,Jul,BEACH 2,A,Human
+2001,Jul,ROCHE HARB,B,
+2001,Jul,KALALOCH#1,A,Human
+2001,Aug,KALALOCH#2,A,Human
+2001,Aug,KALALOCH#3,A,Human
+2001,Aug,KALALOCH#4,A,Human
+2001,Aug,CUSHMAN,A,Human
+2001,Aug,KALALOCH#5,A,Human
+2001,Aug,KALALOCH#6,A,Human
+2001,Aug,KALALOCH#7,A,Human
+2001,Sep,ELWHA RSRT,A,Human
+2002,Jul,WIC,A,Human
+2002,Jul,BALTIMORE,A,Human
+2002,Jul,RIALTO#1,A,Human
+2002,Jul,KALALOCH#1,A,Human
+2002,Jul,BOULDER#1,A,Human
+2002,Jul,KALALOCH#2,A,Human
+2002,Jul,KALALOCH#3,A,Human
+2002,Aug,KALALOCH#4,A,Human
+2002,Aug,BOULDER#2,A,Human
+2002,Aug,S.BEACH#1,A,Human
+2002,Aug,S.BEACH#2,A,Human
+2002,Aug,KALALOCH#5,A,Human
+2002,Aug,KALALOCH#6,A,Human
+2002,Aug,LK OZETTE,A,Human
+2002,Aug,stephen,A,Natural
+2002,Aug,goldie,A,Natural
+2002,Aug,Elwha-Buck,B,Natural
+2002,Aug,MARTINS LK,A,Natural
+2002,Aug,S.BEACH #3,A,Human
+2002,Aug,LK ALDWELL,B,Human
+2002,Sep,ED B'S,A,Human
+2002,Sep,PARKWAY,A,Human
+2002,Oct,SAJH AMERI,C,Human
+2002,Oct,BADGER V,A,Human
+2002,Oct,OLYMPIC C.,E,Human
+2002,Oct,IRELY LAKE,A,Human
+2002,Nov,ENNIS CK,A,Human
+2002,Nov,RIALTO #2,A,Human
+2003,Jun,Fairholm,A,Human
+2003,Jun,boulder,A,Human
+2003,Jun,BLUE,A,Natural
+2003,Jun,NORTHFACE,A,Natural
+2003,Jul,BIG ROCK 1,A,
+2003,Jul,Lewis,A,Human
+2003,Jul,Semple,A,Human
+2003,Jul,BIG ROCK 2,A,Human
+2003,Aug,Storm,A,Human
+2003,Aug,Hurricane,A,Human
+2003,Sep,KALALOCH#1,A,Human
+2003,Aug,FIVE MILE,A,Human
+2003,Sep,GRIFF,E,Natural
+2003,Sep,BURNT MT.,A,Natural
+2003,Sep,MT.LINCLON,A,Natural
+2003,Sep,7-Ridge,A,Natural
+2003,Sep,Lake Ck.,A,Natural
+2003,Sep,CAMP PLEAS,A,Human
+2004,Mar,RIALTO#1,A,Human
+2004,Apr,ELW.CORRAL,A,Human
+2004,Apr,ELW.BONEYD,B,Human
+2004,May,Fire Creek,A,Human
+2004,Jun,East Bch 1,A,Human
+2004,Jun,BEACH 4 #1,A,Human
+2004,Jul,ELWHA TROL,A,
+2004,Jul,RIALTO #2,A,Human
+2004,Jul,Cabin #16,A,Human
+2004,Jul,PIEDMONT,C,Human
+2004,Aug,STORM KING,A,Human
+2004,Jul,BEACH 4 #2,A,Human
+2004,Aug,NED HILL,B,Human
+2004,Aug,SolDuc #13,A,Human
+2004,Aug,WALLACE MV,A,Human
+2004,Jul,LYRE RIVER,A,Human
+2005,Apr,K.B.Log #1,A,Human
+2005,May,Mem Eve,A,Human
+2005,Jul,K.B.log #2,A,Human
+2005,Jul,Humes Rnch,A,Human
+2005,Jul,O.H. Sprg1,A,Human
+2005,Aug,K.B.Log #3,A,Human
+2005,Aug,K.B.Log #4,A,Human
+2005,Aug,Burdick,A,Human
+2005,Aug,First Pull,A,Human
+2005,Aug,Big Spruce,A,Human
+2005,Aug,K.B.Log #5,A,Human
+2005,Sep,L.C.101Log,A,Human
+2005,Aug,K.B.Log #6,A,Human
+2005,Sep,Royal Basi,A,Human
+2005,Sep,No Name,A,Human
+2005,Sep,Big Log,A,Human
+2005,Sep,Martin Crk,A,Human
+2005,Oct,Log Cabin,A,Natural
+2006,Jun,K-Log 2,A,Human
+2006,Jun,Smoke #2,A,Natural
+2006,Jul,Pirates Cove,B,Human
+2006,Jul,UN CF 1,A,Human
+2006,Jul,UN CF 2,A,Human
+2006,Jul,Jumper Rock Fire,A,Human
+2006,Jul,Cause Log,A,Human
+2006,Jul,K-Log 3,A,Human
+2006,Jul,Bear Gulch 2,F,Human
+2006,Aug,Hoh Lake Trail,A,Human
+2006,Aug,Ellen Creek,A,Human
+2006,Aug,KLog 4-06,A,Human
+2006,Aug,Birthday,B,Human
+2006,Sep,Pyrites Stump TP,A,Human
+2006,Sep,Elip,A,Human
+2006,Aug,Beach One,A,Human
+2007,May,Lake View,NR,Human
+2007,May,Car #1,A,Natural
+2007,Jan,Powerline #1,A,Human
+2007,May,Little Rive,A,Human
+2007,Jun,Big Cedar Tree Fire,B,Human
+2007,Jun,Kla Bch #1,A,Human
+2007,Jun,Dura Fire,A,Human
+2007,Jul,Kla Beach Log #2,A,Human
+2007,Jul,Prairie Creek,NR,Human
+2007,Jul,Kalaloch Beach Log#3,A,Human
+2007,Jul,Kla Beach #4,A,Human
+2007,Jul,Kalaloch Beach Log#5,A,Human
+2007,Jul,Dump,B,Human
+2007,Jul,Kla Beach #6,A,Human
+2007,Jul,Kla Beach #7,A,Human
+2007,Aug,Kla Beach #8,A,Human
+2007,Jul,Staircase #1,A,Human
+2007,Sep,Humes Fire,A,Human
+2007,Nov,Veterans,A,Human
+2007,Dec,MP 163,A,Human
+2008,Jun,LCR House,A,Human
+2008,Jun,Stump,A,Human
+2008,Jul,Devil's Fire,A,Human
+2008,Aug,Stump 2,A,Human
+2008,Aug,Deer Campground,B,Natural
+2008,Aug,Olympic Complex,A,Natural
+2008,Aug,Deer 1,A,Natural
+2008,Aug,Deer 2,A,Natural
+2008,Aug,Deer 3,A,Natural
+2008,Aug,Maiden 1,A,Natural
+2008,Aug,Maiden 2,A,Natural
+2008,Aug,Maiden 3,A,Natural
+2008,Aug,Blue,A,Natural
+2008,Aug,Slab,A,Natural
+2008,Aug,Park,A,Natural
+2008,Aug,Green,B,Natural
+2008,Aug,Ellis,B,Natural
+2008,Aug,Long,A,Natural
+2008,Aug,Lillian 1,A,Natural
+2008,Aug,Lillian 2,A,Natural
+2008,Aug,Norton,B,Natural
+2008,Aug,Windfall,B,Natural
+2008,Aug,O'Neill,A,Natural
+2008,Aug,Buck,A,Natural
+2008,Aug,Chalet,A,Natural
+2008,Aug,Anderson,A,Natural
+2008,Aug,Skok,A,Natural
+2008,Aug,Seven,A,Natural
+2008,Aug,Six Stream,A,Natural
+2008,Aug,Deer Ridge,A,Natural
+2008,Aug,3 Forks,A,Natural
+2008,Aug,Brown,A,Natural
+2008,Aug,Crystal,B,Natural
+2008,Aug,Diamond,A,Natural
+2008,Aug,Chimney Two,A,Natural
+2008,Aug,Hayes 1,B,Natural
+2008,Aug,Hayes 2,A,Natural
+2008,Aug,Toad,A,Natural
+2008,Aug,Godkin,A,Natural
+2008,Aug,Ellis Two,A,Natural
+2008,Aug,Beach Log K-1,A,Human
+2008,Nov,Tunnel,A,Human
+2009,May,Kla Beach #1,A,Human
+2009,May,Donohoe,A,Human
+2009,Jun,illegal CF#1,A,Human
+2009,Jun,10 mile,E,Natural
+2009,Jul,Dose,A,Natural
+2009,Jul,Second Column,A,Natural
+2009,Jul,Solduc CG Site 2,A,Human
+2009,Jul,Constance,E,Natural
+2009,Jul,Horse Camp,A,Human
+2009,Jul,Fairholm 57,A,Human
+2009,Jul,Five Ridge,A,Natural
+2009,Jul,East Beach,A,Human
+2009,Jul,Solduc,B,Natural
+2009,Jul,Morganroth,A,Natural
+2009,Jul,Long,A,Natural
+2009,Jul,Wilder One,A,Natural
+2009,Jul,Wilder Two,A,Natural
+2009,Jul,Buckinghorse,D,Natural
+2009,Jul,Knife,D,Natural
+2009,Aug,Mt Pleasant,B,Human
+2009,Aug,Cream,A,Human
+2009,Aug,Hopper,A,Human
+2009,Aug,Jack,A,Human
+2009,Aug,Solduc CG Site 60,A,Human
+2009,Aug,Boundary Fire,A,Human
+2009,Sep,AARRGH,A,Human
+2010,Jun,Rialto 1,A,Human
+2010,Jul,Elwha Stump,A,Human
+2010,Jul,Rialto 2,A,Human
+2010,Jul,Kalaloch Gazebo,A,Human
+2010,Aug,Hopper,E,Natural
+2010,Aug,Mora 1,A,Human
+2010,Aug,White,A,Natural
+2010,Aug,Pony Bridge,A,Human
+2010,Aug,Boulder Creek Falls,A,Human
+2010,Aug,Staircase Site 34,A,Human
+2010,Aug,Ludden,B,Human
+2011,Mar,East Beach Power #1,A,Human
+2011,Apr,MP 0,A,Human
+2011,Jul,July Creek,A,Human
+2011,Aug,Rialto,A,Human
+2011,Aug,Rock Garden,A,Human
+2011,Sep,8th Switchback,A,Human
+2011,Sep,Camp Pleasant,A,Human
+2012,May,Rialto Log,A,Human
+2012,May,Glines Dam,A,Human
+2012,Jul,2nd Beach,A,Human
+2012,Jul,Cox Valley,A,Natural
+2012,Jul,Lincoln,A,Natural
+2012,Jul,Hurricane,A,Natural
+2012,Aug,Maiden,A,Natural
+2012,Aug,FlapJacks,A,Human
+2012,Aug,Beach 4,A,Human
+2012,Aug,Flapjacks 2,A,Human
+2012,Aug,Footbridge,A,Human
+2012,Sep,Alleyway,A,Human
+2012,Sep,Elwha Dam,B,Human
+2012,Sep,Big Cedar,A,Human
+2012,Oct,Four Stream,B,Human
+2013,Jun,2nd Beach,A,Human
+2013,Jul,Burnt Beach,A,Human
+2013,Jul,Second Beach 2,A,Human
+2013,Aug,Lake Mills,A,Human
+2013,Aug,Upper Falls,B,Human
+2013,Aug,Big Timber,A,Human
+2013,Sep,Garden Island,A,Human
+2013,Sep,Blue Mt,A,Natural
+2013,Sep,Hoh 3,A,Human
+2013,Sep,Ludden,A,Natural
+2014,May,LC Stump,A,Human
+2014,Jun,Big Boulder,A,Human
+2014,Jul,South Beach,A,Human
+2014,Jul,Fisher Cove,B,Human
+2014,Aug,Duck,A,Human
+2014,Aug,11 Mile,A,Human
+2014,Aug,Pyramid,B,Human
+2014,Aug,Kalaloch Beach Logs,A,Human
+2014,Aug,Hurricane Ridge Road,A,Natural
+2014,Aug,Burnt Mountain,A,Natural
+2014,Aug,Appleton 1,A,Natural
+2014,Aug,Appleton 2,A,Natural
+2014,Aug,Tunnel,A,Human
+2014,Sep,Pony Bridge,A,Human
+2014,Sep,Fire Creek,A,Human
+2014,Sep,Erickson Bay,A,Human
+2014,Sep,Second Beach,A,Human
+2014,Aug,Sol Duc,B,Natural
+2014,Oct,Armstrong,A,Human
+2015,Jun,Glines Dam Fire,A,Human
+2015,Jun,Dam Fire,A,Human
+2015,Jun,Paradise,F,Natural
+2015,Jun,Rialto,A,Human
+2015,Jun,CRIME LADY,A,Human
+2015,Jun,Hot Springs Fire,A,Human
+2015,Aug,Valley Creek Fire,NR,Human
+2015,Aug,Pyrites Fire,A,Human
+2015,Aug,Hayes Fire,A,Natural
+2015,Aug,Fairholm,A,Human
+2015,Aug,Stone,B,Natural
+2015,Aug,Kalaloch Beach,A,Human
+2015,Jun,DNR-Rialto Beach,NR,Human
+2015,Sep,9 Stream Fire,A,Human
+2015,Jul,Success Lake Fire,B,Natural
+2015,Aug,LaCrosse,A,Natural
+2016,Jul,South Shore,B,Human
+2016,Aug,Sol Duc,NR,Human
+2016,May,Lk. Crescent Housing,A,Human
+2016,Jun,Log Cabin,A,Human
+2016,Jun,Pyrites Creek,A,Human
+2016,Jul,Copper Fire,A,Human
+2016,Jul,Cox Valley,C,Natural
+2016,Jul,Dodger Point 1,A,Natural
+2016,Jul,Dodger  2,A,Natural
+2016,Jul,Dodger 3,A,Natural
+2016,Jul,.09 Hoh Fire,A,Human
+2016,Jul,Godkin Fire,E,Natural
+2016,Jul,Hayes Fire,F,Natural
+2016,Jul,Ignar Creek,D,Natural
+2016,Jul,Pyrites 2,A,Human
+2016,Sep,Three Prune,A,Human
