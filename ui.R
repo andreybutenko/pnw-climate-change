@@ -118,6 +118,50 @@ my.ui <- navbarPage(
       )
     )
   
+  ), 
+  
+  tabPanel("Spotlight Olympic National Park",
+           sidebarLayout(
+             sidebarPanel(
+               radioButtons("spt.one.toggle", label = h3("Organize By"),
+                            choices = list("Month" = 1, "Year" = 2), 
+                            selected = 2),
+               uiOutput("spt.one.ui")
+             ),
+             # Show a plot of the generated distribution
+             mainPanel(
+               plotOutput("spt.one.plot")
+             )
+           ), 
+           
+           sidebarLayout(
+             sidebarPanel(
+               radioButtons("spt.one.togglegroup", label = h3("Group By"),
+                            choices = list("None" = 0, "Months" = 2, "Years" = 1), 
+                            selected = 1),
+               radioButtons("spt.one.togglehilow", label = h3("Show Min and Max"),
+                            choices = list("Yes" = 1, "No" = 2), 
+                            selected = 2),
+               uiOutput("spt.two.ui")
+             ),
+             # Show a plot of the generated distribution
+             mainPanel(
+               plotOutput("spt.two.plot")
+             )
+           ), 
+           
+           sidebarLayout(
+             sidebarPanel(
+               selectInput("spt.three.data", label = h5("Select Year"), 
+                           choices = list("Any" = "Any", "1996" = "1996","1997" = "1997","1998" = "1998","1999" = "1999","2000" = "2000","2001" = "2001","2002" = "2002","2003" = "2003","2004" = "2004","2005" = "2005","2006" = "2006","2007" = "2007","2008" = "2008","2009" = "2009","2010" = "2010","2011" = "2011","2012" = "2012","2013" = "2013","2014" = "2014","2015" = "2015","2016" = "2016"), 
+                           selected = 1)
+             ),
+             # Show a plot of the generated distribution
+             mainPanel(
+               plotOutput("spt.three.plot")
+             )
+           )
+           
   )
 )
 
