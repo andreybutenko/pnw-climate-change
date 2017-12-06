@@ -7,11 +7,12 @@ library(dplyr)
 library(ggplot2)
 library(ggmap)
 library(gridExtra)
-# Uncomment these when re-importing data sets (with preprocessors)
-library(raster)
-library(rgdal)
 library(sp)
 library(rgeos)
+# Uncomment these when re-importing data sets (with preprocessors)
+# library(raster)
+# library(rgdal)
+
 select <- dplyr::select # overwrite raster library
 summarize <- dplyr::summarize # overwrite plyr library
 
