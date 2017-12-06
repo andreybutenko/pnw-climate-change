@@ -1,75 +1,88 @@
+library(plyr)
 library(dplyr)
+library(raster)
+library(rgdal)
+library(sp)
+library(rgeos)
+select <- dplyr::select # overwrite raster library
 
-source('./hydro-helper.R')
+source('./scripts/hydro-helper.R')
 
-# Import data sets ----
-
-data.set.names <- c('MidColumbia', 'MiddleSnake', 'OregonCoast', 'SouthCentralOregon', 'Spokoot', 'UpperColumbiaYakima', 'WACoast')
-
-GetDataSet <- function(name) {
-  path <- paste0('../data/fss-stream-temp/', name, '/NorWeST_PredictedStreamTempPoints_', name, '.shp')
-  df <- ImportShp(path)
-  return(df)
+Contains <- function(string, search) {
+  return(grepl(search, string))
 }
 
-data.set.data <- lapply(data.set.names, GetDataSet)
-names(data.set.data) <- data.set.names
-
-
-
-# Save each data set as csv ----
-# It's faster to load in CSVs than Shapefiles, so this is a good restore point
-
-SaveIntermediateDataSet <- function(name) {
-  path <- paste0('../data/fss-stream-temp/intermediates/', name, '.csv')
-  write.csv(data.set.data[[name]], file = path, row.names = FALSE)
-  return(path)
+GetFileName <- function(string) {
+  string <- string %>%
+    strsplit('/') %>%
+    sapply(function(v) { return(v[length(v)]) })
+  string <- string %>%
+    strsplit('[.]asc') %>% 
+    sapply(function(v) { return(v[1]) })
+  return(string)
 }
 
-lapply(data.set.names, SaveIntermediateDataSet)
+# Get all paths in directory ----
 
+base.path <- './data/hydroclimate-scenarios/'
+directories <- paste0(base.path, list.files(base.path), '/monthly_summaries/')
+paths <- lapply(directories, function(directory) {
+  return(paste0(directory, list.files(directory)))
+})
 
+paths <- do.call(c, paths)
 
-# Cut down to relevant columns ----
+# Get data and metadata from each ----
 
-SelectRelevantColumns <- function(name) {
-  # Some of the datasets have inconsistent column names
-  # The scenario number is always correct, so remove labels after the _
-  name <- 'WACoast'
-  names(data.set.data[[name]]) <- names(data.set.data[[name]]) %>%
-    strsplit('_') %>%
+data <- lapply(paths, function(path) {
+  file.name <- GetFileName(path)
+  print(path)
+  
+  year <- file.name %>% 
+    strsplit('[.]') %>% 
+    sapply(function(v) { return(v[2]) }) %>% 
+    strsplit('-') %>% 
     sapply(function(v) { return(v[1]) })
   
-  # Documentation on columns provided
-  # https://www.fs.fed.us/rm/boise/AWAE/projects/NorWeST/downloads/NorWeST_HistoricalStreamTempScenarioDescriptions.pdf
-  columns <- c('x', 'y', 'ELEV', 'PRECIP', 'S1', 'S23', 'S25', 'S27', 'S29', 'S31', 'S36', 'S38', 'S40')
+  month <- file.name %>% 
+    strsplit('[.]') %>% 
+    sapply(function(v) { return(v[1]) }) %>% 
+    strsplit('_') %>% 
+    sapply(function(v) { return(v[length(v)]) })
   
-  result <- data.set.data[[name]] %>%
-    select(one_of(columns)) %>%
-    rename(
-      x = x,
-      y = y,
-      elev = ELEV,
-      precip = PRECIP,
-      avg.1993.2011 = S1,
-      add.1c = S23,
-      add.2c = S25,
-      add.3c = S27,
-      a1b.2030.2059 = S29,
-      a1b.2070.2099 = S31,
-      aug.2015 = S36,
-      mwmt.a1b.2030.2059 = S38,
-      mwmt.a1b.2070.2099 = S40
-    )
+  if(Contains(path, 'B1')) {
+    scenario <- 'B1'
+  }
+  if(Contains(path, 'A1B')) {
+    scenario <- 'A1B'
+  }
+  if(Contains(path, '1948-2000')) {
+    scenario <- 'historic'
+  }
   
-  return(result)
-}
+  measure <- file.name %>% 
+    strsplit('_') %>% 
+    sapply(function(v) { return(v[1]) })
+  
+  data <- ImportAsc(path) %>% 
+    cbind(list(
+      year = year,
+      month = month,
+      scenario = scenario,
+      measure = measure
+    ))
+  
+  return(data)
+})
 
-data.set.data <- lapply(data.set.names, SelectRelevantColumns)
+combined.data <- do.call(rbind, data) %>% 
+  select(year, month, scenario, measure, x, y, value)
 
+# split it up because GitHub only allows 100MB files
+a1b <- filter(combined.data, scenario == 'A1B')
+b1 <- filter(combined.data, scenario == 'B1')
+historic <- filter(combined.data, scenario == 'historic')
 
-
-# Combine dataframes and save ----
-
-data.set.combined <- do.call(rbind, data.set.data)
-write.csv(data.set.combined, file = '../data/fss-stream-temp/stream-temps-combined.csv', row.names = FALSE)
+write.csv(a1b, file = './data/hydroclimate-scenarios/hydro-a1b.csv', row.names = F)
+write.csv(b1, file = './data/hydroclimate-scenarios/hydro-b1.csv', row.names = F)
+write.csv(historic, file = './data/hydroclimate-scenarios/hydro-historic.csv', row.names = F)
