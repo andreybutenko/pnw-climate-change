@@ -14,6 +14,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
+.navbar {
+  background-color: #97d3fc !important;
+}
+
+.navbar-brand {
+  margin-right: 15px;
+  color: #333 !important;
+}
+
+.navbar li a {
+  color: #333 !important;
+  transition: 250ms all;
+}
+
+.navbar li a:hover {
+  background-color: #70c4ff !important;
+}
+
+.navbar li.active a {
+  background-color: #60beff !important;
+}
+
 .hydro-chart.half-width {
   width: 75%;
   margin: 0 auto;
