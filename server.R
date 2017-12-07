@@ -114,20 +114,20 @@ shinyServer(function(input, output) {
   })
   
 
-output$visitationPlot <- renderPlotly({  
-season <- input$season 
-PlotlyGraph(season)
-})
+  #######################Visitation dat############
+  output$visitationPlot <- renderPlotly({  
+  season <- input$season 
+  PlotlyGraph(season)
+  })
+    
+  output$visitationmonthPlot <- renderPlotly({  
+    MonthPlot()
+    
+  })
   
-output$visitationmonthPlot <- renderPlotly({  
-  MonthPlot()
-  
-})
-
-output$annualPlot <- renderPlotly({
-  AnnualVisitationPlot(input$chart.toggle, input$trend)
-})
-  
+  output$annualPlot <- renderPlotly({
+    AnnualVisitationPlot(input$chart.toggle, input$trend)
+  })
   ############################Spotlight olympic national park #######################
   output$spt.one.plot <- renderPlot({
     visitorFilterGraph(input$spt.one.toggle == 2, input$spt.one.data)
