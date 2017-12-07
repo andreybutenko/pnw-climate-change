@@ -127,33 +127,19 @@ my.ui <- navbarPage(
       )
     )
   ),
-    tabPanel("Visitation Data",
-             h1('National Park Visitation Data'),
-             p('What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead'),
-             p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
-             p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
-             p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
-             p(""),
-              plotlyOutput("visitationmonthPlot"), 
+  tabPanel("Visitation Data",
+           h1('National Park Visitation Data'),
+           p("What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead' As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
+           p(""),
            #Section 1
-           sidebarLayout(
-             sidebarPanel(
-             ),
-             # Show a plot of the generated distribution
-             mainPanel(
-               
-             )
-           ),
+           plotlyOutput("visitationmonthPlot"), 
            #Section 2
            sidebarLayout(
              sidebarPanel(
-               selectInput('season',"Select a Season",
-                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring' ), selected = "summer")
+               selectInput('season',"Select a Season", choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring' ), selected = "summer")
+               
              ),
-             # Show a plot of the generated distribution
-             mainPanel(
-               plotlyOutput("visitationPlot")
-             )
+             mainPanel(plotlyOutput("visitationPlot"))
            ),
            #Section 3
            sidebarLayout(
@@ -165,20 +151,11 @@ my.ui <- navbarPage(
                             choices = list('Trend' = TRUE, 'No Trend' = FALSE),
                             selected = FALSE)
              ),
-             mainPanel(
-               plotlyOutput('annualPlot')
-            )
+             mainPanel(plotlyOutput('annualPlot'))
            ),
-           p(""),  
-           p("As you can see, our stat's visitation really increases during the summer. In an article on future park"),
-           p(' visitation and how it would be affected by climate change written by PLOS, they sugested that parks that'),
-           p('would have increased due to climate change would have increased visitation while those that would become'),
-           p('colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from'),
-           p('global warming at first. However, the study did mention there was a sharp decline in visitation after'), 
-           p('crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased'),
-           p('visitation in parks.'),
-           p('Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.')
-      ),
+           
+           p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
+  ),
   
   tabPanel("Olympic National Park",
            tags$div( 
