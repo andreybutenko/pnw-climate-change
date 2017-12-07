@@ -148,10 +148,11 @@ my.ui <- navbarPage(
            tags$div(
              class = "hydrology-narrow",
              h1("Impact on Employment, Gross Receipt, and Industries"),
-             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Map and picture of Olympic National Park park', class = 'image-center'),
-             p("Climate change being a global issue, we often times forget about its impact on our local economies. Sparking our research with such concern, ")
+             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Image of local economy being impacted by climate change', class = 'image-center'),
+             p("Climate change being a global issue, we often times forget about its impact on our local economies. Sparking our research with such concern, we have gathered data on how the economy,specifically employment and gross receipt, of the counties in Western Washington near the ocean are impacted."),
              p("This data set describes the self-employed workers whose jobs directly depend on the resources of the oceans and Great Lakes. Data are derived from Census Nonemployer Statistics and include the number of self-employed workers and gross receipts for the six sectors defined by ENOW. These time-series data are available at the national, regional, state, and county levels."),
              p("This page specifically focuses on the economy of the counties in Washington to showcase the impact of climate change on our local economy."),
+             h1(""),
              h1("")
            ),
            
@@ -178,7 +179,15 @@ my.ui <- navbarPage(
                plotOutput('economy.chart')
              )
              
-           )
+           ),
+           
+           h1(""),
+           h1("Reflecting on the data"),
+           p("Early in May of this year, Trump administration announced the withdrawl of U.S. from the Paris Climage Agreement. This action showed the weakening of efforts to combat global warming under the concern of our own economy. However, many researches show a long term effect of climate change threatening our economy."),
+           p("By mapping out the detailed, comprehensive changes of the employment and gross receipt in counties near the body of water from the past years, we are introduced to the local dependency on ocean resources through different metrics that are presented above: number of employment and gross revenue of different sectors of ocean industry."),
+           p("The data being narrowed down to a county level, it shows how the changes in the ocean industry are creating impacts on individual levels."),
+           
+           h1("")
   ),
              
   tabPanel("blank",
