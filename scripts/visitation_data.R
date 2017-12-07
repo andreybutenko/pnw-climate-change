@@ -48,6 +48,11 @@ m <- list(
 
 #Creates the plot which shows average visitation by month from 1976 - 2016 
 MonthPlot <- function() {
+  
+  monthly.chart.data <- visitation.data %>% 
+    group_by(.dots = c('park', 'month')) %>% 
+    summarize(visitors = mean(visitors)) %>% 
+    ungroup() 
   #plotly style
   
   l <- list(
