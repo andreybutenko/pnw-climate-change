@@ -168,6 +168,7 @@ my.ui <- navbarPage(
 
              ),
 
+           h1('Wildfire Trends'),
            sidebarLayout(
              sidebarPanel(
                sliderInput('wildfire.years', 'Years',
@@ -189,7 +190,7 @@ my.ui <- navbarPage(
                  'NR: No Record' = 'NR'
                 ), selected = c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'NR'), multiple = T),
 
-               selectInput('wildfire.classes', 'X-Axis', choices = c(
+               selectInput('wildfire.group', 'X-Axis', choices = c(
                  'Monthly Averages' = 'month',
                  'Yearly Averages' = 'year'
                 ), selected = 'month')
@@ -199,6 +200,7 @@ my.ui <- navbarPage(
              )
            ),
 
+           h1('Visitorship Trends'),
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.toggle", label = h3("Organize By"),
@@ -212,6 +214,7 @@ my.ui <- navbarPage(
              )
            ),
 
+           h1('Temperature Trends'),
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.togglegroup", label = h3("Group By"),
@@ -227,7 +230,12 @@ my.ui <- navbarPage(
                plotOutput("spt.two.plot")
              )
            ),
+<<<<<<< HEAD
 
+=======
+
+           h1('Air Quality Trends'),
+>>>>>>> a84fd8b165def087c31ef5b9bbe2d6d0b640d117
            sidebarLayout(
              sidebarPanel(
                selectInput("spt.three.data", label = h5("Select Year"),
@@ -240,6 +248,41 @@ my.ui <- navbarPage(
              )
            )
 
+  ),
+  tabPanel('About',
+   tags$div(
+     class = 'hydrology-narrow salmon-container',
+     h1('About this project.'),
+     p('Climate change is often seen as an issue that affects only far-off regions of Earth: melting ice in the Arctic, extreme flooding in isolated island-nations, and increased food insecurity throughout Africa are just some examples. However, climate change affects every region in different ways.'),
+     p('Our project is an educational resource to explain the local impact of climate change to students in Washington State. We have a particular interest in ocean health, and how that will not only affect the environment, but the economic state of Washington as well.'),
+     p('We used a lot of great data sets in working on this project:'),
+     tags$ul(
+       tags$li(
+         tags$a(href = 'https://cig.uw.edu/datasets/downscaled-global-climate-model-projections-for-the-pnw/', target = '_blank', 'UW: Global Climate Model Projections for the PNW')
+       ),
+       tags$li(
+         tags$a(href = 'https://cig.uw.edu/datasets/north-pacific-region-hydroclimate-scenarios/', target = '_blank', 'UW: North Pacific Region Hydroclimate Scenarios')
+       ),
+       tags$li(
+         tags$a(href = 'https://cig.uw.edu/datasets/washington-state-water-temperature-projections/', target = '_blank', 'UW: Washington State Water Temperature Projections')
+       ),
+       tags$li(
+         tags$a(href = 'https://coast.noaa.gov/digitalcoast/data/enow-nes.html', target = '_blank', 'NOAA: ENOW for Self-Employed Workers')
+       ),
+       tags$li(
+         tags$a(href = 'https://irma.nps.gov/Stats/', target = '_blank', 'NPS: Visitor Use Statistics')
+       ),
+       tags$li(
+         tags$a(href = 'https://www.nps.gov/subjects/socialscience/vse.htm', target = '_blank', 'NPS: Economic Contributions of National Park Visitor Spending')
+       ),
+       tags$li(
+         tags$a(href = 'https://m3challenge.siam.org/node/336', target = '_blank', 'M3: National Park Modelling Data Sets')
+       )
+     ),
+     p('A special thanks to Professor Dargan Frierson who connected us with many of these data sets.'),
+
+     tags$hr()
+    )
   )
 )
 
