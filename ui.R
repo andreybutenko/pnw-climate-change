@@ -128,13 +128,12 @@ my.ui <- navbarPage(
     )
   ),
     tabPanel("Visitation Data",
-             # tags$div(
-             #   h1('National Park Visitation Data'),
-             #   p('What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead'),
-             #   p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
-             #   p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
-             #   p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
-             #   
+             h1('National Park Visitation Data'),
+             p('What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead'),
+             p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
+             p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
+             p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
+     
            sidebarLayout(
              sidebarPanel(
                selectInput('season',"Select a Season",
@@ -160,10 +159,12 @@ my.ui <- navbarPage(
                             choices = list("Mean" = 1, "Total" = 2), 
                             selected = 2),
                radioButtons('trend', label = h3('Show trend'),
-                            choices = list('Trend' = 2, 'No Trend' = 1),
-                            selected = 1)
+                            choices = list('Trend' = TRUE, 'No Trend' = FALSE),
+                            selected = FALSE)
              ),
-             mainPanel()
+             mainPanel(
+               plotlyOutput('annualPlot')
+             )
            )
       ),
   
