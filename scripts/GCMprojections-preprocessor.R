@@ -69,13 +69,13 @@ time.evolv.proj <- time.evolv.proj %>%
 time.evolv.temp <- time.evolv.proj %>% 
   filter(Variable == "Near-Surface Air Temperature") %>% 
   select(-Variable) %>% 
-  group_by(Year = trunc((Year/10))*10, Epoch, Season, Scenario) %>% 
-  summarise(mean(Value))
+  group_by(Year = trunc((Year/5))*5, Epoch, Season, Scenario) %>% 
+  summarise(Value = mean(Value))
 time.evolv.prec <- time.evolv.proj %>% 
   filter(Variable == "Precipitation") %>% 
   select(-Variable) %>% 
-  group_by(Year = trunc((Year/10))*10, Epoch, Season, Scenario) %>% 
-  summarise(mean(Value))
+  group_by(Year = trunc((Year/5))*5, Epoch, Season, Scenario) %>% 
+  summarise(Value = mean(Value))
 
 # Create new data Files to use
 write.csv(avg.change.prec, "../data/global-climate-models/GCM-avg-precipitation.csv", row.names = F)
