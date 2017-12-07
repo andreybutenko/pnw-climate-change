@@ -151,8 +151,7 @@ my.ui <- navbarPage(
         plotOutput("tep.temp.chart"),
         p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs, which extend until 2095. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
       )
-    ),
-    p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
+    )
    )
   ),
   
@@ -236,9 +235,7 @@ my.ui <- navbarPage(
              mainPanel(plotlyOutput('annualPlot'))
            ),
            p("As you can see, our state's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
-         ),
-
-           p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
+         )
   ),
 
   tabPanel("Olympic National Park",
