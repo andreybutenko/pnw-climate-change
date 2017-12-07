@@ -62,6 +62,7 @@ MapPNWData <- function(df, column = 'value',
       mapping = aes(
         x = x + offset.long,
         y = y,
+        size = map.data[,column],
         color = map.data[,column]
       ),
       size = point.size
