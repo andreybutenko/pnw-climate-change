@@ -104,8 +104,12 @@ PlotlyGraph(season)
   })
   
 output$visitationPlot <- renderPlotly({  
-  MonthGraph()
+  MonthPlot()
   
+})
+
+output$annualPlot <- renderPlotly({
+  AnnualVisitationPlot(input$chart.toggle, input$trend)
 })
   
   ############################Spotlight olympic national park #######################

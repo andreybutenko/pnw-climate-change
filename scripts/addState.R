@@ -84,6 +84,6 @@ as.table <- do.call(rbind,lapply(result,data.frame))
 additional.data <- mutate(current.data, state = as.table$State) %>%
                    mutate(name = as.table$APIName) %>%
                    filter(grepl("WA", state))
-write.csv(additional.data, file.path("data", "ParksSpendingInWa.csv"), row.names=FALSE)
+write.csv(additional.data, file.path("data", "ParksSpending.csv"), row.names=FALSE)
 
 

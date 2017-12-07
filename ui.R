@@ -131,7 +131,7 @@ my.ui <- navbarPage(
              # tags$div(
              #   h1('National Park Visitation Data'),
              #   p('What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead'),
-             #   p('As we all probably know, Washington state, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
+             #   p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
              #   p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
              #   p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
              #   
@@ -148,14 +148,34 @@ my.ui <- navbarPage(
            
            sidebarLayout(
              sidebarPanel(
+             ),
              # Show a plot of the generated distribution
              mainPanel(
                plotlyOutput("visitationmonthPlot")
+             )
+           ),
+           sidebarLayout(
+             sidebarPanel(
+               radioButtons('chart.toggle', label = h3("Plot data"),
+                            choices = list("Mean" = 1, "Total" = 2), 
+                            selected = 2),
+               radioButtons('trend', label = h3('Show trend'),
+                            choices = list('Trend' = 2, 'No Trend' = 1),
+                            selected = 1)
              )
            )
       ),
   
   tabPanel("Spotlight Olympic National Park",
+           tags$div( 
+             class = "hydrology-narrow",
+             h1("Spotlight On Olympic National Park"),
+             tags$img(src = 'https://i.imgur.com/fA33vWo.png', alt='Map and picture of the park', align = "center"),
+             p("Olympic National Park is a 1,442 mi² park located in the Olympic Peninsula of Washington State. Not only is it home to the only rainforest in the continental United States it is also one of the largest remaining untouched habitats for many endangered specieses. As a result of its obvious natural appeal this place is was visited by 50,148 different people in 2016 which while a good thing for the local economy does threaten the pristine habitat"),
+             p("This park is also a place at risk of eventually being ruined by the effects of climate change and poor air quality from adjacent cities. Below you can explore visitation data, historical temperature data, as well as air quality data to see just how at risk this region is by the growth of these problems."),
+             h1("")
+             
+             ),
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.toggle", label = h3("Organize By"),
@@ -199,7 +219,6 @@ my.ui <- navbarPage(
            
   )
 )
-)
-)
+
 # Define UI for application that draws a histogram
 shinyUI(my.ui)

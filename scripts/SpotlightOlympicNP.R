@@ -4,16 +4,16 @@ library(dplyr)
 library(httr)
 library(ggplot2)
 
-#setwd('/Users/Caleb/Coding/Informatics/pnw-climate-change')
+
 
 #Import and do some basic cleaning on the datasets
-visitor.data <- read.csv("data/OlympicNP/Visitors.csv", stringsAsFactors = FALSE)
-temperature.data <- read.csv("data/OlympicNP/Temperature.csv", stringsAsFactors = FALSE)
+visitor.data <- read.csv("./data/OlympicNP/Visitors.csv", stringsAsFactors = FALSE)
+temperature.data <- read.csv("./data/OlympicNP/Temperature.csv", stringsAsFactors = FALSE)
 dates <- strptime(paste0(as.character(temperature.data$DATE), "01"),format="%Y-%m%d")
 temperature.data$Year <- format(dates, "%Y")
 temperature.data$Month <- format(dates, "%m")
 temperature.data$Date <- as.Date(as.POSIXct(dates))
-air.data <- read.csv("data/OlympicNP/AirQuality.csv", stringsAsFactors = FALSE)
+air.data <- read.csv("./data/OlympicNP/AirQuality.csv", stringsAsFactors = FALSE)
 
 #Utility Functions and variables
 averageForMonth <- function(month) {
@@ -53,6 +53,7 @@ temperatureGraph <- function(maxmin, arg, arguments) {
                 Max=mean(Max), 
                 Min=mean(Min)) %>%
       mutate(Date=as.Date(paste0(Year,"-01-01")))
+    
   } else if (arg == 2) {
     edited.temp.data <- edited.temp.data %>%
       filter(Month==arguments)
@@ -233,5 +234,12 @@ vistorsOverTheYears <- function() {
     theme(plot.title = element_text(hjust = 0.5))
   p
 }
-airQuality("Any")
+visitorFilterGraph(TRUE, "ANY")#
+visitorFilterGraph(TRUE, "1999")#
+visitorFilterGraph(FALSE, "ANY")#
+visitorFilterGraph(FALSE, "Mar")#
+temperatureGraph(FALSE, 0, "ANY") #
+temperatureGraph(TRUE, 1, "ANY") #
+temperatureGraph(TRUE, 2, "01") #
 airQuality("2005")
+airQuality("Any")

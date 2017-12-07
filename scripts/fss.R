@@ -3,6 +3,8 @@ library(ggplot2)
 library(ggmap)
 library(gridExtra)
 
+rename <- dplyr::rename
+
 source('./scripts/hydro-helper.R')
 
 # fss.data <- read.csv('./data/fss-stream-temp/stream-temps-combined.csv', stringsAsFactors = F)
