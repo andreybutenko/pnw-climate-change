@@ -146,17 +146,44 @@ my.ui <- navbarPage(
     p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
    )
   ),
-
-  tabPanel("blank",
-      sidebarLayout(
-      sidebarPanel(
-
-      ),
-      mainPanel(
-
-      )
-    )
+  
+  tabPanel("Economy",
+           tags$div(
+             class = "hydrology-narrow",
+             h1("Impact on Employment, Gross Receipt, and Industries"),
+             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Map and picture of Olympic National Park park', class = 'image-center'),
+             p("Climate change being a global issue, we often times forget about its impact on our local economies. Sparking our research with such concern, "),
+             p("This data set describes the self-employed workers whose jobs directly depend on the resources of the oceans and Great Lakes. Data are derived from Census Nonemployer Statistics and include the number of self-employed workers and gross receipts for the six sectors defined by ENOW. These time-series data are available at the national, regional, state, and county levels."),
+             p("This page specifically focuses on the economy of the counties in Washington to showcase the impact of climate change on our local economy."),
+             h1("")
+           ),
+           
+           h1('Employment and Gross Receipt by Year'),
+           sidebarLayout(
+             sidebarPanel(
+               
+               selectInput('economy.year', 'Year', choices = 2005:2014, selected = 2005:2014, multiple = T),
+               selectInput('economy.industry', 'Industries',
+                 choices = c('Marine Construction', 'Living Resources', 'Offshore Mineral Resources', 'Ship and Boat Building', 'Tourism and Recreation', 'Marine Transportation'),
+                 selected = c('Marine Construction', 'Living Resources', 'Offshore Mineral Resources', 'Ship and Boat Building', 'Tourism and Recreation', 'Marine Transportation'),
+                 multiple = T
+               ),
+               selectInput('economy.column', 'Operation', choices = c(
+                 'Revenue' = 'GrossReceipts',
+                 'Employment' = 'Employment'
+               )),
+               selectInput('economy.operation', 'Operation', choices = c(
+                 'Sum' = 'sum',
+                 'Mean' = 'mean'
+               ))
+             ),
+             mainPanel(
+               plotOutput('economy.chart')
+             )
+             
+           )
   ),
+  
   tabPanel("Visitation Data",
          tags$div(
            class = 'hydrology-narrow',
@@ -190,7 +217,9 @@ my.ui <- navbarPage(
              mainPanel(plotlyOutput('annualPlot'))
            ),
            p("As you can see, our state's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
-         )
+         ),
+
+           p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
   ),
 
   tabPanel("Olympic National Park",
@@ -209,7 +238,7 @@ my.ui <- navbarPage(
              sidebarPanel(
                sliderInput('wildfire.years', 'Years',
                  min = 1997, max = 2016,
-                 value = c(1997, 2016)),
+                 value = c(1997, 2016)), 
 
                selectInput('wildfire.causes', 'Causes', choices = c(
                  'Human', 'Natural'
