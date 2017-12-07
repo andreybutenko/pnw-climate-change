@@ -104,7 +104,6 @@ my.ui <- navbarPage(
       plotOutput('wa.stream.temp.chart'),
       plotOutput('suitability.chart')
     )
-<<<<<<< HEAD
   ), 
   
   tabPanel("Temperature and Precipitation",
@@ -141,17 +140,6 @@ my.ui <- navbarPage(
         plotOutput("tep.prec.chart"),
         plotOutput("tep.temp.chart"),
         p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
-=======
-  ),
-
-  tabPanel("blank",
-    sidebarLayout(
-      sidebarPanel(
-
-      ),
-      mainPanel(
-
->>>>>>> 60e0beb1a9f2eee577a82217734c771daaf23994
       )
     )
   ),
