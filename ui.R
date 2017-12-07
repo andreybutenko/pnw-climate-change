@@ -162,7 +162,8 @@ my.ui <- navbarPage(
                radioButtons('trend', label = h3('Show trend'),
                             choices = list('Trend' = 2, 'No Trend' = 1),
                             selected = 1)
-             )
+             ),
+             mainPanel()
            )
       ),
   
