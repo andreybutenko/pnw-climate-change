@@ -8,7 +8,9 @@ library(ggplot2)
 
 #Import and do some basic cleaning on the datasets
 visitor.data <- read.csv("data/OlympicNP/Visitors.csv", stringsAsFactors = FALSE)
+names(visitor.data)[1] <- 'Year'
 temperature.data <- read.csv("data/OlympicNP/Temperature.csv", stringsAsFactors = FALSE)
+names(temperature.data)[1] <- 'DATE'
 dates <- strptime(paste0(as.character(temperature.data$DATE), "01"),format="%Y-%m%d")
 temperature.data$Year <- format(dates, "%Y")
 temperature.data$Month <- format(dates, "%m")

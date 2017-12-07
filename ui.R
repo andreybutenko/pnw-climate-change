@@ -8,7 +8,15 @@ my.ui <- navbarPage(
   # Application title
   "Pacific Northwest Climate Change",
 
-  tabPanel("Home"
+  tabPanel("Home",
+           h1("Pacific Northwest Climate Change"),
+           p("Our project studies the relationship between climate change and its effects on the Pacific Northwest. The entire globe will be affected by climate change, but most of the time, the effects of climate change seem to always only be present inn far off places, like the North Pole. We decided it was important to show how climate change really does hit close to home for us and other University of Washington students. In doing so, we hope to inspire more students to take part in the fight to save the environment."),
+           h2("Page Description"),
+           p("The Hydrology tab describes how climate change will affect the runoff ans snowpack in the Pacific Northwest."), 
+           p("If you click on the Salmon tab, you will find data on how climate change will affect stream temperatures and the salmon population, which the economy of the PNW is heavily reliant on."),
+           p("The third tab, Temperature and Precipitation, is on temperature and precipitation predictions in the PNW for the 21st century."),
+           p("The data in the Visitation tab discusses National Park visitation rates and how those will be affected by warmer climates."),
+           p("The Olympic National Park tab delves deeper into how national parks are affected by centering on the Olympic National Park. It does not explore visitation rates, but what will happen to the park itself based on climate trends.")
   ),
 
   # Sidebar with a slider input for number of bins
@@ -20,7 +28,7 @@ my.ui <- navbarPage(
           tags$div(
             class = 'hydrology-narrow',
             h1('Intro to runoff and the snowpack'),
-            p('What is runoff? What is the snowpack? How is these affected by seasons? And why are they important to Washington State?', class = 'lead'),
+            p('What is runoff? What is the snowpack? How are these affected by seasons? And why are they important to Washington State?', class = 'lead'),
             p('Runoff is water that flows into streams, rivers, and oceans from rain or melting snow.'),
             p('Because it is so rainy and snowy in the winters, we get a lot of runoff we use for water! This water is used for drinking, agriculture, and everything else you can think of!'),
             p('But in the summer, it rains much less, and our runoff comes from the melting "snowpack".'),
@@ -107,8 +115,11 @@ my.ui <- navbarPage(
   ),
 
   tabPanel("Temperature and Precipitation",
+         tags$div(
+           class = 'hydrology-narrow',
            h1("Pacific Northwest Temperature and Precipitation Predictions"),
            p("The data on this page was retrieved from the University of Washington Climate Impacts Group Resources page. This data was based off of the Coupled Model Intercomparison Projects Phase 5, or CMIP5. It uses Global Climate Models to predict how climate change will affect temperature and precipitation in the 21st century. The datasets included different possible scenarios, called Representative Concentration Pathways, in terms of our current climate emissions and how we continue to regulate them. RCP 2.6 signifies the lowest emissions with the most mitigations, RCP 8.5 signifies the highest emissions with the least mitigations, and RCPs 4.5 and 6 fall inbetween."),
+       h2("Average Change Projected"),
     sidebarLayout(
       sidebarPanel(
         selectInput("gcm.scenario",
@@ -119,12 +130,12 @@ my.ui <- navbarPage(
                       "RCP8.5"))
       ),
       mainPanel(
-        h2("Average Change Projected"),
         plotOutput("avg.prec.chart"),
-        plotOutput("avg.temp.chart"),
-        p("The charts above show the average change of temperature and precipitation in the years 2040, 2050, and 2080. The 'Scenario' selection allows you to change which RCP was used to calculate these averages.")
+        plotOutput("avg.temp.chart")
       )
     ),
+    p("The charts above show the average change of temperature and precipitation in the years 2040, 2050, and 2080. The 'Scenario' selection allows you to change which RCP was used to calculate these averages."),
+    h2("Time Evolving Projections"),
     sidebarLayout(
       sidebarPanel(
         selectInput("gcm.season",
@@ -136,19 +147,20 @@ my.ui <- navbarPage(
                       "Autumn"))
       ),
       mainPanel(
-        h2("Time Evolving Projections"),
         plotOutput("tep.prec.chart"),
         plotOutput("tep.temp.chart"),
-        p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
+        p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs, which extend until 2095. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
       )
-    )
+    ),
+    p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
+   )
   ),
   
   tabPanel("Economy",
            tags$div(
              class = "hydrology-narrow",
              h1("Impact on Employment, Gross Receipt, and Industries"),
-             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Image of local economy being impacted by climate change', class = 'image-center'),
+             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Image of local economy being impacted by climate change', class = 'image-center leaf-image'),
              p("Climate change being a global issue, we often times forget about its impact on our local economies. Sparking our research with such concern, we have gathered data on how the economy,specifically employment and gross receipt, of the counties in Western Washington near the ocean are impacted."),
              p("This data set describes the self-employed workers whose jobs directly depend on the resources of the oceans and Great Lakes. Data are derived from Census Nonemployer Statistics and include the number of self-employed workers and gross receipts for the six sectors defined by ENOW. These time-series data are available at the national, regional, state, and county levels."),
              p("This page specifically focuses on the economy of the counties in Washington to showcase the impact of climate change on our local economy."),
@@ -176,32 +188,24 @@ my.ui <- navbarPage(
                ))
              ),
              mainPanel(
+               class = 'economy-chart-container',
                plotOutput('economy.chart')
              )
              
            ),
            
-           h1(""),
-           h1("Reflecting on the data"),
-           p("Early in May of this year, Trump administration announced the withdrawl of U.S. from the Paris Climage Agreement. This action showed the weakening of efforts to combat global warming under the concern of our own economy. However, many researches show a long term effect of climate change threatening our economy."),
-           p("By mapping out the detailed, comprehensive changes of the employment and gross receipt in counties near the body of water from the past years, we are introduced to the local dependency on ocean resources through different metrics that are presented above: number of employment and gross revenue of different sectors of ocean industry."),
-           p("The data being narrowed down to a county level, it shows how the changes in the ocean industry are creating impacts on individual levels."),
-           
-           h1("")
-  ),
-             
-  tabPanel("blank",
-      sidebarLayout(
-      sidebarPanel(
-
-      ),
-      mainPanel(
-
-      )
-    )
+           tags$div(
+             class = "hydrology-narrow economy-reflection",
+             h1("Reflecting on the data"),
+             p("Early in May of this year, Trump administration announced the withdrawl of U.S. from the Paris Climage Agreement. This action showed the weakening of efforts to combat global warming under the concern of our own economy. However, many researches show a long term effect of climate change threatening our economy."),
+             p("By mapping out the detailed, comprehensive changes of the employment and gross receipt in counties near the body of water from the past years, we are introduced to the local dependency on ocean resources through different metrics that are presented above: number of employment and gross revenue of different sectors of ocean industry."),
+             p("The data being narrowed down to a county level, it shows how the changes in the ocean industry are creating impacts on individual levels.")
+           )
   ),
   
   tabPanel("Visitation Data",
+         tags$div(
+           class = 'hydrology-narrow',
            h1('National Park Visitation Data'),
            p("What does national park visitation have to do with climate change in the Pacific North West?", class = 'lead'),
            p("As we all probably know, Washington State, and the Pacific North West in general is a beautiful area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
@@ -231,6 +235,8 @@ my.ui <- navbarPage(
              ),
              mainPanel(plotlyOutput('annualPlot'))
            ),
+           p("As you can see, our state's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
+         ),
 
            p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
   ),
@@ -326,7 +332,7 @@ my.ui <- navbarPage(
   tabPanel('About',
    tags$div(
      class = 'hydrology-narrow salmon-container',
-     h1('About this project.'),
+     h1('About This Project.'),
      p('Climate change is often seen as an issue that affects only far-off regions of Earth: melting ice in the Arctic, extreme flooding in isolated island-nations, and increased food insecurity throughout Africa are just some examples. However, climate change affects every region in different ways.'),
      p('Our project is an educational resource to explain the local impact of climate change to students in Washington State. We have a particular interest in ocean health, and how that will not only affect the environment, but the economic state of Washington as well.'),
      p('We used a lot of great data sets in working on this project:'),
@@ -402,6 +408,17 @@ my.ui <- navbarPage(
            class = 'bio-content',
            tags$h2('Caleb Kierum'),
            p('Caleb Kierum is an aspiring Computer Scientist currently studying at UW. Outside of his technical endeavors Caleb loves writing and performing music.')
+         )
+       ),
+       
+       tags$div(
+         id = 'sabrina',
+         class = 'bio-node',
+         img(src = 'sabrina-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Sabrina Hersh'),
+           p('Sabrina Hersh is studying Environmental Science and Biology at the University of Washington. She enjoys being able to try new things and watching movies with friends.')
          )
        )
      )

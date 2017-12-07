@@ -121,8 +121,7 @@ shinyServer(function(input, output) {
       input$economy.industry,
       input$economy.operation
     )
-  })
-  
+  }, height = 800)
 
   #######################Visitation dat############
   output$visitationPlot <- renderPlotly({  
