@@ -191,6 +191,7 @@ my.ui <- navbarPage(
 
              ),
 
+           h1('Wildfire Trends'),
            sidebarLayout(
              sidebarPanel(
                sliderInput('wildfire.years', 'Years',
@@ -212,7 +213,7 @@ my.ui <- navbarPage(
                  'NR: No Record' = 'NR'
                 ), selected = c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'NR'), multiple = T),
 
-               selectInput('wildfire.classes', 'X-Axis', choices = c(
+               selectInput('wildfire.group', 'X-Axis', choices = c(
                  'Monthly Averages' = 'month',
                  'Yearly Averages' = 'year'
                 ), selected = 'month')
@@ -222,6 +223,7 @@ my.ui <- navbarPage(
              )
            ),
 
+           h1('Visitorship Trends'),
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.toggle", label = h3("Organize By"),
@@ -235,6 +237,7 @@ my.ui <- navbarPage(
              )
            ),
 
+           h1('Temperature Trends'),
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.togglegroup", label = h3("Group By"),
@@ -251,6 +254,7 @@ my.ui <- navbarPage(
              )
            ),
            
+           h1('Air Quality Trends'),
            sidebarLayout(
              sidebarPanel(
                selectInput("spt.three.data", label = h5("Select Year"),
