@@ -19,14 +19,19 @@ MakeAvgChangePlot <- function(dataset, scenario, variable){
   avg.change.plot <- ggplot(chart.data, aes(x = Season,
                                  y = Projected.Change)) +
     geom_col(aes(fill = as.character(Time.Period))) +
-    labs(y = paste0(" Projected Change in ", variable, " in ", unit),
+    labs(y = paste0("Projected Change in ", variable, " in ", unit),
          title = paste0("Average Change in ", variable),
          fill = "Time Period")
   return(avg.change.plot)
 }
 
 # Time Evolving Plot
-MakeTimeEvolvPlot <- function(dataset, season) {
+MakeTimeEvolvPlot <- function(dataset, season, variable) {
+  if (variable == "Precipitation") {
+    unit = "mm/s"
+  } else {
+    unit = "K"
+  }
   chart.data.post <- filter(dataset, Year >= 2000)
   chart.data.pre <- filter(dataset, Year <= 2000, Scenario == "RCP6")
   chart.data.pre$Scenario <- "Already Occurred"
@@ -38,6 +43,8 @@ MakeTimeEvolvPlot <- function(dataset, season) {
                                 color = Scenario,
                                 fill = Scenario)) +
     geom_line(alpha = .6) +
-    geom_smooth(se = F, span = .4)
+    geom_smooth(se = F, span = .4) +
+    labs(y = paste0("Projected Change in ", variable, " in ", unit),
+         title = paste0("Time Evolving Projections in ", variable))
   return(time.evolv.plot)
 }
