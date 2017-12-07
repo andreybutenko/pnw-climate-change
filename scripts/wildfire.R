@@ -26,6 +26,9 @@ PlotWildfireChart <- function(years, causes, classes, group.by = 'month') {
         group = 1
       ),
       size = 2
-    ) %>% 
+    ) +
+    ggtitle('Wildfires over Time', subtitle = 'Olympic National Park') +
+    xlab(group.by) +
+    ylab('Number of Wildfires') %>% 
     return()
 }
