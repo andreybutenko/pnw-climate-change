@@ -1,8 +1,8 @@
 # Setup
 library(dplyr)
 
-avg.change.raw <- read.csv("../data/GCM-avg-change.csv", stringsAsFactors = F)
-time.evolv.raw <- read.csv("../data/GCM-TEP.csv", stringsAsFactors = F)
+avg.change.raw <- read.csv("../data/global-climate-models/GCM-avg-change.csv", stringsAsFactors = F)
+time.evolv.raw <- read.csv("../data/global-climate-models/GCM-TEP.csv", stringsAsFactors = F)
 
 # Finding appropriate model
 te.models <- unique(time.evolv.proj$Model)
@@ -30,13 +30,16 @@ avg.change.proj$Scenario <- recode(avg.change.proj$Scenario,
                                    "rcp85" = "RCP8.5")
 avg.change.proj <- avg.change.proj %>% 
   filter(`Projected Change` != "NaN") %>% 
-  filter(`Model Name` == model.chosen)
+  filter(`Model Name` == model.chosen) %>% 
+  select(-`Model Name`)
 
 # Split average change into two datasets
 avg.change.temp <- avg.change.proj %>% 
-  filter(Variable == "Near-Surface Air Temperature")
+  filter(Variable == "Near-Surface Air Temperature") %>% 
+  select(-Variable)
 avg.change.prec <- avg.change.proj %>% 
-  filter(Variable == "Precipitation")
+  filter(Variable == "Precipitation") %>% 
+  select(-Variable)
 
 # Time Evolving Projections Clean Up
 time.evolv.proj <- time.evolv.raw
@@ -66,16 +69,16 @@ time.evolv.proj <- time.evolv.proj %>%
 time.evolv.temp <- time.evolv.proj %>% 
   filter(Variable == "Near-Surface Air Temperature") %>% 
   select(-Variable) %>% 
-  group_by(Year = trunc((Year/10))*10, Epoch, Season, Scenario) %>% 
-  summarise(mean(Value))
+  group_by(Year = trunc((Year/5))*5, Epoch, Season, Scenario) %>% 
+  summarise(Value = mean(Value))
 time.evolv.prec <- time.evolv.proj %>% 
   filter(Variable == "Precipitation") %>% 
   select(-Variable) %>% 
-  group_by(Year = trunc((Year/10))*10, Epoch, Season, Scenario) %>% 
-  summarise(mean(Value))
+  group_by(Year = trunc((Year/5))*5, Epoch, Season, Scenario) %>% 
+  summarise(Value = mean(Value))
 
 # Create new data Files to use
-write.csv(avg.change.prec, "../data/global-climate-models/GCM-avg-precipitation.csv")
-write.csv(avg.change.temp, "../data/global-climate-models/GCM-avg-temp.csv")
-write.csv(time.evolv.prec, "../data/global-climate-models/GCM-TEP-precipitation.csv")
-write.csv(time.evolv.temp, "../data/global-climate-models/GCM-TEP-temp.csv")
+write.csv(avg.change.prec, "../data/global-climate-models/GCM-avg-precipitation.csv", row.names = F)
+write.csv(avg.change.temp, "../data/global-climate-models/GCM-avg-temp.csv", row.names = F)
+write.csv(time.evolv.prec, "../data/global-climate-models/GCM-TEP-precipitation.csv", row.names = F)
+write.csv(time.evolv.temp, "../data/global-climate-models/GCM-TEP-temp.csv", row.names = F)
