@@ -10,6 +10,7 @@ source('./scripts/hydro-playground.R')
 source('./scripts/fss.R')
 source('./scripts/SpotlightOlympicNP.R')
 source('./scripts/GCMprojections.R')
+source('./scripts/wildfire.R')
 
 shinyServer(function(input, output) {
   output$seasonal.runoff <- renderPlot({
@@ -98,14 +99,27 @@ shinyServer(function(input, output) {
     suitability.data.chart
   })
   
+  output$wildfire.chart <- renderPlot({
+    years.vector <- seq(
+      from = input$wildfire.years[1],
+      to = input$wildfire.years[2],
+      by = 1
+    )
+    PlotWildfireChart(
+      years.vector,
+      input$wildfire.causes,
+      input$wildfire.classes,
+      group.by = input$wildfire.group
+    )
+  })
+  
 
 output$visitationPlot <- renderPlotly({  
 season <- input$season 
 PlotlyGraph(season)
-    
-  })
+})
   
-output$visitationPlot <- renderPlotly({  
+output$visitationmonthPlot <- renderPlotly({  
   MonthPlot()
   
 })
