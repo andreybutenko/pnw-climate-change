@@ -8,7 +8,15 @@ my.ui <- navbarPage(
   # Application title
   "Pacific Northwest Climate Change",
 
-  tabPanel("Home"
+  tabPanel("Home",
+           h1("Pacific Northwest Climate Change"),
+           p("Our project studies the relationship between climate change and its effects on the Pacific Northwest. The entire globe will be affected by climate change, but most of the time, the effects of climate change seem to always only be present inn far off places, like the North Pole. We decided it was important to show how climate change really does hit close to home for us and other University of Washington students. In doing so, we hope to inspire more students to take part in the fight to save the environment."),
+           h2("Page Description"),
+           p("The Hydrology tab describes how climate change will affect the runoff ans snowpack in the Pacific Northwest."), 
+           p("If you click on the Salmon tab, you will find data on how climate change will affect stream temperatures and the salmon population, which the economy of the PNW is heavily reliant on."),
+           p("The third tab, Temperature and Precipitation, is on temperature and precipitation predictions in the PNW for the 21st century."),
+           p("The data in the Visitation tab discusses National Park visitation rates and how those will be affected by warmer climates."),
+           p("The Olympic National Park tab delves deeper into how national parks are affected by centering on the Olympic National Park. It does not explore visitation rates, but what will happen to the park itself based on climate trends.")
   ),
 
   # Sidebar with a slider input for number of bins
