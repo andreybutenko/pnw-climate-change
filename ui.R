@@ -317,6 +317,17 @@ my.ui <- navbarPage(
            tags$h2('Alexis Choi'),
            p('Alexis Choi is a Sophomore at the University of Washington studying Informatics. She is interested in applying her skills to increase the public\'s access to the legal system.')
          )
+       ),
+       
+       tags$div(
+         id = 'caleb',
+         class = 'bio-node',
+         img(src = 'caleb-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Caleb Kierum'),
+           p('Caleb Kierum is an aspiring Computer Scientist currently studying at UW. Outside of his technical endeavors Caleb loves writing and performing music.')
+         )
        )
      )
   )
