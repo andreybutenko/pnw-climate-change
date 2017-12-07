@@ -277,7 +277,44 @@ my.ui <- navbarPage(
      p('A special thanks to Professor Dargan Frierson who connected us with many of these data sets.'),
      
      tags$hr()
-    )
+    ),
+   
+     tags$div(
+       class = 'bio-container',
+       
+       tags$div(
+         id = 'andrey',
+         class = 'bio-node',
+         img(src = 'andrey-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Andrey Butenko'),
+           p('Andrey Butenko is a student studying Informatics at the University of Washington. He has a background in web and mobile app development, and is interested in software to enable sustainable and informed decision-making.')
+         )
+       ),
+       
+       tags$div(
+         id = 'jaren',
+         class = 'bio-node',
+         img(src = 'jaren-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Jaren Tilley'),
+           p('Jaren Tilley is a current UW student studying Informatics who loves R. He also loves Bao Dinh, Mike Freeman, and Info201 - he describes it as "The best class at UW hands down".')
+         )
+       ),
+       
+       tags$div(
+         id = 'alexis',
+         class = 'bio-node',
+         img(src = 'alexis-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Alexis Choi'),
+           p('Alexis Choi is a Sophomore at the University of Washington studying Informatics. She is interested in applying her skills to increase the public\'s access to the legal system.')
+         )
+       )
+     )
   )
 )
 
