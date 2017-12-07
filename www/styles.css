@@ -45,8 +45,18 @@ p {
   margin: 0 auto;
 }
 
+.home-intro .content-container {
+  width: 800px;
+  max-width: 100%;
+  margin: 1em auto;
+  background-color: #eee;
+  padding: 1px 16px;
+  box-shadow: 0 0px 20px rgba(0,0,0,0.19), 0 0px 10px rgba(0,0,0,0.23);
+}
+
 .hydrology-narrow p,
 .hydrology-narrow h1,
+.hydrology-narrow h2,
 .hydrology-narrow ul {
     width: 100%;
     margin: 0 auto;

@@ -9,16 +9,25 @@ my.ui <- navbarPage(
   "Pacific Northwest Climate Change",
 
   tabPanel("Home",
-           plotOutput("tep.temp.chart.white"),
-           h1("Pacific Northwest Climate Change"),
-           p("Our project studies the relationship between climate change and its effects on the Pacific Northwest. The entire globe will be affected by climate change, but most of the time, the effects of climate change seem to always only be present inn far off places, like the North Pole. We decided it was important to show how climate change really does hit close to home for us and other University of Washington students. In doing so, we hope to inspire more students to take part in the fight to save the environment."),
-           h2("Page Description"),
-           p("The Hydrology tab describes how climate change will affect the runoff and snowpack in the Pacific Northwest."), 
-           p("If you click on the Salmon tab, you will find data on how climate change will affect stream temperatures and the salmon population, which the economy of the PNW is heavily reliant on."),
-           p("The fourth tab, Temperature and Precipitation, is on temperature and precipitation predictions in the PNW for the 21st century."),
-           p("Looking at the economy tab will show what jobs are impacted by climate change, something that will most definitely change the day-to-day lives of Washington residents."),
-           p("The data in the Visitation tab discusses National Park visitation rates and how those will be affected by warmer climates."),
-           p("The Olympic National Park tab delves deeper into how national parks are affected by centering on the Olympic National Park. It does not explore visitation rates, but what will happen to the park itself based on climate trends.")
+           tags$div(
+             class = 'home-container',
+             plotOutput("tep.temp.chart.white"),
+             tags$div(
+               class = 'home-intro',
+               tags$div(
+                 class = 'content-container',
+                 h1("Pacific Northwest Climate Change"),
+                 p("Our project studies the relationship between climate change and its effects on the Pacific Northwest. The entire globe will be affected by climate change, but most of the time, the effects of climate change seem to always only be present in far off places, like the North Pole. We decided it was important to show how climate change really does hit close to home for us and other University of Washington students. In doing so, we hope to inspire more students to take part in the fight to save the environment."),
+                 h2("Page Description"),
+                 p("The Hydrology tab describes how climate change will affect the runoff and snowpack in the Pacific Northwest."), 
+                 p("If you click on the Salmon tab, you will find data on how climate change will affect stream temperatures and the salmon population, which the economy of the PNW is heavily reliant on."),
+                 p("The fourth tab, Temperature and Precipitation, is on temperature and precipitation predictions in the PNW for the 21st century."),
+                 p("Looking at the economy tab will show what jobs are impacted by climate change, something that will most definitely change the day-to-day lives of Washington residents."),
+                 p("The data in the Visitation tab discusses National Park visitation rates and how those will be affected by warmer climates."),
+                p("The Olympic National Park tab delves deeper into how national parks are affected by centering on the Olympic National Park. It does not explore visitation rates, but what will happen to the park itself based on climate trends.")
+               )
+             )
+           )
   ),
 
   # Sidebar with a slider input for number of bins
@@ -151,8 +160,7 @@ my.ui <- navbarPage(
       ),
       mainPanel(
         plotOutput("tep.prec.chart"),
-        plotOutput("tep.temp.chart.gray"),
-        p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs, which extend until 2095. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
+        plotOutput("tep.temp.chart.gray")
       )
     ),
     p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
@@ -229,9 +237,7 @@ my.ui <- navbarPage(
              mainPanel(plotlyOutput('annualPlot'))
            ),
            p("As you can see, our state's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
-         ),
-
-           p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
+         )
   ),
 
   tabPanel("Olympic National Park",
@@ -401,6 +407,17 @@ my.ui <- navbarPage(
            class = 'bio-content',
            tags$h2('Caleb Kierum'),
            p('Caleb Kierum is an aspiring Computer Scientist currently studying at UW. Outside of his technical endeavors Caleb loves writing and performing music.')
+         )
+       ),
+       
+       tags$div(
+         id = 'sabrina',
+         class = 'bio-node',
+         img(src = 'sabrina-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Sabrina Hersh'),
+           p('Sabrina Hersh is studying Environmental Science and Biology at the University of Washington. She enjoys being able to try new things and watching movies with friends.')
          )
        )
      )
