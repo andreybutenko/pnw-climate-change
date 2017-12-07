@@ -116,7 +116,43 @@ my.ui <- navbarPage(
       )
     )
   ),
-
+  
+  tabPanel("Economy",
+           tags$div(
+             class = "hydrology-narrow",
+             h1("Impact on Employment, Gross Receipt, and Industries"),
+             tags$img(src = 'https://www.brandsouthafrica.com/wp-content/uploads/brandsa/2015/12/oceans_3.jpg', alt='Map and picture of Olympic National Park park', class = 'image-center'),
+             p("This data set describes the self-employed workers whose jobs directly depend on the resources of the oceans and Great Lakes. Data are derived from Census Nonemployer Statistics and include the number of self-employed workers and gross receipts for the six sectors defined by ENOW. These time-series data are available at the national, regional, state, and county levels."),
+             p("This page specifically focuses on the economy of the counties in Washington to showcase the impact of climate change on our local economy."),
+             h1("")
+           ),
+           
+           h1('Employment and Gross Receipt by Year'),
+           sidebarLayout(
+             sidebarPanel(
+               
+               selectInput('economy.year', 'Year', choices = 2005:2014, selected = 2005:2014, multiple = T),
+               selectInput('economy.industry', 'Industries',
+                 choices = c('Marine Construction', 'Living Resources', 'Offshore Mineral Resources', 'Ship and Boat Building', 'Tourism and Recreation', 'Marine Transportation'),
+                 selected = c('Marine Construction', 'Living Resources', 'Offshore Mineral Resources', 'Ship and Boat Building', 'Tourism and Recreation', 'Marine Transportation'),
+                 multiple = T
+               ),
+               selectInput('economy.column', 'Operation', choices = c(
+                 'Revenue' = 'GrossReceipts',
+                 'Employment' = 'Employment'
+               )),
+               selectInput('economy.operation', 'Operation', choices = c(
+                 'Sum' = 'sum',
+                 'Mean' = 'mean'
+               ))
+             ),
+             mainPanel(
+               plotOutput('economy.chart')
+             )
+             
+           )
+  ),
+             
   tabPanel("blank",
       sidebarLayout(
       sidebarPanel(
@@ -127,6 +163,7 @@ my.ui <- navbarPage(
       )
     )
   ),
+  
   tabPanel("Visitation Data",
            h1('National Park Visitation Data'),
            p("What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead' As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),

@@ -10,6 +10,7 @@ source('./scripts/hydro-playground.R')
 source('./scripts/fss.R')
 source('./scripts/SpotlightOlympicNP.R')
 source('./scripts/wildfire.R')
+source('./scripts/employment.R')
 
 shinyServer(function(input, output) {
   output$seasonal.runoff <- renderPlot({
@@ -109,6 +110,15 @@ shinyServer(function(input, output) {
       input$wildfire.causes,
       input$wildfire.classes,
       group.by = input$wildfire.group
+    )
+  })
+  
+  output$economy.chart <- renderPlot({
+    MapEmploymentData(
+      input$economy.year,
+      input$economy.column,
+      input$economy.industry,
+      input$economy.operation
     )
   })
   
