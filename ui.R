@@ -106,13 +106,40 @@ my.ui <- navbarPage(
     )
   ),
 
-  tabPanel("blank",
+  tabPanel("Temperature and Precipitation",
+           h1("Pacific Northwest Temperature and Precipitation Predictions"),
+           p("The data on this page was retrieved from the University of Washington Climate Impacts Group Resources page. This data was based off of the Coupled Model Intercomparison Projects Phase 5, or CMIP5. It uses Global Climate Models to predict how climate change will affect temperature and precipitation in the 21st century. The datasets included different possible scenarios, called Representative Concentration Pathways, in terms of our current climate emissions and how we continue to regulate them. RCP 2.6 signifies the lowest emissions with the most mitigations, RCP 8.5 signifies the highest emissions with the least mitigations, and RCPs 4.5 and 6 fall inbetween."),
     sidebarLayout(
       sidebarPanel(
-
+        selectInput("gcm.scenario",
+                    "Scenario",
+                    c("RCP2.6",
+                      "RCP4.5",
+                      "RCP6",
+                      "RCP8.5"))
       ),
       mainPanel(
-
+        h2("Average Change Projected"),
+        plotOutput("avg.prec.chart"),
+        plotOutput("avg.temp.chart"),
+        p("The charts above show the average change of temperature and precipitation in the years 2040, 2050, and 2080. The 'Scenario' selection allows you to change which RCP was used to calculate these averages.")
+      )
+    ),
+    sidebarLayout(
+      sidebarPanel(
+        selectInput("gcm.season",
+                    "Season",
+                    c("Annual",
+                      "Winter",
+                      "Spring",
+                      "Summer",
+                      "Autumn"))
+      ),
+      mainPanel(
+        h2("Time Evolving Projections"),
+        plotOutput("tep.prec.chart"),
+        plotOutput("tep.temp.chart"),
+        p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
       )
     )
   ),
@@ -166,23 +193,27 @@ my.ui <- navbarPage(
   
   tabPanel("Visitation Data",
            h1('National Park Visitation Data'),
-           p("What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead' As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
+           p("What does national park visitation have to do with climate change in the Pacific North West?", class = 'lead'),
+           p("As we all probably know, Washington State, and the Pacific North West in general is a beautiful area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
            p(""),
+           h1('Average Visitation per Month'),
            #Section 1
-           plotlyOutput("visitationmonthPlot"), 
+           plotlyOutput("visitationmonthPlot"),
+           h1('Seasonal Visitation Trends'),
            #Section 2
            sidebarLayout(
              sidebarPanel(
                selectInput('season',"Select a Season", choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring' ), selected = "summer")
-               
+
              ),
              mainPanel(plotlyOutput("visitationPlot"))
            ),
+           h1('Annual Visitation Trends'),
            #Section 3
            sidebarLayout(
              sidebarPanel(
                radioButtons('chart.toggle', label = h3("Plot Type"),
-                            choices = list("Mean" = 1, "Total" = 2), 
+                            choices = list("Mean" = 1, "Total" = 2),
                             selected = 2),
                radioButtons('trend', label = h3('Show trend'),
                             choices = list('Trend' = TRUE, 'No Trend' = FALSE),
@@ -190,6 +221,7 @@ my.ui <- navbarPage(
              ),
              mainPanel(plotlyOutput('annualPlot'))
            ),
+
            p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
   ),
 
@@ -266,7 +298,7 @@ my.ui <- navbarPage(
                plotOutput("spt.two.plot")
              )
            ),
-           
+
            h1('Air Quality Trends'),
            sidebarLayout(
              sidebarPanel(
@@ -312,9 +344,57 @@ my.ui <- navbarPage(
        )
      ),
      p('A special thanks to Professor Dargan Frierson who connected us with many of these data sets.'),
-     
+
      tags$hr()
-    )
+    ),
+
+     tags$div(
+       class = 'bio-container',
+
+       tags$div(
+         id = 'andrey',
+         class = 'bio-node',
+         img(src = 'andrey-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Andrey Butenko'),
+           p('Andrey Butenko is a student studying Informatics at the University of Washington. He has a background in web and mobile app development, and is interested in software to enable sustainable and informed decision-making.')
+         )
+       ),
+
+       tags$div(
+         id = 'jaren',
+         class = 'bio-node',
+         img(src = 'jaren-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Jaren Tilley'),
+           p('Jaren Tilley is a current UW student studying Informatics who loves R. He also loves Bao Dinh, Mike Freeman, and Info201 - he describes it as "The best class at UW hands down".')
+         )
+       ),
+       
+       tags$div(
+         id = 'alexis',
+         class = 'bio-node',
+         img(src = 'alexis-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Alexis Choi'),
+           p('Alexis Choi is a Sophomore at the University of Washington studying Informatics. She is interested in applying her skills to increase the public\'s access to the legal system.')
+         )
+       ),
+
+       tags$div(
+         id = 'caleb',
+         class = 'bio-node',
+         img(src = 'caleb-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Caleb Kierum'),
+           p('Caleb Kierum is an aspiring Computer Scientist currently studying at UW. Outside of his technical endeavors Caleb loves writing and performing music.')
+         )
+       )
+     )
   )
 )
 

@@ -9,6 +9,7 @@ source('./scripts/hydro.R')
 source('./scripts/hydro-playground.R')
 source('./scripts/fss.R')
 source('./scripts/SpotlightOlympicNP.R')
+source('./scripts/GCMprojections.R')
 source('./scripts/wildfire.R')
 source('./scripts/employment.R')
 
@@ -123,20 +124,20 @@ shinyServer(function(input, output) {
   })
   
 
-output$visitationPlot <- renderPlotly({  
-season <- input$season 
-PlotlyGraph(season)
-})
+  #######################Visitation dat############
+  output$visitationPlot <- renderPlotly({  
+  season <- input$season 
+  PlotlyGraph(season)
+  })
+    
+  output$visitationmonthPlot <- renderPlotly({  
+    MonthPlot()
+    
+  })
   
-output$visitationmonthPlot <- renderPlotly({  
-  MonthPlot()
-  
-})
-
-output$annualPlot <- renderPlotly({
-  AnnualVisitationPlot(input$chart.toggle, input$trend)
-})
-  
+  output$annualPlot <- renderPlotly({
+    AnnualVisitationPlot(input$chart.toggle, input$trend)
+  })
   ############################Spotlight olympic national park #######################
   output$spt.one.plot <- renderPlot({
     visitorFilterGraph(input$spt.one.toggle == 2, input$spt.one.data)
@@ -165,5 +166,17 @@ output$annualPlot <- renderPlotly({
                   selected = 1)
     }
   })
-  ##################################################
+  ##################################################Temperature and Precipitation###################
+  output$avg.prec.chart <- renderPlot({
+    MakeAvgChangePlot(avg.change.prec, input$gcm.scenario, "Precipitation")
+  })
+  output$avg.temp.chart <- renderPlot({
+    MakeAvgChangePlot(avg.change.temp, input$gcm.scenario, "Temperature")
+  })
+  output$tep.prec.chart <- renderPlot({
+    MakeTimeEvolvPlot(time.evolv.prec, input$gcm.season, "Precipitation")
+  })
+  output$tep.temp.chart <- renderPlot({
+    MakeTimeEvolvPlot(time.evolv.temp, input$gcm.season, "Temperature")
+  })
 })
