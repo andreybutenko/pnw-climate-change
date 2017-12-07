@@ -33,43 +33,13 @@ county.names <- c("Clallam County",
 washington.county.data <- employment.data %>% 
                           filter(employment.data$GeoName %in% county.names) %>% 
                           filter(!str_detect(Employment, '-9999'))
-# 
-# total.economy.wa <- summarize(washington.state.data,
-#                               sum = sum(washington.state.data$GrossReceipts)
-#                               )
-# 
-# states <- map_data("state")
-# Washington <- subset(states, region %in% c("washington"))
-# 
-# wa_df <- subset(states, region == "washington")
-# counties <- map_data("county")
-# wa_county <- subset(counties, region == "washington")
 
-
-#midpoints of the counties to plot the county information 
-# county.midpoints <- wa_county %>% 
-#   rename(x = long, y = lat) %>% 
-#   group_by(subregion) %>% 
-#   summarize(x = mean(x), y = mean(y)) %>% 
-#   as.data.frame()
-#   write.csv(county.midpoints, file = "./data/ENOW_NES/CountyMidpoints.csv", row.names = F)
-#   colnames(county.midpoints)[which(names(county.midpoints) == "subregion")] <- ""
   
 county.midpoints <- read.csv('./data/ENOW_NES/CountyMidpoints.csv', stringsAsFactors = F)
 county.midpoints <- rename(county.midpoints, GeoName = subregion)
 
-# washington.county.data %>% View
 washington.county.data$GeoName <- lapply(washington.county.data$GeoName %>% 
   strsplit(' '), function(v) { return(str_to_lower(v[1]) )}) %>% unlist()
-
-# gross.receipts.mean <- washington.county.data %>% 
-#                               group_by(GeoName) %>% 
-#                               summarize(avg = mean(GrossReceipts))  
-#   
-# gross.receipts.mean.county <- left_join(county.midpoints, gross.receipts.mean) %>% 
-#                                 filter(!is.na(avg))
-#                               
-# MapPNWData(gross.receipts.mean.county, column = 'avg', long.range = c(-125, -121), lat.range = c(45.5, 49), include.oregon = T)
 
 MapEmploymentData <- function(years, column, industries, operation) {
   chart.data.prelim <- washington.county.data %>% 
@@ -145,44 +115,4 @@ MapGeoData <- function(df, column = 'value',
   
   return(plot)
 }
-
-
-
-
-
-
-
-# 
-# map.details <- list(
-#   scope = "Washington",
-#   projection = list(type = "albers usa"),
-#   showland = TRUE,
-#   landcolor = toRGB("gray55"),
-#   subunitwidth = 1,
-#   countrywidth = 1,
-#   subunitcolor = toRGB("white"),
-#   countrycolor = toRGB("white")
-# )
-# pointer.details <- plot_geo(data, lat = ~lat, lon = ~lng, locationmode = 'US A-states') %>%
-#   add_markers(
-#     hoverinfo = "text", text = ~paste(data$date, data$city, paste("Injured:", data$injured), paste("Killed:", data$killed), sep = "<br />"),
-#     color = ~(injured+killed), colors = 'Reds', symbol = I("circle"), size = ~(data$injured + data$killed), alpha = 1.0
-#   ) %>%
-#   colorbar(title = "All affected<br />casualties") %>%
-#   layout(
-#     title = 'Shootings in USA<br />(Put mouse on the dots for details)', geo = map.details
-#   )
-# 
-# 
-# shinyUI(my.ui)
-# 
-# 
-# 
-# function (year, county)
-#   filterstate of where year == year 
-#   
-
-
-
-
 
