@@ -133,29 +133,32 @@ my.ui <- navbarPage(
              p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
              p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
              p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
-     
+             p(""),
+              plotlyOutput("visitationmonthPlot"), 
+           #Section 1
+           sidebarLayout(
+             sidebarPanel(
+             ),
+             # Show a plot of the generated distribution
+             mainPanel(
+               
+             )
+           ),
+           #Section 2
            sidebarLayout(
              sidebarPanel(
                selectInput('season',"Select a Season",
-                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'Anual' = 'all' ), selected = "summer")
+                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring' ), selected = "summer")
              ),
              # Show a plot of the generated distribution
              mainPanel(
-                   plotlyOutput("visitationPlot")
-              )
-            ),
-           
-           sidebarLayout(
-             sidebarPanel(
-             ),
-             # Show a plot of the generated distribution
-             mainPanel(
-               plotlyOutput("visitationmonthPlot")
+               plotlyOutput("visitationPlot")
              )
            ),
+           #Section 3
            sidebarLayout(
              sidebarPanel(
-               radioButtons('chart.toggle', label = h3("Plot data"),
+               radioButtons('chart.toggle', label = h3("Plot Type"),
                             choices = list("Mean" = 1, "Total" = 2), 
                             selected = 2),
                radioButtons('trend', label = h3('Show trend'),
@@ -164,8 +167,17 @@ my.ui <- navbarPage(
              ),
              mainPanel(
                plotlyOutput('annualPlot')
-             )
-           )
+            )
+           ),
+           p(""),  
+           p("As you can see, our stat's visitation really increases during the summer. In an article on future park"),
+           p(' visitation and how it would be affected by climate change written by PLOS, they sugested that parks that'),
+           p('would have increased due to climate change would have increased visitation while those that would become'),
+           p('colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from'),
+           p('global warming at first. However, the study did mention there was a sharp decline in visitation after'), 
+           p('crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased'),
+           p('visitation in parks.'),
+           p('Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.')
       ),
   
   tabPanel("Olympic National Park",
