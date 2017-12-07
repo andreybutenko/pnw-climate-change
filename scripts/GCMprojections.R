@@ -2,10 +2,10 @@
 library(dplyr)
 library(ggplot2)
 
-avg.change.prec <- read.csv("../data/global-climate-models/GCM-avg-precipitation.csv")
-avg.change.temp <- read.csv("../data/global-climate-models/GCM-avg-temp.csv")
-time.evolv.prec <- read.csv("../data/global-climate-models/GCM-TEP-precipitation.csv")
-time.evolv.temp <- read.csv("../data/global-climate-models/GCM-TEP-temp.csv")
+avg.change.prec <- read.csv("./data/global-climate-models/GCM-avg-precipitation.csv")
+avg.change.temp <- read.csv("./data/global-climate-models/GCM-avg-temp.csv")
+time.evolv.prec <- read.csv("./data/global-climate-models/GCM-TEP-precipitation.csv")
+time.evolv.temp <- read.csv("./data/global-climate-models/GCM-TEP-temp.csv")
 
 # Average Change Plot
 MakeAvgChangePlot <- function(dataset, scenario, variable){

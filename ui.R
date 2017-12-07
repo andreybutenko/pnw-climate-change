@@ -106,13 +106,34 @@ my.ui <- navbarPage(
     )
   ), 
   
-  tabPanel("blank",
+  tabPanel("Temperature and Precipitation",
     sidebarLayout(
       sidebarPanel(
-        
+        selectInput("gcm.scenario",
+                    "Scenario",
+                    c("RCP2.6",
+                      "RCP4.5",
+                      "RCP6",
+                      "RCP8.5"))
       ),
       mainPanel(
-      
+        plotOutput("avg.prec.chart"),
+        plotOutput("avg.temp.chart")
+      )
+    ),
+    sidebarLayout(
+      sidebarPanel(
+        selectInput("gcm.season",
+                    "Season",
+                    c("Annual",
+                      "Winter",
+                      "Spring",
+                      "Summer",
+                      "Autumn"))
+      ),
+      mainPanel(
+        plotOutput("tep.prec.chart"),
+        plotOutput("tep.temp.chart")
       )
     )
   ),

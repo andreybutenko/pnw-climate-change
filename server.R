@@ -9,6 +9,7 @@ source('./scripts/hydro.R')
 source('./scripts/hydro-playground.R')
 source('./scripts/fss.R')
 source('./scripts/SpotlightOlympicNP.R')
+source('./scripts/GCMprojections.R')
 
 shinyServer(function(input, output) {
   output$seasonal.runoff <- renderPlot({
@@ -141,5 +142,17 @@ output$annualPlot <- renderPlotly({
                   selected = 1)
     }
   })
-  ##################################################
+  ##################################################Temperature and Precipitation###################
+  output$avg.prec.chart <- renderPlot({
+    MakeAvgChangePlot(avg.change.prec, input$gcm.scenario, "Precipitation")
+  })
+  output$avg.temp.chart <- renderPlot({
+    MakeAvgChangePlot(avg.change.temp, input$gcm.scenario, "Temperature")
+  })
+  output$tep.prec.chart <- renderPlot({
+    MakeTimeEvolvPlot(time.evolv.prec, input$gcm.season, "Precipitation")
+  })
+  output$tep.temp.chart <- renderPlot({
+    MakeTimeEvolvPlot(time.evolv.temp, input$gcm.season, "Temperature")
+  })
 })
