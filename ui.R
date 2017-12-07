@@ -133,7 +133,7 @@ my.ui <- navbarPage(
              p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
              p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
              p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
-     
+             
            sidebarLayout(
              sidebarPanel(
                selectInput('season',"Select a Season",
@@ -178,6 +178,38 @@ my.ui <- navbarPage(
              h1("")
              
              ),
+           
+           sidebarLayout(
+             sidebarPanel(
+               sliderInput('wildfire.years', 'Years',
+                 min = 1997, max = 2016,
+                 value = c(1997, 2016)),
+               
+               selectInput('wildfire.causes', 'Causes', choices = c(
+                 'Human', 'Natural'
+                  ), selected = c('Human', 'Natural'), multiple = T),
+               
+               selectInput('wildfire.classes', 'Fire Classes', choices = c(
+                 'A: 0 - 1/4 acres' = 'A',
+                 'B: 1/4 - 10 acres' = 'B',
+                 'C: 10 - 100 acres' = 'C',
+                 'D: 100 - 300 acres' = 'D',
+                 'E: 300 - 1000 acres' = 'E',
+                 'F: 1000 - 5000 acres' = 'F',
+                 'G: 5000+ acres' = 'G',
+                 'NR: No Record' = 'NR'
+                ), selected = c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'NR'), multiple = T),
+               
+               selectInput('wildfire.classes', 'X-Axis', choices = c(
+                 'Monthly Averages' = 'month',
+                 'Yearly Averages' = 'year'
+                ), selected = 'month')
+             ),
+             mainPanel(
+               plotOutput('wildfire.chart')
+             )
+           ),
+           
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.toggle", label = h3("Organize By"),
