@@ -166,11 +166,11 @@ my.ui <- navbarPage(
            )
       ),
   
-  tabPanel("Spotlight Olympic National Park",
+  tabPanel("Olympic National Park",
            tags$div( 
              class = "hydrology-narrow",
              h1("Spotlight On Olympic National Park"),
-             tags$img(src = 'https://i.imgur.com/fA33vWo.png', alt='Map and picture of the park', align = "center"),
+             tags$img(src = 'https://i.imgur.com/fA33vWo.png', alt='Map and picture of Olympic National Park park', class = 'image-center'),
              p("Olympic National Park is a 1,442 mi² park located in the Olympic Peninsula of Washington State. Not only is it home to the only rainforest in the continental United States it is also one of the largest remaining untouched habitats for many endangered specieses. As a result of its obvious natural appeal this place is was visited by 50,148 different people in 2016 which while a good thing for the local economy does threaten the pristine habitat"),
              p("This park is also a place at risk of eventually being ruined by the effects of climate change and poor air quality from adjacent cities. Below you can explore visitation data, historical temperature data, as well as air quality data to see just how at risk this region is by the growth of these problems."),
              h1("")
