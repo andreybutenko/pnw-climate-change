@@ -116,10 +116,9 @@ shinyServer(function(input, output) {
 output$visitationPlot <- renderPlotly({  
 season <- input$season 
 PlotlyGraph(season)
-    
-  })
+})
   
-output$visitationPlot <- renderPlotly({  
+output$visitationmonthPlot <- renderPlotly({  
   MonthPlot()
   
 })
