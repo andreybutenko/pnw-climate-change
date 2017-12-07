@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Department of Commerce (DOC), National Oceanic and Atmospheric Administration (NOAA), National Ocean Service (NOS), Office for Coastal Management (OCM)</origin>
+        <pubdate>2015</pubdate>
+        <title>Time-Series Data for Self-Employed Economic Activity Dependent on the Ocean and Great Lakes Economy for Counties, States, and the Nation between 2005 and 2014</title>
+        <pubinfo>
+          <pubplace>Charleston, SC</pubplace>
+          <publish>NOAA's Ocean Service, Office for Coastal Management (OCM)</publish>
+        </pubinfo>
+        <onlink>http://www.coast.noaa.gov/htdata/SocioEconomic/ENOW_NES.zip</onlink>
+        <onlink>http://www.coast.noaa.gov/digitalcoast/data/enow-nes/</onlink>
+        <onlink>http://coast.noaa.gov/quickreport/</onlink>
+        <onlink>http://www.coast.noaa.gov/</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Nonemployer Statistics for Economics: National Ocean Watch (ENOW NES) contains annual time-series data for over 400 coastal counties, 30 coastal states, and the nation, derived from the United States Census Bureau.   ENOW NES data report the number of nonemployer establishments and gross receipts, within the six sectors of the ocean and Great Lakes economy, .</abstract>
+      <purpose>Nonemployer Statistics are the primary resource for studying the scope and activities of self-employed people. The ENOW NES data measure activity of sole proprietorships and other businesses with no employees at various geographic scales and classified in the six sectors within the ocean and Great Lakes economy.</purpose>
+      <supplinf>This data complies with the Information Quality Act directive from the Office of Management and Budget. With the release of the 2014 ENOW data, gross domestic product (GDP) for the ocean economy was updated for the entire time series to reflect the rebenchmarking of gross domestic product (GDP) for the entire U.S. economy. The Bureau of Economic Analysis (BEA) periodically revises the GDP data to better reflect the evolving nature of the U.S. economy.                  </supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>2005</begdate>
+          <enddate>2014</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>publication date</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>Updated annually</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-178.217598</westbc>
+        <eastbc>-66.969271</eastbc>
+        <northbc>71.406235</northbc>
+        <southbc>18.921786</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>economy</themekey>
+        <themekey>oceans</themekey>
+        <themekey>society</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Socioeconomics</themekey>
+        <themekey>tourism</themekey>
+        <themekey>recreation</themekey>
+        <themekey>fishing</themekey>
+        <themekey>marine construction</themekey>
+        <themekey>marine transportation</themekey>
+        <themekey>shipping</themekey>
+        <themekey>dredging</themekey>
+        <themekey>offshore oil and gas</themekey>
+        <themekey>ship building</themekey>
+        <themekey>self-employed</themekey>
+        <themekey>NAICS</themekey>
+        <themekey>North American Industrial Classification System</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>United States</placekey>
+        <placekey>Great Lakes</placekey>
+        <placekey>Coastal states</placekey>
+        <placekey>Coastal counties</placekey>
+      </place>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>None</useconst>
+  </idinfo>
+  <dataqual>
+    <logic>To ensure the quality of the data, we checked that all data was present for the ENOW NES defined geography, verified and formatted data types, ensured that suppressed data were flagged as -9999, and normalized dollar figures into real numbers.</logic>
+    <complete>To ensure the completeness of the data set, zeros were added to counties with no data for any or all sectors. This does not change the integrity of the data but allows for easier visualization. Zeros in the data indicate that there is no self-employed data based on the ENOW NES definitions of ocean related economic activity. -9999 indicates that data have been suppressed to avoid disclosing confidential information provided to the US Census Bureau.</complete>
+    <lineage>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Unites States Census Bureau</origin>
+            <pubdate>2016</pubdate>
+            <title>Nonemployer Statistics (NES)</title>
+            <othercit>NOAA OCM received this data from another federal agency (United States Census Bureau). Questions regarding the original data collection and /or processing should be directed to that agency.</othercit>
+          </citeinfo>
+        </srccite>
+        <typesrc>database</typesrc>
+        <srctime>
+          <timeinfo>
+            <rngdates>
+              <begdate>2005</begdate>
+              <enddate>2014</enddate>
+            </rngdates>
+          </timeinfo>
+          <srccurr>publication date</srccurr>
+        </srctime>
+        <srccitea>US Census Bureau</srccitea>
+        <srccontr>Industry level data on self-employed business establishment and Gross Receipts</srccontr>
+      </srcinfo>
+      <procstep>
+        <procdesc>Developed totals of employment and gross receipts for the self-employed using definitions of ocean related economic activity.</procdesc>
+        <srcused>US Census Bureau</srcused>
+        <procdate>2016</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Coastal Counties</enttypl>
+        <enttypd>ENOW NES Coastal Counties</enttypd>
+        <enttypds>Coastal Zone Management Act, NOAA Office for Coastal Management</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>GEOID</attrlabl>
+        <attrdef>5-digit FIPS code</attrdef>
+        <attrdefs>National Institute of Standards and Technology, NOAA Office of Coastal Management</attrdefs>
+        <attrdomv>
+          <codesetd>
+            <codesetn>Geographic Identifier</codesetn>
+            <codesets>National Institute of Standards and Technology, NOAA Office of Coastal Management</codesets>
+          </codesetd>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>GeoName</attrlabl>
+        <attrdef>Geographic name</attrdef>
+        <attrdefs>National Institute of Standards and Technology</attrdefs>
+        <attrdomv>
+          <codesetd>
+            <codesetn>Geographic name</codesetn>
+            <codesets>National Institute of Standards and Technology</codesets>
+          </codesetd>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>GeoScale</attrlabl>
+        <attrdef>Geographic Scale</attrdef>
+        <attrdefs>NOAA Office for Coastal Management</attrdefs>
+        <attrdomv>
+          <codesetd>
+            <codesetn>Geographic Scale</codesetn>
+            <codesets>NOAA Office for Coastal Management</codesets>
+          </codesetd>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Year of data used</attrdef>
+        <attrdefs>NOAA Office for Coastal Management</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2005</rdommin>
+            <rdommax>2014</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>OceanSector</attrlabl>
+        <attrdef>Ocean Sector Name</attrdef>
+        <attrdefs>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Marine Construction</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>2</edomv>
+            <edomvd>Living Resource</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>3</edomv>
+            <edomvd>Offshore Mineral Extraction</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>4</edomv>
+            <edomvd>Ship and Boat Building</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5</edomv>
+            <edomvd>Tourism and Recreation</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6</edomv>
+            <edomvd>Marine Transportation</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>9</edomv>
+            <edomvd>All Ocean Sectors</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Sector_ID</attrlabl>
+        <attrdef>Identification number for ocean sector</attrdef>
+        <attrdefs>NOAA Office for Coastal Management, Nonemployer Statistics for Economics: National Ocean Watch (ENOW NES)</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Marine Construction</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>2</edomv>
+            <edomvd>Living Resources</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>3</edomv>
+            <edomvd>OffShore Mineral Extraction</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>4</edomv>
+            <edomvd>Ship and Boat Building</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5</edomv>
+            <edomvd>Tourism and Recreation</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6</edomv>
+            <edomvd>Marine Transportation</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>9</edomv>
+            <edomvd>All Ocean Sectors</edomvd>
+            <edomvds>NOAA Office for Coastal Management, Economics: National Ocean Watch (ENOW)</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Employ</attrlabl>
+        <attrdef>Employment</attrdef>
+        <attrdefs>United States Census Bureau, Nonemployer Statistics</attrdefs>
+        <attrdomv>
+          <udom>Number of self-employed business</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RCPTOT</attrlabl>
+        <attrdef>Gross Receipts</attrdef>
+        <attrdefs>United States Census Bureau, Nonemployer Statistics</attrdefs>
+        <attrdomv>
+          <udom>Total revenue before expenses</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>NOAA Office for Coastal Management</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>2234 South Hobson Avenue</address>
+          <city>Charleston</city>
+          <state>SC</state>
+          <postal>29405-2413</postal>
+        </cntaddr>
+        <cntvoice>843-740-1202</cntvoice>
+        <cntemail>coastal.info@noaa.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <resdesc>Downloadable Data</resdesc>
+    <distliab>Any conclusions drawn from the analysis of this information are not the responsibility of the NOAA Office for Coastal Management or its partners.</distliab>
+  </distinfo>
+  <metainfo>
+    <metd>20150219</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>NOAA Office for Coastal Management</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>2234 South Hobson Avenue</address>
+          <city>Charleston</city>
+          <state>SC</state>
+          <postal>29405-2413</postal>
+        </cntaddr>
+        <cntvoice>843-740-1202</cntvoice>
+        <cntemail>coastal.info@noaa.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>

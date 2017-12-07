@@ -7,11 +7,12 @@ library(dplyr)
 library(ggplot2)
 library(ggmap)
 library(gridExtra)
+library(sp)
+library(rgeos)
 # Uncomment these when re-importing data sets (with preprocessors)
 # library(raster)
 # library(rgdal)
-library(sp)
-library(rgeos)
+
 select <- dplyr::select # overwrite raster library
 summarize <- dplyr::summarize # overwrite plyr library
 
@@ -36,7 +37,12 @@ GetSeason <- function(month) {
 
 # Geographic Chart
 
-MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue', title = 'Chart', subtitle = NULL, color.legend.title = 'value', point.size = 5, include.oregon = F) {
+MapPNWData <- function(df, column = 'value',
+                       color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue',
+                       title = 'Chart', subtitle = NULL, color.legend.title = 'value',
+                       long.range = c(-125, -116), lat.range = c(42, 49),
+                       offset.long = 0,
+                       point.size = 5, include.oregon = F) {
   pnw.map <- if(include.oregon) {
     fortify(map_data('state', region = c('washington', 'oregon')))
   } else {
@@ -54,7 +60,7 @@ MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = 
     ) +
     geom_point(
       mapping = aes(
-        x = x,
+        x = x + offset.long,
         y = y,
         color = map.data[,column]
       ),
@@ -71,8 +77,8 @@ MapPNWData <- function(df, column = 'value', color.low = '#cccccc', color.mid = 
     ) +
     coord_fixed(
       ratio = 1.3,
-      xlim = c(-125, -116),
-      ylim = if(include.oregon) { c(42, 49) } else { c(45.5, 49) }
+      xlim = long.range,
+      ylim = if(include.oregon) { lat.range } else { c(45.5, 49) }
     )
   
   return(plot)

@@ -2,6 +2,7 @@ library(shiny)
 library(plotly)
 source('./scripts/visitation_data.R')
 my.ui <- navbarPage(
+
   theme = 'styles.css',
   
   # Application title
@@ -81,7 +82,28 @@ my.ui <- navbarPage(
         )
       )
     )
-    
+  ), 
+  
+  tabPanel('Salmon',
+    tags$div(
+      class = 'hydrology-narrow salmon-container',
+      h1('Climate Change and Stream Temperature'),
+      p('What are stream temperatures like today? How will they change in the future? What will this mean for Salmon spawning?', class = 'lead'),
+      p('As climate change continues, air temperature will go up, but the temperature of water will also go up.'),
+      p('This may not affect humans directly, but this means a lot to water creatures of all kinds. This is not just something happening far away: this affects us in Washington State, too.'),
+      p('Salmon are important for the Washington State fishing industry, and hold special significance to Native groups. Many factors influence where Salmon can spawn, and temperature is just one of them.'),
+      p('We can compare historic stream temperatures to projected future stream temperatures to see how rising temperatures will appear in the Olympic Penninsula:'),
+      plotOutput('stream.temp.chart'),
+      plotOutput('stream.temp.diff.chart'),
+      
+      tags$hr(),
+      
+      h1('Salmon Spawning'),
+      p('Salmon spawning is sensitive to temperature! Less than 18 degC is ideal, and anything more than 22 degC can be fatal.'),
+      p('Salmon populations in Washington, Oregon, and California are already shrinking and becoming more unhealthy, which is caused by overfishing, pollution, and rising temperatures.'),
+      plotOutput('wa.stream.temp.chart'),
+      plotOutput('suitability.chart')
+    )
   ), 
   
   tabPanel("blank",
@@ -105,22 +127,57 @@ my.ui <- navbarPage(
       )
     )
   ),
-  
-  tabPanel("Visitation Data",
-    sidebarLayout(
-      sidebarPanel(
-        selectInput('season',"Select a Season",
-        choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'All' = 'all' ), selected = "summer")
+    tabPanel("Visitation Data",
+             h1('National Park Visitation Data'),
+             p('What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead'),
+             p('As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists.'),
+             p("These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country."),
+             p('Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks'),
+     
+           sidebarLayout(
+             sidebarPanel(
+               selectInput('season',"Select a Season",
+                           choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring', 'Anual' = 'all' ), selected = "summer")
+             ),
+             # Show a plot of the generated distribution
+             mainPanel(
+                   plotlyOutput("visitationPlot")
+              )
+            ),
+           
+           sidebarLayout(
+             sidebarPanel(
+             ),
+             # Show a plot of the generated distribution
+             mainPanel(
+               plotlyOutput("visitationmonthPlot")
+             )
+           ),
+           sidebarLayout(
+             sidebarPanel(
+               radioButtons('chart.toggle', label = h3("Plot data"),
+                            choices = list("Mean" = 1, "Total" = 2), 
+                            selected = 2),
+               radioButtons('trend', label = h3('Show trend'),
+                            choices = list('Trend' = TRUE, 'No Trend' = FALSE),
+                            selected = FALSE)
+             ),
+             mainPanel(
+               plotlyOutput('annualPlot')
+             )
+           )
       ),
-      # Show a plot of the generated distribution
-      mainPanel(
-        plotlyOutput("distPlot")
-      )
-    )
   
-  ), 
-  
-  tabPanel("Spotlight Olympic National Park",
+  tabPanel("Olympic National Park",
+           tags$div( 
+             class = "hydrology-narrow",
+             h1("Spotlight On Olympic National Park"),
+             tags$img(src = 'https://i.imgur.com/fA33vWo.png', alt='Map and picture of Olympic National Park park', class = 'image-center'),
+             p("Olympic National Park is a 1,442 mi² park located in the Olympic Peninsula of Washington State. Not only is it home to the only rainforest in the continental United States it is also one of the largest remaining untouched habitats for many endangered specieses. As a result of its obvious natural appeal this place is was visited by 50,148 different people in 2016 which while a good thing for the local economy does threaten the pristine habitat"),
+             p("This park is also a place at risk of eventually being ruined by the effects of climate change and poor air quality from adjacent cities. Below you can explore visitation data, historical temperature data, as well as air quality data to see just how at risk this region is by the growth of these problems."),
+             h1("")
+             
+             ),
            sidebarLayout(
              sidebarPanel(
                radioButtons("spt.one.toggle", label = h3("Organize By"),
