@@ -5,10 +5,6 @@ library(tidyr)
 library(ggplot2)
 select <- dplyr::select 
 
-#Setting working directory
-
-setwd("~/pnw-climate-change")
-
 #Reads in Visitation data
 visitation.data <- rbind(
   read.csv('./data/park-visitation-data/Mount_Ranier_Visitation.csv', sep = ',', stringsAsFactors = FALSE) %>% mutate(Park = 'Mount Rainier'),
