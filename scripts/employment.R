@@ -9,6 +9,7 @@ library(gdata)
 library(dplyr)
 library(stringr)
 library(plotly)
+library(gdata)
 
 help("read.csv")
 
@@ -35,6 +36,9 @@ washington.county.data <- employment.data %>%
                           filter(employment.data$GeoName %in% county.names) %>% 
                           filter(!str_detect(Employment, '-9999'))
 
+total.economy.wa <- summarize(washington.state.data,
+                              sum = sum(washington.state.data$GrossReceipts)
+                              )
 
 
 
