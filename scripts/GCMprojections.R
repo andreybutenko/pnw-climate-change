@@ -2,17 +2,17 @@
 library(dplyr)
 library(ggplot2)
 
-avg.change.prec <- read.csv("../data/global-climate-models/GCM-avg-precipitation.csv")
-avg.change.temp <- read.csv("../data/global-climate-models/GCM-avg-temp.csv")
-time.evolv.prec <- read.csv("../data/global-climate-models/GCM-TEP-precipitation.csv")
-time.evolv.temp <- read.csv("../data/global-climate-models/GCM-TEP-temp.csv")
+avg.change.prec <- read.csv("./data/global-climate-models/GCM-avg-precipitation.csv")
+avg.change.temp <- read.csv("./data/global-climate-models/GCM-avg-temp.csv")
+time.evolv.prec <- read.csv("./data/global-climate-models/GCM-TEP-precipitation.csv")
+time.evolv.temp <- read.csv("./data/global-climate-models/GCM-TEP-temp.csv")
 
 # Average Change Plot
 MakeAvgChangePlot <- function(dataset, scenario, variable){
   if (variable == "Precipitation") {
-    unit = "mm/s"
+    unit = "%"
   } else {
-    unit = "K"
+    unit = "degrees Celsius"
   }
   chart.data <- dataset %>% 
     filter(Scenario == scenario)
@@ -28,9 +28,9 @@ MakeAvgChangePlot <- function(dataset, scenario, variable){
 # Time Evolving Plot
 MakeTimeEvolvPlot <- function(dataset, season, variable) {
   if (variable == "Precipitation") {
-    unit = "mm/s"
+    unit = "%"
   } else {
-    unit = "K"
+    unit = "degrees Celsius"
   }
   chart.data.post <- filter(dataset, Year >= 2000)
   chart.data.pre <- filter(dataset, Year <= 2000, Scenario == "RCP6")
