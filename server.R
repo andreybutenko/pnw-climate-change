@@ -173,9 +173,12 @@ shinyServer(function(input, output) {
     MakeAvgChangePlot(avg.change.temp, input$gcm.scenario, "Temperature")
   })
   output$tep.prec.chart <- renderPlot({
-    MakeTimeEvolvPlot(time.evolv.prec, input$gcm.season, "Precipitation")
+    MakeTimeEvolvPlot(time.evolv.prec, input$gcm.season, "Precipitation", "gray")
   })
-  output$tep.temp.chart <- renderPlot({
-    MakeTimeEvolvPlot(time.evolv.temp, input$gcm.season, "Temperature")
+  output$tep.temp.chart.gray <- renderPlot({
+    MakeTimeEvolvPlot(time.evolv.temp, input$gcm.season, "Temperature", "gray")
+  })
+  output$tep.temp.chart.white <- renderPlot({
+    MakeTimeEvolvPlot(time.evolv.temp, "Autumn", "Temperature", "white")
   })
 })

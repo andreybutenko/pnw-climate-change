@@ -26,7 +26,7 @@ MakeAvgChangePlot <- function(dataset, scenario, variable){
 }
 
 # Time Evolving Plot
-MakeTimeEvolvPlot <- function(dataset, season, variable) {
+MakeTimeEvolvPlot <- function(dataset, season, variable, background) {
   if (variable == "Precipitation") {
     unit = "%"
   } else {
@@ -46,5 +46,17 @@ MakeTimeEvolvPlot <- function(dataset, season, variable) {
     geom_smooth(se = F, span = .4) +
     labs(y = paste0("Projected Change in ", variable, " in ", unit),
          title = paste0("Time Evolving Projections in ", variable))
+  if (background == "white"){
+    time.evolv.plot.complete <- ggplot(chart.data, 
+                                       aes(x = Year,
+                                           y = Value,
+                                           color = Scenario,
+                                           fill = Scenario)) +
+      geom_line(alpha = .6, show.legend = F) +
+      geom_smooth(se = F, span = .4, show.legend = F) + 
+      theme_void()
+    return(time.evolv.plot.complete)
+  } else {
   return(time.evolv.plot)
+  }
 }
