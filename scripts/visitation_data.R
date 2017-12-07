@@ -109,12 +109,12 @@ AnnualVisitationPlot <- function(type, trend){
       p <- plot_ly(annual.visitaion, x = ~ year, y = ~visitors, color = 'rgba(7, 164, 181, 1)', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text', text = ~paste(year,',', visitors, 'Visitors')) %>%
         add_lines(y = ~fitted(loess(visitors ~ year)), line = list(color = '#07A4B5'), name = "Loess Smoother", showlegend = FALSE) %>%
         layout(title = 'Annual Visitation Mean Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Annual Visitation Count')),
-               legend = l)
+               legend = l, margin = m)
       return(p)
     } else {
     p <- plot_ly(annual.visitaion, x = ~ year, y = ~visitors, color = 'rgba(7, 164, 181, 1)', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text', text = ~paste(year,',', visitors, 'Visitors')) %>%
       layout(title = 'Annual Visitation Mean Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Annual Visitation Count')),
-             legend = l)
+             legend = l, margin = m)
     return(p)
     }
   }
@@ -127,13 +127,13 @@ AnnualVisitationPlot <- function(type, trend){
         p <- plot_ly(annual.visitaion, x = ~ year, y = ~visitors, color = 'rgba(7, 164, 181, 1)', type = 'scatter', mode = 'lines+markers', hoverinfo = 'text', text = ~paste(year,',', visitors, 'Visitors')) %>%
           add_lines(y = ~fitted(loess(visitors ~ year)), line = list(color = '#07A4B5'), name = "Loess Smoother", showlegend = FALSE) %>%
           layout(title = 'Annual Visitation Total Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Annual Visitation Count')),
-                 legend = l)
+                 legend = l, margin = m)
     return(p)
       }
       else{
         p <- plot_ly(annual.visitaion, x = ~ year, y = ~visitors, color = 'rgba(7, 164, 181, 1)', type = 'scatter', mode = 'lines+markers',hoverinfo = 'text', text = ~paste(year,',', visitors, 'Visitors')) %>% 
           layout(title = 'Annual Visitation Total Count Vs. Year', xaxis = list(title = 'Year'), yaxis = list(title = paste('Annual Visitation Count')),
-                 legend = l)  
+                 legend = l, margin = m)  
         return(p)
         }
       
@@ -152,7 +152,7 @@ AnnualVisitationPlot <- function(type, trend){
       borderwidth = 3,
       orientation = 'h',
       x = 0.5,
-      y= -.13)
+      y= -.5)
     
     m <- list(
       l = 50,
@@ -178,7 +178,7 @@ AnnualVisitationPlot <- function(type, trend){
   }
     p <- plot_ly(annual.visitation, x = ~ year, y = ~ Visitors, color = ~park, type = 'scatter', mode = 'lines+markers', hoverinfo = 'text', text = ~paste(year,',', park, ',', Visitors, 'Visitors')) %>%  
       layout(title = paste(toupper(season), 'VISITATION COUNT VS. YEAR'), xaxis = list(title = 'Year'), yaxis = list(title = paste(toupper(season), 'VISITATION COUNT')), 
-             legend = l)
+             legend = l, margin = m)
     return (p)
 }
 
