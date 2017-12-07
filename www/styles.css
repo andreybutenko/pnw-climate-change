@@ -81,6 +81,10 @@ p {
   margin-bottom: 1em;
 }
 
+.leaf-image {
+  height: 400px;
+}
+
 .bio-container {
   width: 100%;
   margin: 0 auto;

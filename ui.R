@@ -160,7 +160,7 @@ my.ui <- navbarPage(
            tags$div(
              class = "hydrology-narrow",
              h1("Impact on Employment, Gross Receipt, and Industries"),
-             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Map and picture of Olympic National Park park', class = 'image-center'),
+             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Map and picture of Olympic National Park park', class = 'image-center leaf-image'),
              p("Climate change being a global issue, we often times forget about its impact on our local economies. Sparking our research with such concern, "),
              p("This data set describes the self-employed workers whose jobs directly depend on the resources of the oceans and Great Lakes. Data are derived from Census Nonemployer Statistics and include the number of self-employed workers and gross receipts for the six sectors defined by ENOW. These time-series data are available at the national, regional, state, and county levels."),
              p("This page specifically focuses on the economy of the counties in Washington to showcase the impact of climate change on our local economy."),
@@ -187,6 +187,7 @@ my.ui <- navbarPage(
                ))
              ),
              mainPanel(
+               class = 'economy-chart-container',
                plotOutput('economy.chart')
              )
              
