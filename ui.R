@@ -129,10 +129,13 @@ my.ui <- navbarPage(
   ),
   tabPanel("Visitation Data",
            h1('National Park Visitation Data'),
-           p("What does national park visitation have to do with climate change in the Pacific North West?', class = 'lead' As we all probably know, Washington State, and the Pacific North West in general is a beautifal area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
+           p("What does national park visitation have to do with climate change in the Pacific North West?", class = 'lead'),
+           p("As we all probably know, Washington State, and the Pacific North West in general is a beautiful area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
            p(""),
+           h1('Average Visitation per Month'),
            #Section 1
            plotlyOutput("visitationmonthPlot"), 
+           h1('Seasonal Visitation Trends'),
            #Section 2
            sidebarLayout(
              sidebarPanel(
@@ -141,6 +144,7 @@ my.ui <- navbarPage(
              ),
              mainPanel(plotlyOutput("visitationPlot"))
            ),
+           h1('Annual Visitation Trends'),
            #Section 3
            sidebarLayout(
              sidebarPanel(
