@@ -11,6 +11,7 @@ visitor.data <- read.csv("./data/OlympicNP/Visitors.csv", stringsAsFactors = FAL
 names(visitor.data)[1] <- 'Year' # fix for windows machines :/
 temperature.data <- read.csv("./data/OlympicNP/Temperature.csv", stringsAsFactors = FALSE)
 dates <- strptime(paste0(as.character(temperature.data$DATE), "01"),format="%Y-%m%d")
+names(temperature.data)[1] <- 'Year'
 temperature.data$Year <- format(dates, "%Y")
 temperature.data$Month <- format(dates, "%m")
 temperature.data$Date <- as.Date(as.POSIXct(dates))
@@ -235,12 +236,12 @@ vistorsOverTheYears <- function() {
     theme(plot.title = element_text(hjust = 0.5))
   p
 }
-# visitorFilterGraph(TRUE, "ANY")#
-# visitorFilterGraph(TRUE, "1999")#
-# visitorFilterGraph(FALSE, "ANY")#
-# visitorFilterGraph(FALSE, "Mar")#
-# temperatureGraph(FALSE, 0, "ANY") #
-# temperatureGraph(TRUE, 1, "ANY") #
-# temperatureGraph(TRUE, 2, "01") #
-# airQuality("2005")
-# airQuality("Any")
+visitorFilterGraph(TRUE, "ANY")#
+visitorFilterGraph(TRUE, "1999")#
+visitorFilterGraph(FALSE, "ANY")#
+visitorFilterGraph(FALSE, "Mar")#
+temperatureGraph(FALSE, 0, "ANY") #
+temperatureGraph(TRUE, 1, "ANY") #
+temperatureGraph(TRUE, 2, "01") #
+airQuality("2005")
+airQuality("Any")
