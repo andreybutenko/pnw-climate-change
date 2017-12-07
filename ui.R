@@ -28,7 +28,7 @@ my.ui <- navbarPage(
           tags$div(
             class = 'hydrology-narrow',
             h1('Intro to runoff and the snowpack'),
-            p('What is runoff? What is the snowpack? How is these affected by seasons? And why are they important to Washington State?', class = 'lead'),
+            p('What is runoff? What is the snowpack? How are these affected by seasons? And why are they important to Washington State?', class = 'lead'),
             p('Runoff is water that flows into streams, rivers, and oceans from rain or melting snow.'),
             p('Because it is so rainy and snowy in the winters, we get a lot of runoff we use for water! This water is used for drinking, agriculture, and everything else you can think of!'),
             p('But in the summer, it rains much less, and our runoff comes from the melting "snowpack".'),
@@ -112,11 +112,14 @@ my.ui <- navbarPage(
       plotOutput('wa.stream.temp.chart'),
       plotOutput('suitability.chart')
     )
-  ), 
-  
+  ),
+
   tabPanel("Temperature and Precipitation",
+         tags$div(
+           class = 'hydrology-narrow',
            h1("Pacific Northwest Temperature and Precipitation Predictions"),
            p("The data on this page was retrieved from the University of Washington Climate Impacts Group Resources page. This data was based off of the Coupled Model Intercomparison Projects Phase 5, or CMIP5. It uses Global Climate Models to predict how climate change will affect temperature and precipitation in the 21st century. The datasets included different possible scenarios, called Representative Concentration Pathways, in terms of our current climate emissions and how we continue to regulate them. RCP 2.6 signifies the lowest emissions with the most mitigations, RCP 8.5 signifies the highest emissions with the least mitigations, and RCPs 4.5 and 6 fall inbetween."),
+       h2("Average Change Projected"),
     sidebarLayout(
       sidebarPanel(
         selectInput("gcm.scenario",
@@ -127,12 +130,12 @@ my.ui <- navbarPage(
                       "RCP8.5"))
       ),
       mainPanel(
-        h2("Average Change Projected"),
         plotOutput("avg.prec.chart"),
-        plotOutput("avg.temp.chart"),
-        p("The charts above show the average change of temperature and precipitation in the years 2040, 2050, and 2080. The 'Scenario' selection allows you to change which RCP was used to calculate these averages.")
+        plotOutput("avg.temp.chart")
       )
     ),
+    p("The charts above show the average change of temperature and precipitation in the years 2040, 2050, and 2080. The 'Scenario' selection allows you to change which RCP was used to calculate these averages."),
+    h2("Time Evolving Projections"),
     sidebarLayout(
       sidebarPanel(
         selectInput("gcm.season",
@@ -144,38 +147,68 @@ my.ui <- navbarPage(
                       "Autumn"))
       ),
       mainPanel(
-        h2("Time Evolving Projections"),
         plotOutput("tep.prec.chart"),
         plotOutput("tep.temp.chart"),
         p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs, which extend until 2095. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
       )
-    )
+    ),
+    p("These charts display data on Time Evolving Projections. The line in orange signifies what data points were recorded and used to develop the different RCPs. The other lines that diverge after 2000 are representing the different RCPs. The transparent lines are a line connecting the actual data points, and the bold show a general curve for each grouping. The 'Season' selection allows you to choose which season you would like to see these calculations in.")
+   )
   ),
-
-  tabPanel("blank",
-      sidebarLayout(
-      sidebarPanel(
-
-      ),
-      mainPanel(
-
-      )
-    )
+  
+  tabPanel("Economy",
+           tags$div(
+             class = "hydrology-narrow",
+             h1("Impact on Employment, Gross Receipt, and Industries"),
+             tags$img(src = 'http://www.bottomupeconomy.org/wp-content/uploads/2015/11/new-economy.jpg', alt='Map and picture of Olympic National Park park', class = 'image-center'),
+             p("Climate change being a global issue, we often times forget about its impact on our local economies. Sparking our research with such concern, "),
+             p("This data set describes the self-employed workers whose jobs directly depend on the resources of the oceans and Great Lakes. Data are derived from Census Nonemployer Statistics and include the number of self-employed workers and gross receipts for the six sectors defined by ENOW. These time-series data are available at the national, regional, state, and county levels."),
+             p("This page specifically focuses on the economy of the counties in Washington to showcase the impact of climate change on our local economy."),
+             h1("")
+           ),
+           
+           h1('Employment and Gross Receipt by Year'),
+           sidebarLayout(
+             sidebarPanel(
+               
+               selectInput('economy.year', 'Year', choices = 2005:2014, selected = 2005:2014, multiple = T),
+               selectInput('economy.industry', 'Industries',
+                 choices = c('Marine Construction', 'Living Resources', 'Offshore Mineral Resources', 'Ship and Boat Building', 'Tourism and Recreation', 'Marine Transportation'),
+                 selected = c('Marine Construction', 'Living Resources', 'Offshore Mineral Resources', 'Ship and Boat Building', 'Tourism and Recreation', 'Marine Transportation'),
+                 multiple = T
+               ),
+               selectInput('economy.column', 'Operation', choices = c(
+                 'Revenue' = 'GrossReceipts',
+                 'Employment' = 'Employment'
+               )),
+               selectInput('economy.operation', 'Operation', choices = c(
+                 'Sum' = 'sum',
+                 'Mean' = 'mean'
+               ))
+             ),
+             mainPanel(
+               plotOutput('economy.chart')
+             )
+             
+           )
   ),
+  
   tabPanel("Visitation Data",
+         tags$div(
+           class = 'hydrology-narrow',
            h1('National Park Visitation Data'),
            p("What does national park visitation have to do with climate change in the Pacific North West?", class = 'lead'),
            p("As we all probably know, Washington State, and the Pacific North West in general is a beautiful area, and because of this we get tourists. These tourists, combined with our own local visitors help make Washington state's parks some of the most visited in the country. Here are graphs to show just how many people visit our parks and how much we risk to lose as climate change destroys our parks"),
            p(""),
            h1('Average Visitation per Month'),
            #Section 1
-           plotlyOutput("visitationmonthPlot"), 
+           plotlyOutput("visitationmonthPlot"),
            h1('Seasonal Visitation Trends'),
            #Section 2
            sidebarLayout(
              sidebarPanel(
                selectInput('season',"Select a Season", choices = c("Summer" = 'summer', "Winter" = 'winter', 'Fall' = 'fall', 'Spring' = 'spring' ), selected = "summer")
-               
+
              ),
              mainPanel(plotlyOutput("visitationPlot"))
            ),
@@ -184,7 +217,7 @@ my.ui <- navbarPage(
            sidebarLayout(
              sidebarPanel(
                radioButtons('chart.toggle', label = h3("Plot Type"),
-                            choices = list("Mean" = 1, "Total" = 2), 
+                            choices = list("Mean" = 1, "Total" = 2),
                             selected = 2),
                radioButtons('trend', label = h3('Show trend'),
                             choices = list('Trend' = TRUE, 'No Trend' = FALSE),
@@ -192,6 +225,9 @@ my.ui <- navbarPage(
              ),
              mainPanel(plotlyOutput('annualPlot'))
            ),
+           p("As you can see, our state's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
+         ),
+
            p("As you can see, our stat's visitation really increases during the summer. In an article on future park visitation and how it would be affected by climate change written by PLOS, they sugested that parks that would have increased due to climate change would have increased visitation while those that would become colder would suffer from lower visitation. So, interestingly, it seems that our parks would benefit from global warming at first. However, the study did mention there was a sharp decline in visitation after crossing 25 degrees celcius. So, at least until we hit that threshold, we could possibly have increased visitation in parks. Fisichelli, Nicholas A., Gregor W. Schuurman, William B. Monoham, and Pamela S. Ziesler. Protected Area Tourism in a Changing Climate: Will Visitation at US National Parks Warm Up or Overheat? PLOS, journals.plos.org/plosone/article?id=10.1371/journal.pone.0128226#sec006. Accessed 6 Dec. 2017.")
   ),
 
@@ -211,7 +247,7 @@ my.ui <- navbarPage(
              sidebarPanel(
                sliderInput('wildfire.years', 'Years',
                  min = 1997, max = 2016,
-                 value = c(1997, 2016)),
+                 value = c(1997, 2016)), 
 
                selectInput('wildfire.causes', 'Causes', choices = c(
                  'Human', 'Natural'
@@ -268,7 +304,7 @@ my.ui <- navbarPage(
                plotOutput("spt.two.plot")
              )
            ),
-           
+
            h1('Air Quality Trends'),
            sidebarLayout(
              sidebarPanel(
@@ -286,7 +322,7 @@ my.ui <- navbarPage(
   tabPanel('About',
    tags$div(
      class = 'hydrology-narrow salmon-container',
-     h1('About this project.'),
+     h1('About This Project.'),
      p('Climate change is often seen as an issue that affects only far-off regions of Earth: melting ice in the Arctic, extreme flooding in isolated island-nations, and increased food insecurity throughout Africa are just some examples. However, climate change affects every region in different ways.'),
      p('Our project is an educational resource to explain the local impact of climate change to students in Washington State. We have a particular interest in ocean health, and how that will not only affect the environment, but the economic state of Washington as well.'),
      p('We used a lot of great data sets in working on this project:'),
@@ -314,13 +350,13 @@ my.ui <- navbarPage(
        )
      ),
      p('A special thanks to Professor Dargan Frierson who connected us with many of these data sets.'),
-     
+
      tags$hr()
     ),
-   
+
      tags$div(
        class = 'bio-container',
-       
+
        tags$div(
          id = 'andrey',
          class = 'bio-node',
@@ -331,7 +367,7 @@ my.ui <- navbarPage(
            p('Andrey Butenko is a student studying Informatics at the University of Washington. He has a background in web and mobile app development, and is interested in software to enable sustainable and informed decision-making.')
          )
        ),
-       
+
        tags$div(
          id = 'jaren',
          class = 'bio-node',
@@ -351,6 +387,17 @@ my.ui <- navbarPage(
            class = 'bio-content',
            tags$h2('Alexis Choi'),
            p('Alexis Choi is a Sophomore at the University of Washington studying Informatics. She is interested in applying her skills to increase the public\'s access to the legal system.')
+         )
+       ),
+
+       tags$div(
+         id = 'caleb',
+         class = 'bio-node',
+         img(src = 'caleb-silly.png'),
+         tags$div(
+           class = 'bio-content',
+           tags$h2('Caleb Kierum'),
+           p('Caleb Kierum is an aspiring Computer Scientist currently studying at UW. Outside of his technical endeavors Caleb loves writing and performing music.')
          )
        )
      )
