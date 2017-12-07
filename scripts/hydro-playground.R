@@ -28,6 +28,7 @@ chart.titles <- list(
 )
 
 HydroMonthlyPlot <- function(measure.req, year.req) {
+  months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec')
   plot.data <- hydro.data %>% 
     filter(measure == measure.req, year == year.req | year == 1950) %>% 
     group_by(.dots = c('month', 'scenario')) %>% 
