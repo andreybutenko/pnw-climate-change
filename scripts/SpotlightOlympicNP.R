@@ -8,6 +8,7 @@ library(ggplot2)
 
 #Import and do some basic cleaning on the datasets
 visitor.data <- read.csv("./data/OlympicNP/Visitors.csv", stringsAsFactors = FALSE)
+names(visitor.data)[1] <- 'Year' # fix for windows machines :/
 temperature.data <- read.csv("./data/OlympicNP/Temperature.csv", stringsAsFactors = FALSE)
 dates <- strptime(paste0(as.character(temperature.data$DATE), "01"),format="%Y-%m%d")
 temperature.data$Year <- format(dates, "%Y")
@@ -234,12 +235,12 @@ vistorsOverTheYears <- function() {
     theme(plot.title = element_text(hjust = 0.5))
   p
 }
-visitorFilterGraph(TRUE, "ANY")#
-visitorFilterGraph(TRUE, "1999")#
-visitorFilterGraph(FALSE, "ANY")#
-visitorFilterGraph(FALSE, "Mar")#
-temperatureGraph(FALSE, 0, "ANY") #
-temperatureGraph(TRUE, 1, "ANY") #
-temperatureGraph(TRUE, 2, "01") #
-airQuality("2005")
-airQuality("Any")
+# visitorFilterGraph(TRUE, "ANY")#
+# visitorFilterGraph(TRUE, "1999")#
+# visitorFilterGraph(FALSE, "ANY")#
+# visitorFilterGraph(FALSE, "Mar")#
+# temperatureGraph(FALSE, 0, "ANY") #
+# temperatureGraph(TRUE, 1, "ANY") #
+# temperatureGraph(TRUE, 2, "01") #
+# airQuality("2005")
+# airQuality("Any")

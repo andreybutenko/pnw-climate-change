@@ -8,6 +8,7 @@ source('./scripts/visitation_data.R')
 source('./scripts/hydro.R')
 source('./scripts/hydro-playground.R')
 source('./scripts/fss.R')
+source('./scripts/SpotlightOlympicNP.R')
 
 shinyServer(function(input, output) {
   output$seasonal.runoff <- renderPlot({
