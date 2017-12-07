@@ -131,48 +131,48 @@ MapPNWData <- function(washington.county.data, column = 'value',
   return(plot)
 }
 
-
-my.ui <- fluidPage (element1, element2, element3)
-      titlePanel("Ocean and the Economy"),
-      
-      sidebarLayout(
-        sidebarPanel("County Year")
-        p("2005", "2006", "2007", "2008", "2009","2010", 
-            "2011", "2012", "2013", "2014")
-      )
-      textInput('year', label"What year?"),
-      textOutput('message')
-)
-
-
-map.details <- list(
-  scope = "Washington",
-  projection = list(type = "albers usa"),
-  showland = TRUE,
-  landcolor = toRGB("gray55"),
-  subunitwidth = 1,
-  countrywidth = 1,
-  subunitcolor = toRGB("white"),
-  countrycolor = toRGB("white")
-)
-pointer.details <- plot_geo(data, lat = ~lat, lon = ~lng, locationmode = 'US A-states') %>%
-  add_markers(
-    hoverinfo = "text", text = ~paste(data$date, data$city, paste("Injured:", data$injured), paste("Killed:", data$killed), sep = "<br />"),
-    color = ~(injured+killed), colors = 'Reds', symbol = I("circle"), size = ~(data$injured + data$killed), alpha = 1.0
-  ) %>%
-  colorbar(title = "All affected<br />casualties") %>%
-  layout(
-    title = 'Shootings in USA<br />(Put mouse on the dots for details)', geo = map.details
-  )
-
-
-shinyUI(my.ui)
-
-
-
-function (year, county)
-  filterstate of where year == year 
-  
+# 
+# my.ui <- fluidPage (element1, element2, element3)
+#       titlePanel("Ocean and the Economy"),
+#       
+#       sidebarLayout(
+#         sidebarPanel("County Year")
+#         p("2005", "2006", "2007", "2008", "2009","2010", 
+#             "2011", "2012", "2013", "2014")
+#       )
+#       textInput('year', label"What year?"),
+#       textOutput('message')
+# )
+# 
+# 
+# map.details <- list(
+#   scope = "Washington",
+#   projection = list(type = "albers usa"),
+#   showland = TRUE,
+#   landcolor = toRGB("gray55"),
+#   subunitwidth = 1,
+#   countrywidth = 1,
+#   subunitcolor = toRGB("white"),
+#   countrycolor = toRGB("white")
+# )
+# pointer.details <- plot_geo(data, lat = ~lat, lon = ~lng, locationmode = 'US A-states') %>%
+#   add_markers(
+#     hoverinfo = "text", text = ~paste(data$date, data$city, paste("Injured:", data$injured), paste("Killed:", data$killed), sep = "<br />"),
+#     color = ~(injured+killed), colors = 'Reds', symbol = I("circle"), size = ~(data$injured + data$killed), alpha = 1.0
+#   ) %>%
+#   colorbar(title = "All affected<br />casualties") %>%
+#   layout(
+#     title = 'Shootings in USA<br />(Put mouse on the dots for details)', geo = map.details
+#   )
+# 
+# 
+# shinyUI(my.ui)
+# 
+# 
+# 
+# function (year, county)
+#   filterstate of where year == year 
+#   
 
 
 
