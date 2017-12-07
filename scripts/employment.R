@@ -10,6 +10,14 @@ library(dplyr)
 library(stringr)
 library(plotly)
 library(gdata)
+library(knitr)
+library(ggmap)
+library(rgeos)
+library(ggplot2)
+library(devtools)
+install.packages(c("maps", "mapdata"))
+library(maps)
+library(mapdata)
 
 help("read.csv")
 
@@ -40,6 +48,131 @@ total.economy.wa <- summarize(washington.state.data,
                               sum = sum(washington.state.data$GrossReceipts)
                               )
 
+states <- map_data("state")
+Washington <- subset(states, region %in% c("washington"))
+
+wa_df <- subset(states, region == "washington")
+counties <- map_data("county")
+wa_county <- subset(counties, region == "washington")
+
+wa_base <- ggplot(data = wa_df, mapping = aes(x = long, y = lat, group = group)) +
+  coord_fixed(1.3) +
+  geom_polygon(color = "black", fill = 'lightblue')
+wa_base + theme_nothing() +
+  geom_polygon
+
+
+#midpoints of the counties to plot the county information 
+county.midpoints <- wa_county %>% 
+  rename(x = long, y = lat) %>% 
+  group_by(subregion) %>% 
+  summarize(x = mean(x), y = mean(y)) %>% 
+  as.data.frame()
+  write.csv(county.midpoints, file = "./data/ENOW_NES/CountyMidpoints.csv", row.names = F)
+  colnames(county.midpoints)[which(names(county.midpoints) == "subregion")] <- ""
+  
+washington.county.data %>% View
+washington.county.data$GeoName <- lapply(washington.county.data$GeoName %>% 
+  strsplit(' '), function(v) { return(str_to_lower(v[1]) )}) %>% unlist()
+
+gross.receipts.mean <- washington.county.data %>% 
+                              group_by(GeoName) %>% 
+                              summarize(avg = mean(GrossReceipts))  
+  
+gross.receipts.mean.county <- left_join(county.midpoints, gross.receipts.mean) %>% 
+                                filter(!is.na(avg))
+                              
+MapPNWData(gross.receipts.mean.county, column = 'avg', long.range = c(-125, -121), lat.range = c(45.5, 49), include.oregon = T)
+
+MapPNWData <- function(washington.county.data, column = 'value',
+                       color.low = '#cccccc', color.mid = '#cccccc', color.high = 'blue',
+                       title = 'Chart', subtitle = NULL, color.legend.title = 'value',
+                       long.range = c(-125, -116), lat.range = c(42, 49),
+                       offset.long = 0,
+                       point.size = 5, include.oregon = F) {
+  pnw.map <- if(include.oregon) {
+    fortify(map_data('state', region = c('washington', 'oregon')))
+  } else {
+    fortify(map_data('state', region = c('washington')))
+  }
+    
+  map.data <- washington.county.data
+  
+  plot <- ggplot(data = map.data) +
+    geom_map(
+      data = pnw.map,
+      map = pnw.map,
+      mapping = aes(x = long, y = lat, map_id = region),
+      fill = '#ffffff'
+    ) +
+    geom_point(
+      mapping = aes(
+        x = x + offset.long,
+        y = y,
+        color = map.data[,column]
+      ),
+      size = point.size
+    ) +
+    scale_colour_gradient2(
+      low = color.low,
+      high = color.high,
+      mid = color.mid
+    ) +
+    ggtitle(title, subtitle = subtitle) +
+    guides(
+      color = guide_colorbar(color.legend.title)
+    ) +
+    coord_fixed(
+      ratio = 1.3,
+      xlim = long.range,
+      ylim = if(include.oregon) { lat.range } else { c(45.5, 49) }
+    )
+  
+  return(plot)
+}
+
+
+my.ui <- fluidPage (element1, element2, element3)
+      titlePanel("Ocean and the Economy"),
+      
+      sidebarLayout(
+        sidebarPanel("County Year")
+        p("2005", "2006", "2007", "2008", "2009","2010", 
+            "2011", "2012", "2013", "2014")
+      )
+      textInput('year', label"What year?"),
+      textOutput('message')
+)
+
+
+map.details <- list(
+  scope = "Washington",
+  projection = list(type = "albers usa"),
+  showland = TRUE,
+  landcolor = toRGB("gray55"),
+  subunitwidth = 1,
+  countrywidth = 1,
+  subunitcolor = toRGB("white"),
+  countrycolor = toRGB("white")
+)
+pointer.details <- plot_geo(data, lat = ~lat, lon = ~lng, locationmode = 'US A-states') %>%
+  add_markers(
+    hoverinfo = "text", text = ~paste(data$date, data$city, paste("Injured:", data$injured), paste("Killed:", data$killed), sep = "<br />"),
+    color = ~(injured+killed), colors = 'Reds', symbol = I("circle"), size = ~(data$injured + data$killed), alpha = 1.0
+  ) %>%
+  colorbar(title = "All affected<br />casualties") %>%
+  layout(
+    title = 'Shootings in USA<br />(Put mouse on the dots for details)', geo = map.details
+  )
+
+
+shinyUI(my.ui)
+
+
+
+function (year, county)
+  filterstate of where year == year 
+  
 
 
 

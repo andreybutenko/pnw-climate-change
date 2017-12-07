@@ -1,0 +1,12 @@
+name: pnw-climate-change
+title: pnw-climate-change
+username:
+account: andreybutenko
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 245496
+bundleId: 1120140
+url: https://andreybutenko.shinyapps.io/pnw-climate-change/
+when: 1512614881.07035
+asMultiple: FALSE
+asStatic: FALSE
